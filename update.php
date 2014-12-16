@@ -17,9 +17,8 @@
         <p>Name<br/>
         <input name="name" value="<?php print($row['name']) ?>" type="readonly"  /></p>
 
-        <!--doesn't read database value to set checkbox, but will push 0(unchecked) or 1(checked)-->
         <input name="own" value="0" type="hidden" />
-        <input name="own" value="1" type="checkbox" />I own this</p>
+        <input name="own" value="1" type="checkbox" <?php if($row['own'] == 1) : ?> checked <?php endif; ?> />I own this</p>
 
         <input type="submit" value="Save Information" />
     </form>
