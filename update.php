@@ -13,9 +13,14 @@
 <body>
     <form action="update_process.php" method="post">  <!--passes information to array-->
         <input type="hidden" name="id" value="<?php print($id); ?>" />
+
         <p>Name<br/>
-        <input type="readonly" name="name" value="<?php print($row['name']) ?>" /></p>
-        <input type="checkbox" name="own" value="<?php print($row['own']) ?>" />I own this</p>
+        <input name="name" value="<?php print($row['name']) ?>" type="readonly"  /></p>
+
+        <!--doesn't read database value to set checkbox, but will push 0(unchecked) or 1(checked)-->
+        <input name="own" value="0" type="hidden" />
+        <input name="own" value="1" type="checkbox" />I own this</p>
+
         <input type="submit" value="Save Information" />
     </form>
 </body>
