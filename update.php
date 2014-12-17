@@ -3,7 +3,7 @@
 
     $id=$_REQUEST['id']; //super global array
     $weaponType=$_REQUEST['type'];
-    $sql="SELECT id, name, own FROM dualblades WHERE id= '" . $id . "';";
+    $sql="SELECT id, name, own FROM " . $weaponType . " WHERE id= '" . $id . "';";
     $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
     $row=mysqli_fetch_array($result) or die(mysqli_error($mysqli));
 ?>
