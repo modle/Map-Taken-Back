@@ -21,7 +21,7 @@ INSERT INTO `dualblades` (`Id`, `Name`, `Own`) VALUES
 ('', 'Bloodwings', 0),
 ('', 'Bloodwings+', 0),
 ('', 'Boltgeist', 0),
-('', 'Bone Scythes+'0);
+('', 'Bone Scythes+',0);
 
 
 ----------GREAT SWORD TABLE CREATE AND INSERT----------
