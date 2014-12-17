@@ -32,18 +32,19 @@ INSERT INTO `dualblades` (`Id`, `Name`, `Own`, `Attack`, `Elem_Value`, `Element`
 
 DROP TABLE IF EXISTS `weapon_types`;
 CREATE TABLE IF NOT EXISTS `weapon_types` (
-  `Id` int(5) NOT NULL AUTO_INCREMENT,
-  `Type` varchar(40) NOT NULL,
+  `Id` varchar(40) NOT NULL,
+  `Name` varchar(40) NOT NULL,
   PRIMARY KEY (`Id`)
 );
 
-INSERT INTO `weapon_types` (`Id`, `Type`) VALUES
-('', 'dualblades'),
-('', 'greatsword'),
-('', 'gunlance'),
-('', 'hammer'),
-('', 'huntinghorn'),
-('', 'lance'),
-('', 'longsword'),
-('', 'switchaxe'),
-('', 'swordandshield');
+
+INSERT INTO `weapon_types` (`Id`, `Name`) VALUES
+('dualblades','Dual Blades'),
+('greatsword','Great Sword'),
+('gunlance','Gunlance'),
+('hammer','Hammer'),
+('huntinghorn','Hunting Horn'),
+('lance','Lance'),
+('longsword','Longsword'),
+('switchaxe','Switch Axe'),
+('swordandshield','Sword and Shield');
