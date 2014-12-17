@@ -6,3 +6,4 @@ Backlog
 2. Toggle items between 'have'/'don't have' (done)<br>
 3. When toggling 'have', select whether item is an upgrade (toggles preceeding item to 'don't have')<br>
 4. Based on target input, select likely item candidate<br>
+5. Format for mobile web<br>
