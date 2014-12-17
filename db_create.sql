@@ -29,3 +29,21 @@ INSERT INTO `dualblades` (`Id`, `Name`, `Own`, `Attack`, `Elem_Value`, `Element`
 (7, 'Bloodwings+', 0, 196, 200, 'POI', 0, '', '', 0, 3, '0.00', ''),
 (8, 'Boltgeist', 0, 252, 200, 'THU', 0, '', '', 1, 5, '0.00', ''),
 (9, 'Bone Scythes+', 0, 126, 100, '(POI)', 0, '', '', 0, 1, '0.00', '');
+
+DROP TABLE IF EXISTS `weapon_types`;
+CREATE TABLE IF NOT EXISTS `weapon_types` (
+  `Id` int(5) NOT NULL AUTO_INCREMENT,
+  `Type` varchar(40) NOT NULL,
+  PRIMARY KEY (`Id`)
+);
+
+INSERT INTO `weapon_types` (`Id`, `Type`) VALUES
+('', 'dualblades'),
+('', 'greatsword'),
+('', 'gunlance'),
+('', 'hammer'),
+('', 'huntinghorn'),
+('', 'lance'),
+('', 'longsword'),
+('', 'switchaxe'),
+('', 'swordandshield');
