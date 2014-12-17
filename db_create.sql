@@ -1,9 +1,9 @@
-----------DATABASE CREATE----------
+/*DATABASE CREATE*/
 CREATE DATABASE IF NOT EXISTS `mh3u_app` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `mh3u_app`;
 
 
-----------DUAL BLADES TABLE CREATE AND INSERT----------
+/*DUAL BLADES TABLE CREATE AND INSERT*/
 DROP TABLE IF EXISTS `dualblades`;
 CREATE TABLE IF NOT EXISTS `dualblades` (
   `Id` int(5) NOT NULL AUTO_INCREMENT,
@@ -24,7 +24,7 @@ INSERT INTO `dualblades` (`Id`, `Name`, `Own`) VALUES
 ('', 'Bone Scythes+',0);
 
 
-----------GREAT SWORD TABLE CREATE AND INSERT----------
+/*GREAT SWORD TABLE CREATE AND INSERT*/
 DROP TABLE IF EXISTS `greatsword`;
 CREATE TABLE IF NOT EXISTS `greatsword` (
   `Id` int(5) NOT NULL AUTO_INCREMENT,
@@ -42,7 +42,7 @@ INSERT INTO `greatsword` (`Id`, `Name`, `Own`) VALUES
 ('', 'Anguish', 0);
 
 
-----------WEAPON TYPES TABLE CREATE AND INSERT----------
+/*WEAPON TYPES TABLE CREATE AND INSERT*/
 DROP TABLE IF EXISTS `weapon_types`;
 CREATE TABLE IF NOT EXISTS `weapon_types` (
   `Id` varchar(40) NOT NULL,
