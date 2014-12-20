@@ -69,6 +69,7 @@
             $sql = 'SELECT id, name, own FROM ' . $weaponType . ' ORDER BY id';
             $result = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
 
+            //data table
             echo("<table border='1'>");
             echo("<tr><th>ID</th><th>Name</th><th>Own?</th></tr>");
             while($row=mysqli_fetch_array($result))
