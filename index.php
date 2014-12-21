@@ -53,7 +53,8 @@
                             }
                         }
                     }
-
+                    
+                    $own=$_POST['row'.$id];
                     $sql="UPDATE $weaponType SET Own= '$own' WHERE id = $id;";
                     //echo($sql . "<br><br>");
                     mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
