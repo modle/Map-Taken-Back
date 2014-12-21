@@ -15,5 +15,6 @@ Backlog
 <li>Based on target input, select likely item candidate
 <ol>
 <li>Monster database, including elemental/status and slash/blunt/pierce weaknesses
+</ol>
 <li>Format for mobile web
 <ol>
