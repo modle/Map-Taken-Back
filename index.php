@@ -19,17 +19,13 @@
                 $count=$countArray[0];
                 //echo($count. "<br>");
                 
-                $id = 1;
-                while($id <= $count)
+                for($id=1;$id <= $count;$id++)
                 {
                     $own=$_POST['row'.$id];
-                    //echo($own . " " . $weaponType . "<br>");
                     $sql="UPDATE " . $weaponType . " SET " . "Own= '" . $own . "' WHERE id = '" . $id . "';";
-                    //echo($sql . "<br>");
                     mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
-                    $id++;
                 }
-            } else //only calls on page load
+            } else //only calls on page load (initial or load button)
             {
                 $weaponType='dualblades';
             }
@@ -39,7 +35,7 @@
             {
                 $weaponType=$_POST['weaponType'];
                 echo('Weapon Type<br>');
-            } else //only calls on page load
+            } else //only calls on page load (initial or save button)
             {
                 echo('Weapon Type<br>');
             }
