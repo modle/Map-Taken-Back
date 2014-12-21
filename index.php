@@ -13,18 +13,53 @@
                 $weaponType=$_POST['weaponType'];
 
                 $sql="SELECT COUNT(*) FROM " . $weaponType . ";";
-                //echo($sql . "<br>");
+                echo($sql . "<br>");
                 $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
                 $countArray=mysqli_fetch_array($result);
+                echo($countArray[0] . "<br><br>");
                 $count=$countArray[0];
-                //echo($count. "<br>");
                 
-                for($id=1;$id <= $count;$id++)
+                for($id=1;$id<=$count;$id++)
                 {
                     $own=$_POST['row'.$id];
-                    $sql="UPDATE " . $weaponType . " SET " . "Own= '" . $own . "' WHERE id = '" . $id . "';";
+                    if ($own == 1){
+                        $sql="SELECT Own, name FROM $weaponType WHERE id = $id;"; //checks ownership of consuming weapon
+                        echo($sql . "<br>");
+                        $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
+                        $own_check=mysqli_fetch_array($result);
+                        print('owned: ' . $own_check[0] . ', name: '. $own_check[1] . '<br>');
+                        print("<br>");
+
+                        if($own_check[0]==0){ //will only call consumed item update script if the consuming weapon was previously unchecked
+                            $sql="SELECT consumes FROM $weaponType WHERE id = $id;";
+                            echo($sql . "<br>");
+                            $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
+                            $update_target=mysqli_fetch_array($result);
+                            print($update_target[0]);
+                            print("<br>");
+
+                            $sql="SELECT Own FROM $weaponType WHERE name='$update_target[0]';"; //returns ownership of consumption target weapon
+                            echo($sql . "<br>");
+                            $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
+                            $consumed_weapon_check=mysqli_fetch_array($result);
+                            print($consumed_weapon_check[0]);
+                            print("<br>");
+
+                            if($consumed_weapon_check[0]==1){ //if consumption target weapon is currently checked
+                                $sql="UPDATE $weaponType SET Own = 0 WHERE name='$update_target[0]';";
+                                echo($sql . "<br>");
+                                mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
+                                echo("$own_check[1] updated; $update_target[0] removed from inventory<br>");
+                            }
+                        }
+                    }
+
+                    $sql="UPDATE $weaponType SET Own= '$own' WHERE id = $id;";
+                    //echo($sql . "<br><br>");
                     mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
                 }
+
+
             } else //only calls on page load (initial or load button)
             {
                 $weaponType='dualblades';
@@ -62,12 +97,11 @@
             echo " ";
             echo "<input type='submit' value='Save' name='SaveButton' />"; //button
 
-            $sql = 'SELECT id, name, own FROM ' . $weaponType . ' ORDER BY id';
+            $sql = 'SELECT id, name, own, consumes FROM ' . $weaponType . ' ORDER BY id';
             $result = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
 
-            //data table
             echo("<table border='1'>");
-            echo("<tr><th>ID</th><th>Name</th><th>Own?</th></tr>");
+            echo("<tr><th>ID</th><th>Name</th><th>Own?</th><th>Consumes</th></tr>");
             while($row=mysqli_fetch_array($result))
             {
                 if($row['own'] == 1)
@@ -82,7 +116,8 @@
                 echo "<td>" . $row['id'] . "</td>" //table data tag
                     ."<td>" . $row['name'] . "</td>"
                     ."<input type='hidden' value='0' name='row" . $row['id'] . "'/>"
-                    ."<td><input type='checkbox' value='1' ". $checkCheck . " name='row" . $row['id'] . "'/>";
+                    ."<td><input type='checkbox' value='1' ". $checkCheck . " name='row" . $row['id'] . "'/>"
+                    ."<td>" . $row['consumes'] . "</td>";
             }
             echo("</table>");
         ?>
