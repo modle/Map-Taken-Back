@@ -9,7 +9,7 @@ Backlog
 </ol>
 
 
-<li><strike>Toggle items between 'have'/'don't have' (done) </strike>
+<li><strike>Toggle items between 'have'/'don't have' (done) </strike><br>
 <li>When toggling 'have', also select checkbox indicating item is NOT an upgrade (default: toggle consumed item to 'don't have'; typically items are upgraded rather than obtained mid-path)
 <ol type="a">
 <li>Format data for weapon hierarchy/paths (GS and DS done)
