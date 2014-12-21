@@ -2,7 +2,7 @@ Inventory Tracker
 =======
 Backlog
 <ol type="1">
-<strike><li>Select table based on item type from dropdown (done)
+<li><strike>Select table based on item type from dropdown (done)
 <ol type="a">
 <li>Return to previous table after an item is updated (done)
 <li>Remove redirects - single page database update (done)</strike>
