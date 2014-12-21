@@ -6,66 +6,99 @@
     <form method="post">
         <?php
             require_once('db_connect.php');
-
             //save button handler
             if(isset($_POST['SaveButton']))
             {
                 $weaponType=$_POST['weaponType'];
-
                 $sql="SELECT COUNT(*) FROM " . $weaponType . ";";
-                echo($sql . "<br>");
+                //echo($sql . "<br>");
                 $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
                 $countArray=mysqli_fetch_array($result);
-                echo($countArray[0] . "<br><br>");
+                //echo($countArray[0] . "<br><br>");
                 $count=$countArray[0];
+
+                $sql="CREATE TABLE IF NOT EXISTS temp (
+                    Id int(5) NOT NULL AUTO_INCREMENT,
+                    Name varchar(40) NOT NULL,
+                    Own boolean NOT NULL,
+                    PRIMARY KEY (id)
+                    ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;";
+                //echo($sql . "<br>");
+                mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
                 
                 for($id=1;$id<=$count;$id++)
                 {
                     $own=$_POST['row'.$id];
                     if ($own == 1){
                         $sql="SELECT Own, name FROM $weaponType WHERE id = $id;"; //checks ownership of consuming weapon
-                        echo($sql . "<br>");
+                        //echo($sql . "<br>");
                         $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
                         $own_check=mysqli_fetch_array($result);
-                        print('owned: ' . $own_check[0] . ', name: '. $own_check[1] . '<br>');
-                        print("<br>");
+                        //print('owned: ' . $own_check[0] . ', name: '. $own_check[1] . '<br>');
+                        //print("<br>");
 
                         if($own_check[0]==0){ //will only call consumed item update script if the consuming weapon was previously unchecked
                             $sql="SELECT consumes FROM $weaponType WHERE id = $id;";
-                            echo($sql . "<br>");
+                            //echo($sql . "<br>");
                             $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
                             $update_target=mysqli_fetch_array($result);
-                            print($update_target[0]);
-                            print("<br>");
+                            //print($update_target[0]);
+                            //print("<br>");
+                            $escaped_update_target = mysqli_real_escape_string($mysqli, $update_target[0]);
+                            //print($escaped_update_target);
+                            //print("<br>");
 
-                            $sql="SELECT Own FROM $weaponType WHERE name='$update_target[0]';"; //returns ownership of consumption target weapon
-                            echo($sql . "<br>");
+                            $sql="SELECT Own FROM $weaponType WHERE name='$escaped_update_target';"; //returns ownership of consumption target weapon
+                            //echo($sql . "<br>");
                             $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
                             $consumed_weapon_check=mysqli_fetch_array($result);
-                            print($consumed_weapon_check[0]);
-                            print("<br>");
+                            //print($consumed_weapon_check[0]);
+                            //print("<br>");
 
                             if($consumed_weapon_check[0]==1){ //if consumption target weapon is currently checked
-                                $sql="UPDATE $weaponType SET Own = 0 WHERE name='$update_target[0]';";
-                                echo($sql . "<br>");
+                                $sql="INSERT INTO temp (Name, Own) VALUES ('$escaped_update_target','0');";
+                                //echo($sql . "<br>");
                                 mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
                                 echo("$own_check[1] updated; $update_target[0] removed from inventory<br>");
                             }
                         }
                     }
-                    
+                }
+                
+                for($id=1;$id<=$count;$id++) //updates target weapon type table per user's checkbox selections
+                {
                     $own=$_POST['row'.$id];
                     $sql="UPDATE $weaponType SET Own= '$own' WHERE id = $id;";
                     //echo($sql . "<br><br>");
                     mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
                 }
 
+                //check temp to see if match
+                $sql="SELECT tm.name, tm.own FROM temp tm, $weaponType wt WHERE tm.name=wt.name;";
+                //echo($sql . "<br>");
+                $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
 
+                while($row=mysqli_fetch_array($result))
+                {
+                    //echo($row['name'] . "<br>");
+                    $update_this=$row['name'];
+                    $escaped_update_this = mysqli_real_escape_string($mysqli, $update_this);
+                    //echo($row['own'] . "<br>");
+                    $update_own=$row['own'];
+                    //if match, update $weaponType with Own from temp
+                    $sql="UPDATE $weaponType SET Own = $update_own WHERE name='$escaped_update_this';";
+                    //echo($sql . "<br><br>");
+                    mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
+                }
+
+                $sql="DROP TABLE IF EXISTS temp;";
+                //echo($sql . "<br>");
+                mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
+                
             } else //only calls on page load (initial or load button)
             {
                 $weaponType='dualblades';
             }
-
             //load button handler
             if(isset($_POST['LoadButton']))
             {
@@ -75,7 +108,6 @@
             {
                 echo('Weapon Type<br>');
             }
-
             //dropdown
             $sql="SELECT type,id FROM weapon_types order by type";
             $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli));
@@ -91,16 +123,13 @@
                 }
             }
             echo "</select>";
-
             //buttons
             echo " ";
             echo "<input type='submit' value='Load' name='LoadButton' />"; //button
             echo " ";
             echo "<input type='submit' value='Save' name='SaveButton' />"; //button
-
             $sql = 'SELECT id, name, own, consumes FROM ' . $weaponType . ' ORDER BY id';
             $result = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
-
             echo("<table border='1'>");
             echo("<tr><th>ID</th><th>Name</th><th>Own?</th><th>Consumes</th></tr>");
             while($row=mysqli_fetch_array($result))
