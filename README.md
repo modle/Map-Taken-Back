@@ -8,7 +8,7 @@ Backlog
 <li>Remove redirects - single page database update (done)
 </ol>
 <li>Toggle items between 'have'/'don't have' (done)
-<li>When toggling 'have', select whether item is an upgrade (toggles preceeding item to 'don't have')
+<li>When toggling 'have', also select checkbox indicating item is NOT an upgrade (default: toggle consumed item to 'don't have'; typically items are upgraded rather than obtained mid-path)
 <ol type="a">
 <li>Format data for weapon hierarchy/paths (GS and DS done)
 </ol>
