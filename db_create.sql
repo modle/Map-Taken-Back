@@ -12,16 +12,16 @@ CREATE TABLE IF NOT EXISTS `dualblades` (
   PRIMARY KEY (`Id`)
 );
 
-INSERT INTO `dualblades` (`Id`, `Name`, `Own`) VALUES
-('', 'Agnaktor InfernoFINAL', 0),
-('', 'Alkaid''s AsterismFINAL', 0),
-('', 'Alluvion SlashersFINAL', 0),
-('', 'Blizzarioths', 0),
-('', 'Blizzarioths+', 0),
-('', 'Bloodwings', 0),
-('', 'Bloodwings+', 0),
-('', 'Boltgeist', 0),
-('', 'Bone Scythes+',0);
+INSERT INTO `dualblades` (`Name`, `Own`) VALUES
+('Agnaktor InfernoFINAL', 0),
+('Alkaid''s AsterismFINAL', 0),
+('Alluvion SlashersFINAL', 0),
+('Blizzarioths', 0),
+('Blizzarioths+', 0),
+('Bloodwings', 0),
+('Bloodwings+', 0),
+('Boltgeist', 0),
+('Bone Scythes+',0);
 
 
 /*GREAT SWORD TABLE CREATE AND INSERT*/
@@ -33,13 +33,13 @@ CREATE TABLE IF NOT EXISTS `greatsword` (
   PRIMARY KEY (`Id`)
 );
 
-INSERT INTO `greatsword` (`Id`, `Name`, `Own`) VALUES
-('', 'Alatreon Revolution', 0),
-('', 'Altheos EvolutiaFINAL', 0),
-('', 'Amethyst Blade', 0),
-('', 'Ancharius Sword', 0),
-('', 'Ancient Blade', 0),
-('', 'Anguish', 0);
+INSERT INTO `greatsword` (`Name`, `Own`) VALUES
+('Alatreon Revolution', 0),
+('Altheos EvolutiaFINAL', 0),
+('Amethyst Blade', 0),
+('Ancharius Sword', 0),
+('Ancient Blade', 0),
+('Anguish', 0);
 
 
 /*WEAPON TYPES TABLE CREATE AND INSERT*/
