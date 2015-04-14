@@ -5,5 +5,4 @@
             WHERE monsterId=$monsterId
             ORDER BY id";
     $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli) . '; carve table error');
-
 ?>

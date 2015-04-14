@@ -5,6 +5,26 @@ MH4U Database Companion
 =======
 What's New
 
+2015-04-05
+
+- Added quests page
+
+- Added quest, monsterToQuest, questReward, and monsterHabitat tables to database
+
+- Added area and quest info to monster page
+
+2015-04-04
+
+- Added clear button to asides
+
+- Mobile stylesheet
+
+
+- Changed maps to function properly on both mobile and desktop
+  * Added touchend.zoom to jquery_zoom.js
+  * Changed type to 'ex1', will now zoom on grab, rather than with toggle (ex3)
+
+
 2015-04-03
 
 - General
@@ -142,6 +162,7 @@ Todo
 
 - Skills page armor side panel: section by LR/HR/G  rank
 
+- Sanitize inputs (trim, validate, etc)
 
 2015-03-30
 

@@ -1,10 +1,10 @@
 <table class='data wish'>
     <tr class='dataTh'>
-        <th style='width: 60%;'>Name</th>
-        <th style='width: 10%;'>Type</th>
-        <th style='width: 10%;'>Rare</th>
-        <th style='width: 10%;'>Created</th>
-        <th style='width: 10%;'>Final</th>
+        <th></th>
+        <th>Wp</th>
+        <th>R</th>
+        <th>C</th>
+        <th>F</th>
     </tr>
     <?php
         while($row=mysqli_fetch_array($armoryTableResult))

@@ -9,7 +9,7 @@
 		callback: false,
 		target: false,
 		duration: 120,
-		on: 'mouseover', // other options: grab, click, toggle
+		on: 'grab', // other options: grab, click, toggle
 		touch: true, // enables a touch fallback
 		onZoomIn: false,
 		onZoomOut: false,
@@ -219,6 +219,10 @@
 						.on('touchmove.zoom', function (e) {
 							e.preventDefault();
 							zoom.move( e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] );
+						})
+						.on('touchend.zoom', function (e) {
+							touched = false;
+							stop();
 						});
 				}
 				

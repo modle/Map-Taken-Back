@@ -27,6 +27,7 @@
 
 
         echo("<H2>Upgrade Path</H2>");
+        echo("<td class='navTdTh'><center><input type='submit' value='Hide Upgrade Path' name='Clear'/></center>");
         echo("<table class='nav'>");
 
         //from end of hierarchy array

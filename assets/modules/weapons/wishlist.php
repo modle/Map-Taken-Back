@@ -1,4 +1,7 @@
+<a name="wishlist" class='menu'></a>
 <H2>Wish List</H2>
+<a href='#top'>Back to Weapons Top</a>
+
 <H4>Todo</H4>
 1. sort by rarity<br>
 2. set weapontype dropdown on search click<br>

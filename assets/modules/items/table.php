@@ -12,7 +12,6 @@
             <th colspan=5>Buy</th>
             <th colspan=5>Sell</th>
             <th colspan=5>Rarity</th>
-            <th colspan=5>Description</th>
         </tr>
         Jump to:
         <?php
@@ -24,7 +23,7 @@
                 if (!in_array($nextLetter, $letters)) {
                     $letters[]=$nextLetter;
                     echo("<a href='#".$nextLetter."'>".$nextLetter."</a>"."&nbsp;");
-                    echo("<tr><td colspan=25><a name='".$nextLetter."' class='menu'><h3>".$nextLetter."</h3></a></td></tr>");
+                    echo("<tr><td colspan=20><a name='".$nextLetter."' class='menu'><a href='#top'>Back to top</a><h3>".$nextLetter."</h3></a></td></tr>");
                 }
 
                 echo("<tr>")
@@ -32,7 +31,6 @@
                     ."<td colspan=5>" . $row['buy']
                     ."<td colspan=5>" . $row['sell']
                     ."<td colspan=5>" . $row['rare']
-                    ."<td colspan=5>" . $row['description']
                 ."</tr>";
             }
         ?>

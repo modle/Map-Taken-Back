@@ -2,14 +2,15 @@
 <html>
 <head>
     <title>Skills</title>
-    <link rel="stylesheet" type="text/css" href="assets/stylesheets/main.css">
-    <script type="text/javascript" src="assets/scripts/mh4u_jsFunctions.js"></script>
-    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
-    <script src='assets/scripts/jquery_zoom.js'></script>
-    <script src="assets/scripts/mh4u_jquery.js"></script>
+    <?php require_once('assets/modules/general/scripts_and_stylesheets.php'); ?>
 </head>
 <body>
-    <?php require_once('assets/modules/general/nav.html'); ?>
+    <div id='title'>
+        Skills
+    </div>
+    <div id='navigation'>
+        <?php require_once('assets/modules/general/nav.html'); ?>
+    </div>
 
     <form method=POST name="form">
         <?php
@@ -20,18 +21,9 @@
         ?>
             
         <div id='wrapper'>
-            <div id='section'>
-                <H2>Skills</H2>
-                Click on a tree name to view armor containing that skill.<br>
 
-                <?php
-                    require_once('assets/modules/skills/inputs.php');
-                    require_once('assets/modules/skills/query.php');
-                    require_once('assets/modules/skills/table.php');
-                ?>
-            </div>
-            <div id='aside'>
-                <h2>Armor</h2>
+            <div id='aside' <?php if (!$armorLoad){?>style="display:none"<?php } ?>>
+                <h2>Armor Match</h2>
                 <h4>Todo</h4>
                 1. Filter/sort by points (pos or neg or both)<br>
                 2. Filter/sort by rarity<br>
@@ -40,7 +32,19 @@
                 5. Retain tree name on dropdown change<br>
                 <br>
                 <?php
+                    require('assets/modules/general/reset_button.php');
                     require_once('assets/modules/skills/armor_aside.php');
+                ?>
+            </div>
+            <div id='section'>
+                <H2>Skills</H2>
+                Click on a tree name to view armor containing that skill.<br>
+
+                <?php
+                    require('assets/modules/general/reset_button.php');
+                    require_once('assets/modules/skills/inputs.php');
+                    require_once('assets/modules/skills/query.php');
+                    require_once('assets/modules/skills/table.php');
                 ?>
             </div>
         </div>

@@ -1,13 +1,15 @@
 <!--dropdown, search box, create/final/awaken toggles-->
+
+<?php echo($weaponDropdownString) ?>
+<br>
+<input type='text' placeholder='Weapon Name' value='<?php echo($weaponSearch) ?>' name='weaponName' />
 <table class='nav'>
     <tr>
-        <th class='navTdTh'><?php echo($weaponDropdownString) ?></th>
         <th class='navTdTh'>[Create]</th>
         <th class='navTdTh'>[Final]</th>
         <th class='navTdTh'>[Awaken]</th>
     </tr>
     <tr>
-        <td class='navTdTh'><input type='text' placeholder='Weapon Name' value='<?php echo($weaponSearch) ?>' name='weaponName' />
         <td class='navTdTh'><input type='checkbox' value='1' <?php echo($createCheck) ?> name='createShow' onchange='this.form.submit()' class='checkbox'/>
         <td class='navTdTh'><input type='checkbox' value='1' <?php echo($finalCheck) ?> name='finalShow' onchange='this.form.submit()' class='checkbox'/>
         <td class='navTdTh'><input type='checkbox' value='1' <?php echo($awakenCheck) ?> name='awakenShow' onchange='this.form.submit()' class='checkbox'/>
@@ -15,8 +17,7 @@
 </table>
 
 <!--//rarity sliders-->
-<br>
-Rarity: <?php echo($minRaritySelect . ' - ' . $maxRaritySelect); ?>
+<strong>Rarity: <?php echo($minRaritySelect . ' - ' . $maxRaritySelect); ?></strong>
 <br>
 Min Rarity:
     <input type='range' min=1 max=10 value='<?php echo($minRaritySelect) ?>' step=1.0 id='minRange' name='minRaritySelect' onchange='updateRarityMin(this.value, maxRaritySelect.value)' class='range' >

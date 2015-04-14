@@ -37,7 +37,7 @@ if ($armorLoad){
             if (!in_array($nextLetter, $letters)) {
                 $letters[]=$nextLetter;
                 echo("<a href='#".$nextLetter."'>".$nextLetter."</a>"."&nbsp;");
-                echo("<tr><td colspan=20><a name='".$nextLetter."' class='menu'><h3>".$nextLetter."</h3></a></td></tr>");
+                echo("<tr><td colspan=20><a name='".$nextLetter."' class='menu'><a href='#top'>Back to top</a><h3>".$nextLetter."</h3></a></td></tr>");
             }
             echo("<tr>")
                 ."<td>" . $row['name']

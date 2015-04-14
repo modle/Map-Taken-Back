@@ -1,4 +1,3 @@
-<input type='submit' value='Reset All Fields' name='ResetButton'/><br>
 <input type='text' placeholder='Armor Name' value="<?php echo($armorName); ?>" name='armorName'/>
 <br>
 

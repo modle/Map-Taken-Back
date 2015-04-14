@@ -2,14 +2,15 @@
 <html>
 <head>
     <title>MH4U Weapons</title>
-    <link rel="stylesheet" type="text/css" href="assets/stylesheets/main.css">
-    <script type="text/javascript" src="assets/scripts/mh4u_jsFunctions.js"></script>
-    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
-    <script src='assets/scripts/jquery_zoom.js'></script>
-    <script src="assets/scripts/mh4u_jquery.js"></script>
+    <?php require_once('assets/modules/general/scripts_and_stylesheets.php'); ?>
 </head>
 <body>
-    <?php require_once('assets/modules/general/nav.html'); ?>
+    <div id='title'>
+        Weapons
+    </div>
+    <div id='navigation'>
+        <?php require_once('assets/modules/general/nav.html'); ?>
+    </div>
     <form method=POST name="form">
         <?php
             require_once('assets/modules/general/db_connect.php');
@@ -26,21 +27,22 @@
         ?>
         <div id='wrapper'>
             <div id='section'>
+                <?php require_once('assets/modules/weapons/upgrade_path.php'); ?>
                 <!--default values, to handle post when weapon checkbox is re-checked-->
                 <?php require_once('assets/modules/weapons/default_values.php'); ?>
 
-                <H2>Weapons</H2>
+                <H2>Weapon Search</H2>
                 <td class='navTdTh'><center><input type='submit' value='Reset All Fields' name='ResetButton'/></center>
                 <?php
                     require_once('assets/modules/weapons/dropdown.php');
                     require_once('assets/modules/weapons/inputs.php');
                     require_once('assets/modules/weapons/query.php');
+                    echo("<a href='#wishlist'>View Wishlist</a>");
                     require_once('assets/modules/weapons/table.php');
                 ?>
             </div>
             <div id='aside'>
                 <?php require_once('assets/modules/weapons/wishlist.php'); ?>
-                <?php require_once('assets/modules/weapons/upgrade_path.php'); ?>
             </div>
         </div>
         <div id='footer'>

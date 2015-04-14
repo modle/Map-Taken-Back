@@ -2,18 +2,18 @@
     <tr class='dataTh'>
         <th>Name</th>
         <th>Rank</th>
-        <th>Condition</th>
-        <th>Percentage</th>
+        <th>How</th>
+        <th>Rate</th>
     </tr>
 
     <?php
         while($row=mysqli_fetch_array($result))
         {
-            echo('<tr>'); //new table row
-            echo '<td>' . $row['name'];
-            echo '<td>' . $row['rank'];
-            echo '<td>' . $row['acquiredBy'];
-            echo '<td>' . $row['percentage'] . ' %';
+            echo('<tr>')
+                .'<td>' . $row['name']
+                .'<td>' . $row['rank']
+                .'<td>' . $row['acquiredBy']
+                .'<td>' . $row['percentage'] . '%';
         }
     ?>
 </table>

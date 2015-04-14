@@ -1,10 +1,10 @@
 <table class='data'>
     <tr class='dataTh'>
-        <th>Name</th>
-        <th>Rare</th>
-        <th>Type</th>
-        <th>Set Piece</th>
-        <th>Slot</th>
+        <th></th>
+        <th>R</th>
+        <th></th>
+        <th></th>
+        <th></th>
         <th><img src=assets/resources/elements/FIR.png height='20' width='20'></th>
         <th><img src=assets/resources/elements/WAT.png height='20' width='20'></th>
         <th><img src=assets/resources/elements/THU.png height='20' width='20'></th>
@@ -15,7 +15,6 @@
     <?php
         while($row=mysqli_fetch_array($result))
         {
-
             //slot display
             switch($row['slot']) {
                 case "0": $slot = "---"; break;
