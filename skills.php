@@ -9,162 +9,44 @@
     <script src="assets/scripts/mh4u_jquery.js"></script>
 </head>
 <body>
+    <?php require_once('assets/modules/general/nav.html'); ?>
+
     <form method=POST name="form">
-        <div id='navigation'>
-            <a href="index.php">Weapons</a>
-            <a href="monsters.php">Monsters</a>
-            <a href="maps.php">Maps</a>
-            <a href="items.php">Items</a>
-            <a href="armor.php">Armor</a>
-            <a href="skills.php">Skills</a>
-
-            <input type='hidden' name='postCheck'>
-
-            <?php
-                require_once('db_connect.php');
-                
-                if(isset($_POST['postCheck'])) {
-                    $skillName=$_POST['skillName'];
-
-                    if(isset($_POST['armorLoad'])){
-                            $armorLoad=$_POST['armorLoad'];
-                        }else{
-                            $armorLoad=null;
-                        }
-                        
-                    $equipSlotId=$_POST['equipSlot'];
-
-                } else {
-                    $skillName=null;
-                    $armorLoad=null;
-                    $equipSlotId=0;
-
-                }
-
-                if(isset($_POST['ResetButton'])){
-                    $skillName=null;
-                    $armorLoad=null;
-                    $equipSlotId=0;
-                }
-            ?>
-        </div>
-        <div id='section'>
-            <H2>Skills</H2>
-            <input type='submit' value='Search' name='SearchButton' id='defaultActionButton' style='display:none;' /> <!--button for enter listener-->
-            <input type='submit' value='Reset All Fields' name='ResetButton'/><br>
-            <input type='text' placeholder='Skill Name' value='<?php echo($skillName); ?>' name='skillName' />
-            <br>
-            <?php
-                $sql = "SELECT equipSlotId, slot
-                        FROM equipslot
-                        ORDER BY equipSlotId";
-                $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli) . '; equipslot dropdown error');
-                echo "<select name='equipSlot' value='' >Slot</option>";
-                while($row=mysqli_fetch_array($result))
-                {
-                    if($row[equipSlotId]==$equipSlotId) {
-                        echo "<option value=$row[equipSlotId] selected>$row[slot]</option>";
-                    } else {
-                        echo "<option value=$row[equipSlotId]>$row[slot]</option>";
-                    }
-                }
-                echo "</select>";
-            ?>
-            <br>
-            Positive Only
-            <br>
-
-            <?php
-                $sql = 'SELECT s.skillId
-                            , st.skillTreeId
-                            , st.name treeName
-                            , s.name skillName
-                            , s.requiredSkillTreePoints
-                            , s.description
-                        FROM skill s
-                        JOIN skillTree st ON s.skillTreeId=st.skillTreeId
-                        WHERE instr((st.name),"'. $skillName .'") > 0
-                        ORDER by st.name, s.requiredSkillTreePoints';
-                $result = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; skill table error');
-                $row=mysqli_fetch_array($result);
-            ?>
-
-            <!---->
-            <!--create item table-->
-            <!---->
-
-            <table class='data'>
-            <tr class='dataTh'>
-            <th>Tree</th>
-            <th>Name</th>
-            <th>Points</th>
-            <th>Description</th>
-            </tr>
-            <?php
-                while($row=mysqli_fetch_array($result))
-                {
-                    echo("<tr>")
-
-                        ."<td><input type='submit' name='armorLoad' value='".$row['treeName']."' class='button' >"
-                        //."<td>" . $row['treeName']
-                        ."<td>" . $row['skillName']
-                        ."<td>" . $row['requiredSkillTreePoints']
-                        ."<td>" . $row['description'];
-                }
-            ?>
-            </table>
-        </div>
-
-        <div id='aside'>
-            <h2>Armor</h2>
-
-
-            <?php
-
-            if ($armorLoad){
-
-                    $sql = 'SELECT (SELECT name FROM item WHERE itemId=a.itemId) armorName
-                                , a.equipSlot setPiece
-                                , st.name skillTree
-                                , itst.pointValue points
-                            FROM armorstats a
-                                JOIN itemtoskilltree itst ON a.itemId=itst.itemId
-                                JOIN skilltree st ON itst.skillTreeId=st.skillTreeId
-                            WHERE st.name like "%' . $armorLoad . '%"
-                            AND (0=' . $equipSlotId . ' OR a.equipSlotId=' . $equipSlotId . ')
-                            ORDER by setPiece, itst.pointValue desc';
-
-
-                    $result = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; armor table error');
-                    $row=mysqli_fetch_array($result);
-            ?>
-
-                <table class='data'>
-                <tr class='dataTh'>
-                <th>Name</th>
-                <th>Set Piece</th>
-                <th>Skill Tree</th>
-                <th>Skill Points</th>
-                </tr>
+        <?php
+            require_once('assets/modules/general/db_connect.php');
+            require_once('assets/modules/skills/hidden_inputs.php');
+            require_once('assets/modules/skills/vars.php');
+            require_once('assets/modules/skills/reset_handler.php');
+        ?>
+            
+        <div id='wrapper'>
+            <div id='section'>
+                <H2>Skills</H2>
+                Click on a tree name to view armor containing that skill.<br>
 
                 <?php
-                    while($row=mysqli_fetch_array($result))
-                    {
-                        echo("<tr>"); //new table row
-                        echo "<td>" . $row['armorName'];
-                        echo "<td>" . $row['setPiece'];
-                        echo "<td>" . $row['skillTree'];
-                        echo "<td>" . $row['points'];
-                    }
-                    echo('</table>');
-            }
+                    require_once('assets/modules/skills/inputs.php');
+                    require_once('assets/modules/skills/query.php');
+                    require_once('assets/modules/skills/table.php');
                 ?>
+            </div>
+            <div id='aside'>
+                <h2>Armor</h2>
+                <h4>Todo</h4>
+                1. Filter/sort by points (pos or neg or both)<br>
+                2. Filter/sort by rarity<br>
+                3. Filter by piece<br>
+                4. Sort by name<br>
+                5. Retain tree name on dropdown change<br>
+                <br>
+                <?php
+                    require_once('assets/modules/skills/armor_aside.php');
+                ?>
+            </div>
         </div>
-
-
-
-
-
+        <div id='footer'>
+            <a href='#top'>Back to top</a>
+        </div>
     </form>
 </body>
 </html>

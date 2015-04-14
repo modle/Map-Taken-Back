@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2015 at 02:07 AM
+-- Generation Time: Apr 04, 2015 at 07:11 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -3195,7 +3195,11 @@ INSERT INTO `armorstats` (`armorId`, `itemId`, `equipSlot`, `equipSlotId`, `defe
 DROP TABLE IF EXISTS `armory`;
 CREATE TABLE IF NOT EXISTS `armory` (
   `id` int(5) NOT NULL,
+  `weaponTypeId` int(5) NOT NULL,
   `name` varchar(80) NOT NULL,
+  `created` int(1) NOT NULL,
+  `final` int(1) NOT NULL,
+  `rare` int(2) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `name` (`name`)
@@ -3205,10 +3209,11 @@ CREATE TABLE IF NOT EXISTS `armory` (
 -- Dumping data for table `armory`
 --
 
-INSERT INTO `armory` (`id`, `name`) VALUES
-(182, 'Daora&#39;s Deathmaker'),
-(40, 'Despot&#39;s Blackstorm'),
-(2, 'Iron Sword+');
+INSERT INTO `armory` (`id`, `weaponTypeId`, `name`, `created`, `final`, `rare`) VALUES
+(6, 1, 'Ravager Blade+', 1, 0, 3),
+(19, 1, 'Blood Shock', 0, 1, 9),
+(20, 1, 'Santoku Reaver', 1, 0, 2),
+(1212, 7, 'Brimstren Draketail', 0, 0, 6);
 
 -- --------------------------------------------------------
 
@@ -4103,7 +4108,7 @@ CREATE TABLE IF NOT EXISTS `equipslot` (
   `equipSlotId` int(1) NOT NULL AUTO_INCREMENT,
   `slot` varchar(10) NOT NULL,
   PRIMARY KEY (`equipSlotId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `equipslot`
@@ -43801,7 +43806,11 @@ INSERT INTO `weapondata` (`id`, `parentId`, `weaponTypeId`, `name`, `attack`, `e
 DROP TABLE IF EXISTS `wishlist`;
 CREATE TABLE IF NOT EXISTS `wishlist` (
   `id` int(5) NOT NULL,
+  `weaponTypeId` int(5) NOT NULL,
   `name` varchar(80) NOT NULL,
+  `created` int(1) NOT NULL,
+  `final` int(1) NOT NULL,
+  `rare` int(2) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `name` (`name`)
@@ -43811,10 +43820,15 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
 -- Dumping data for table `wishlist`
 --
 
-INSERT INTO `wishlist` (`id`, `name`) VALUES
-(2, 'Iron Sword+'),
-(38, 'L&#39;Origine'),
-(5, 'Ravager Blade');
+INSERT INTO `wishlist` (`id`, `weaponTypeId`, `name`, `created`, `final`, `rare`) VALUES
+(1136, 7, 'Megadrill Lance', 0, 0, 5),
+(1208, 7, 'Demon Lance', 0, 0, 6),
+(1212, 7, 'Brimstren Draketail', 0, 0, 6),
+(1365, 8, 'Great Demon Gunlance', 0, 0, 7),
+(1418, 8, 'Leviathan Gunlance', 0, 0, 6),
+(1448, 8, 'Fatalis Gunlance', 1, 0, 7),
+(1456, 8, 'Eldaora&#39;s Brigia', 1, 1, 10),
+(1466, 8, 'Luna&#39;s Flare', 0, 0, 7);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

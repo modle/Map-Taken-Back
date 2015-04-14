@@ -19,6 +19,13 @@ h2 {
         margin: 1%;
 }
 
+h3 {
+        background:#E3DFD7;
+        border-radius: 6px;
+        /*padding: .5%;*/
+        /*margin: .5%;*/
+}
+
 img {
         max-width: 96%;
 }

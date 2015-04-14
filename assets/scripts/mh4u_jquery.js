@@ -16,4 +16,9 @@ $(document).ready(function() {
     $('#ex2').zoom({ on:'grab' });
     $('#ex3').zoom({ on:'click' });
     $('#ex4').zoom({ on:'toggle' });
+    //$('a.menu').click(function(){
+    //        return false;
+    //    })
+    
+    
 });
