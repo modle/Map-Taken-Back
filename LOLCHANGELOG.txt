@@ -5,6 +5,19 @@ MH4U Database Companion
 =======
 What's New
 
+2015-04-08
+
+- Armor Sets!
+  * DB did not have armor by set, making the armor page cumbersome
+  * Assigned each armor a set name
+
+- Armor page updates  
+  * Added jump-to links to both armor and skills sections
+  * Removed equip slot dropdown filter
+  * Reconfigured Skills section to load the armor set rather than individual pieces
+   
+
+
 2015-04-07
 
 - Clicking search in the wishlist now populates the weapon type dropdown correctly.

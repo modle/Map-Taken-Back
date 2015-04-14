@@ -27,3 +27,4 @@ Max Rarity:
         <img src=assets/resources/weapons/0.png >
     </tr>
 </table>
+<br>

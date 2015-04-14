@@ -31,12 +31,14 @@
             <div id='section'>
                 <H2>Armor Search</H2>
                 Click on an armor name to view that armor's skills.<br>
-                <h4>Todo</h4> 1. Sort by elements<br>2. Sort/filter by set piece<br>3. Sort/filter by slot<br>
+                <h4>Todo</h4>
+                    1. Sort by elements<br>
+                    2. Sort/filter by slot<br>
+                    3. Sum skill tree values for entire set in skills section<br>
                 <br>
                 <?php
                     require('assets/modules/general/reset_button.php');
                     require_once('assets/modules/armor/inputs.php');
-                    require_once('assets/modules/skills/dropdown.php');
                     require_once('assets/modules/armor/query.php');
                     require_once('assets/modules/armor/table.php');
                 ?>
