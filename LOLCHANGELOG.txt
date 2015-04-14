@@ -5,18 +5,25 @@ Experiments with MySQL and PHP
 =======
 What's New
 
-2015-03-25
-- Click name in main weapon table to see upgrade path
-- Click name in path to see upgrade path for that name
-- Click search icon to stuff weapon search field with that name
+2015-03-28
+- Added delete icons to armory and wishlist
+- Data cleanup - replaced ' in database with &#39;
+	* This cleans up a lot of the queries; had been losing data when string contained
+		+ Only became an issue when adding armory/wishlist delete functionality, since the search was partial string match
+
+		
+
+2015-03-27
+- Added zoom function to map. Click to activate.
+	* http://www.jacklmoore.com/zoom - pretty slick
 
 2015-03-26
 - Started a CHANGELOG. lolDocumentation. 
-	* (I AM keeping an archive of versions, based on date. I'll git it someday.)
+	* (I AM keeping an archive of versions, based on date. I'll git with it someday.)
 - Combined weapon tables into a single table
-	* can now view all weapon data by choosing 'all' from the drop-down
+	* can now view all weapon data by choosing 'All Weapons' from the drop-down
 	* added weapon type icons next to the weapon names
-		+ click the weapon icon to set the weapon type filter to that weapon type
+		+ click the weapon icon to set the weapon type drop-down filter to that weapon type
 
 - Changed element icons to image submits. 
 	* Clicking an element icon will set the element filter to that element		
@@ -24,10 +31,10 @@ What's New
 - Split element radios into groups (all/raw, elements, status effects)
 	* Each row is a table; may use this to rearrange later.
 
-- Set width %s on weapon table columns
+- Set width %s on weapon table columns for consistency when filtering
 
 - Cleaned up weapon data
-	* special will be NULL instead of 0 for weapons without special data
+	* special will be NULL(blank) instead of 0 for weapons without special data
 	* shortened the special info for insect glaive (cutting > cut, ' ~ ' > '~')
 	
 	
@@ -36,24 +43,40 @@ What's New
 	- Sliders : resize
 	- Map : cross-hairs
 
-	
+2015-03-25
+- Click name in main weapon table to see upgrade path
+- Click name in path to see upgrade path for that name
+- Click search icon to stuff weapon search field with that name
 	
 Bugs
 
+2015-03-27
+- items added to the wish list or armory only show up after the next refresh, not on the refresh they are added
+	* Tables load before code checks for additions
+	* Fixed. Moved armory/wish list/upgrade table loads after main section load (which contains the insert statements)
+
 2015-03-26
 - wish list clearing randomly. idkwtf.
+	* Fixed. Had some stray delete sql from an earlier version.
 - sliders no longer submit page on change - css problem? The rest of the slider change script is triggering
 - rare values in upgrade path div are all set to the selected weapon, rather than indicated weapon
+	* Fixed. Query was referencing selected weapon rather than iterated weapon.
 
 
 
 Todo
 
 2015-03-26
-- Add final/created flags back to weapon rows
+- DONE - Add final/created flags back to weapon rows
 	* indicate this outside the <td> somehow?
-- Add links to the delete column in wish list/armory tables
+- DONE - Add links to the delete column in wish list/armory tables
+- DONE - Add links to names of wish list/armory tables
+	* update path with clicked
 - Sharpness bars!
-- Carve data
-- Split data groups into separate pages (monsters, maps, etc)
-- Skill data
+- Split data groups into separate pages (monsters, maps, etc.)
+	* Add pages
+		+ Armor 
+		+ Skills
+		+ Armor
+- Replace Armory/Wish List checkboxes with "+" or "Add". Can use button as link code.
+	* Gray out/disable add function if already on list?

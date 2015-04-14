@@ -4,9 +4,11 @@
     <title>Inventory</title>
     <link rel="stylesheet" type="text/css" href="assets/stylesheets/main.css">
     <script type="text/javascript" src="assets/scripts/mh4u_jsFunctions.js"></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
+    <script src='assets/scripts/jquery_zoom.js'></script>
+    <script src="assets/scripts/mh4u_jquery.js"></script>
 </head>
 <body>
-    <script src="assets/scripts/mh4u_jquery.js"></script>
     <form method=POST name="form">
         <?php
             //*****************************************
@@ -86,9 +88,22 @@
 
 
                 if(isset($_POST['searchClick'])){
-                    $weaponName=$_POST['searchClick'];
-                } else {$weaponName=$_POST['weaponName'];}
+                    $weaponSearch=str_replace('\'','&#39;',$_POST['searchClick']);
+                } else {$weaponSearch=str_replace('\'','&#39;',$_POST['weaponName']);}
 
+                if(isset($_POST['wishDelete'])){
+                    $wishDelete=str_replace('\'','&#39;',$_POST['wishDelete']);
+                    $sql = "DELETE FROM wishlist
+                            WHERE name like '$wishDelete'";
+                    $resultWishDelete = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; wish delete error');
+                }
+
+                if(isset($_POST['armoryDelete'])){
+                    $armoryDelete=str_replace('\'','&#39;',$_POST['armoryDelete']);
+                    $sql = "DELETE FROM armory
+                            WHERE name like '$armoryDelete'";
+                    $resultArmoryDelete = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; wish delete error');
+                }
 
                 if(isset($_POST['weaponImage'])) {
                     $weaponType=$_POST['weaponImage'];
@@ -153,7 +168,7 @@
                 $awakenCheck='checked';
                 $awakenFilter=1;
                 $weaponCheck='checked';
-                $weaponName=null;
+                $weaponSearch=null;
                 $weaponType=1;
 
                 $minRaritySelect=1;
@@ -187,7 +202,7 @@
 
                 $weaponCheck='checked';
 
-                $weaponName=null;
+                $weaponSearch=null;
                 $weaponType=1;
 
                 $createCheck='';
@@ -260,196 +275,6 @@
 
             echo("<div id='wrapper'>");
 
-            echo("<div id='aside'>");
-
-
-            //*****************************************
-            //ARMORY SECTION
-            //*****************************************
-            //******
-            //grab armory data
-            //******
-
-            if($armoryShowCheck=='checked'){
-                echo ("<H2>Armory</H2>");
-                $sql = 'SELECT *
-                        FROM armory';
-                $armoryTableResult = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; armory table error');
-                //$armoryTableRow=mysqli_fetch_array($armoryTableResult);
-
-            //******
-            //create armory table
-            //******
-
-                echo("<table class='data wish'>");
-                echo("<tr class='dataTh'>
-                    <th style='width: 70%;'>Name</th>
-                    <th>Delete</th>
-                    </tr>");
-                while($row=mysqli_fetch_array($armoryTableResult))
-                {
-                    echo("<tr>"); //new table row
-                    echo "<td>" . $row['name']
-                    . " <input type='image' name='searchClick' onclick = 'this.form.submit()' src=assets/resources/ui/search.png value='".$row['name']."'>"
-                    . "<td> Delete";
-                }
-                echo("</table>");
-            }
-
-
-
-            //*****************************************
-            //END ARMORY SECTION
-            //*****************************************
-
-
-
-            //*****************************************
-            //WISHLIST SECTION
-            //*****************************************
-            //******
-            //grab wishlist data
-            //******
-            if($wishlistShowCheck=='checked'){
-                echo ("<H2>Wish List</H2>");
-                $sql = 'SELECT *
-                        FROM wishlist';
-                $wishlistTableResult = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; wishlist table error');
-                //$wishlistTableRow=mysqli_fetch_array($wishlistTableResult);
-
-            //******
-            //create armory table
-            //******
-
-                echo("<table class='data wish'>");
-                echo("<tr class='dataTh'>
-                    <th style='width: 70%;'>Name</th>
-                    <th>Delete</th>
-                    </tr>");
-                while($row=mysqli_fetch_array($wishlistTableResult))
-                {
-                    echo("<tr>"); //new table row
-                    echo "<td>" . $row['name']
-                    . " <input type='image' name='searchClick' onclick = 'this.form.submit()' src=assets/resources/ui/search.png value='".$row['name']."'>"
-                    . "<td> Delete";
-                }
-                echo("</table>");
-            }
-
-
-            //*****************************************
-            //END WISHLIST SECTION
-            //*****************************************
-
-
-
-            //*****************************************
-            //UPGRADE PATH SECTION
-            //*****************************************
-                if ($weaponPath){
-                    $pathName=str_replace('\'','\'\'',$weaponPath);
-
-                    //use $pathName in sql
-                    //use $weaponPath in output
-                    $sql = 'SELECT id
-                            , name
-                            , rare
-                            , final
-                            , COALESCE(hierarchy,\'N/A\') AS hierarchy
-                        FROM weapondata
-                        WHERE name like \''.$pathName.'\'';
-
-                    $resultHierarchy = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; hierarchy error');
-                    $rowHierarchy=mysqli_fetch_array($resultHierarchy);
-
-                    $hierarchy = str_getcsv($rowHierarchy['hierarchy']);
-                    $id=$rowHierarchy['id'];
-
-                    $count=count($hierarchy);
-
-                    if ($rowHierarchy['final']==1) {$finalFlag = '<sup>F</sup>';
-                    } else {$finalFlag = null;}
-
-                    echo("<H2>Upgrade Path</H2>");
-                    echo("<table class='nav'>");
-
-                    //from end of hierarchy array
-                    for($i=count($hierarchy)-1;$i>-1;$i--)
-                    {
-                        if ($hierarchy[$i]!='N/A' && $hierarchy[$i]!=''){
-
-                        //return rarity from weapondata table where name=hierarchy[i]
-                        $sql = 'SELECT rare, id, final
-                            FROM weapondata
-                            WHERE name= \'' . $pathName . '\'';
-                        $result2 = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
-                        $row2=mysqli_fetch_array($result2);
-
-                        //weapons in path
-                        echo '<tr><td class=navTdTh><input type="submit" name="weaponPath" value="'.$hierarchy[$i].'" class="button" >'
-                        . '<sup>'.$row2['rare'].'</sup>'
-                        . " <input type='image' name='searchClick' onclick = 'this.form.submit()' src=assets/resources/ui/search.png value='".$rowHierarchy['name']."'>"
-                        . '</tr>';
-
-                        //down arrow
-                            echo("<tr><td class='navTdTh'><center>&darr;</center></td></tr>");
-                        }
-                    }
-
-                    $sql = 'SELECT rare, name
-                        FROM weapondata
-                        WHERE id=' . $id;
-                    $result3 = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; rare error 2');
-                    $row3=mysqli_fetch_array($result3);
-
-                    //selected weapon
-                    echo '<tr><td class=navTdTh><input type="submit" name="weaponPath" value="'.$rowHierarchy['name'].'" class="button" >'
-                        . '<sup>'.$row3['rare'] . ' ' . $finalFlag . '</sup>'
-                        . " <input type='image' name='searchClick' onclick = 'this.form.submit()' src=assets/resources/ui/search.png value='".$rowHierarchy['name']."'>"
-                        . '</tr>';
-
-                        
-                    echo("<tr><th class='navTdTh'><br></th></tr>");
-                    echo("<tr class='dataTh'><th>Upgrades To</th></tr>");
-
-                    $sql = 'SELECT count(wt1.name) cnt
-                                , wt1.name
-                                , wt2.name nextWeapon
-                                , wt2.rare nextWeaponRare
-                                , wt2.id nextId
-                                , wt2.final nextFinal
-                            FROM weapondata wt1
-                            JOIN weapondata wt2
-                            ON wt2.parentId=wt1.id
-                            WHERE wt1.id=' . $id;
-                    $result4 = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
-
-
-                    while($upgradesTo=mysqli_fetch_array($result4)){
-
-                        //final check
-                        if ($upgradesTo['nextFinal']==1) {$finalFlag = '<sup>F</sup>';
-                        } else {$finalFlag = null;}
-
-                        if($upgradesTo['cnt']==0){
-                            echo '<td class=navTdTh>Cannot be upgraded further</tr>';
-                        } else {
-                            //weapons selected weapon can upgrade to
-                            echo '<td class=navTdTh><input type="submit" name="weaponPath" value="'.$upgradesTo['nextWeapon'].'" class="button" >'
-                            . '<sup>'.$upgradesTo['nextWeaponRare'] . ' ' . $finalFlag . '</sup>'
-                            . "<input type='image' name='searchClick' onclick = 'this.form.submit()' src=assets/resources/ui/search.png value='".$rowHierarchy['name']."'>"
-                            . '</tr>';
-                        }
-                    }
-                    echo("</table>");
-                }
-
-                
-            //*****************************************
-            //END UPGRADE PATH SECTION
-            //*****************************************
-
-            echo("</div>");
             echo("<div id='section'>");
 
 
@@ -638,7 +463,7 @@
 
 
             //*****************************************
-            //MAPS SECTION - area dropdown definition
+            //MAP SECTION - area dropdown definition
             //*****************************************
             //******
             //area dropdown definition
@@ -669,8 +494,10 @@
                 //******
                 //MAPS - image
                 //******
+                echo("<span class='zoom' id='ex3'>");
+                    echo("<img src='assets/resources/maps/".$area.".png' width='750' height='480' alt='derp'/>");
+                echo("</span>");
 
-                echo("<img src=assets/resources/maps/".$area.".png class='mapImage'>");
             }
             //*****************************************
             //END MAPS SECTION
@@ -730,7 +557,7 @@
             //*****************************************
 
             //default values, to handle post when weapon checkbox is re-checked
-            echo ("<input type='hidden' value='greatsword' name='weaponType'>");
+            echo ("<input type='hidden' value='1' name='weaponType'>");
             echo ("<input type='hidden' placeholder='Weapon Name Search' name='weaponName'>");
             echo ("<input type='hidden' value='%' name='elem'>");
             echo ("<input type='hidden' value='0' name='createShow'>");
@@ -756,6 +583,8 @@
                 $weaponDropdownString .= "</select>";
 
 
+
+
                 echo("<table class='nav'>");
                 echo("<tr>
                      <th class='navTdTh'>$weaponDropdownString</th>
@@ -765,7 +594,7 @@
                      </tr>");
                 echo("<tr>");
                 echo
-                    "<td class='navTdTh'><input type='text' placeholder='Weapon Name' value='" . $weaponName . "' name='weaponName' />"
+                    "<td class='navTdTh'><input type='text' placeholder='Weapon Name' value='" . $weaponSearch . "' name='weaponName' />"
                     ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $createCheck . " name='createShow' onchange='this.form.submit()' class='checkbox'/></center>"
                     ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $finalCheck . " name='finalShow' onchange='this.form.submit()' class='checkbox'/></center>"
                     ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $awakenCheck . " name='awakenShow' onchange='this.form.submit()' class='checkbox'/></center>";
@@ -776,9 +605,6 @@
                 //******
                 //Inputs
                 //******
-
-                //text field, weapon search
-                //echo "<input type='text' placeholder='Weapon Name' value='" . $weaponName . "' name='weaponName' />";
 
                 //rarity sliders
                 echo "Rarity: " . $minRaritySelect . " - " . $maxRaritySelect;
@@ -847,9 +673,13 @@
                 //******
                 //grab weapon data
                 //******
+
+                $weaponSearch=str_replace('\'','&#39;',$weaponSearch);
+
+
                 $sql = 'SELECT *
                         FROM weapondata
-                        WHERE instr(name,"' . $weaponName . '")>0
+                        WHERE instr(name,"' . $weaponSearch . '")>0
                         AND rare BETWEEN ' . $minRaritySelect . ' AND ' . $maxRaritySelect . '
                         AND element LIKE \'%' . $elemFilter . '%\'
                         AND (' . $createFilter . '=0 OR created=' . $createFilter .')
@@ -888,7 +718,6 @@
                     //******
                     //prep variables
                     //******
-                    $weaponName=str_replace('\'','\'\'',$weaponsRow['name']);
 
                     //******
                     //armory operations
@@ -898,13 +727,10 @@
                     if((isset($_POST['own'.$weaponsRow['id']])) && $_POST['own'.$weaponsRow['id']]==1){
                         //add to armory table
                         $sql = "INSERT IGNORE INTO armory (id, name)
-                                VALUES ('$weaponsRow[id]','$weaponName')";
+                                VALUES ('$weaponsRow[id]','$weaponsRow[name]')";
                         $armoryInsert = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; armory error');
-                    } else {
-                        //$sql = "DELETE FROM armory
-                        //    WHERE id=$weaponsRow[id]";
-                        //$armoryDelete = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; armory error');
-                    }
+
+                    } 
 
                     //check armory for weapon id
                     $sql = 'SELECT *
@@ -914,8 +740,8 @@
                     $armoryRow=mysqli_fetch_array($armoryResult);
 
                     //set checked if exists in armory
-                    if( $armoryRow['id'] ){$armoryCheck = 'checked';
-                    } else{$armoryCheck = null;}
+                    //if( $armoryRow['id'] ){$armoryCheck = 'checked';
+                    //} else{$armoryCheck = null;}
 
                     //******
                     //wishlist operations
@@ -925,17 +751,9 @@
                     if((isset($_POST['wish'.$weaponsRow['id']])) && $_POST['wish'.$weaponsRow['id']]==1){
                         //add to armory table
                         $sql = "INSERT IGNORE INTO wishlist (id, name)
-                                VALUES ('$weaponsRow[id]','$weaponName')";
+                                VALUES ('$weaponsRow[id]','$weaponsRow[name]')";
                         $wishlistInsert = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; armory error');
-                    } else {
-                        //this calls when first loading the site,
-                        //when weapon type is switched,
-                        //or when weapon visibility is toggled
-                        $sql = "DELETE FROM wishlist
-                            WHERE id=$weaponsRow[id]";
-                        $wishlistDelete = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; armory error');
                     }
-
 
                     $sql = 'SELECT *
                             FROM wishlist
@@ -943,8 +761,8 @@
                     $wishlistResult = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; wishlist error');
                     $wishlistRow=mysqli_fetch_array($wishlistResult);
 
-                    if($wishlistRow['id']){$wishlistCheck='checked';
-                    } else{$wishlistCheck=null;}
+                    //if($wishlistRow['id']){$wishlistCheck='checked';
+                    //} else{$wishlistCheck=null;}
 
                     //slot display
                     switch($weaponsRow['slot']) {
@@ -993,17 +811,16 @@
                         }
                     }
 
-                    //$weaponName=str_replace('\'','*',$weaponsRow['name']);
-
 
                     echo("<tr>"); //new table row
                     echo
                         //"<td>" . $row['id'] . "</td>" //table data tag
                         "<input type='hidden' value='0' name='own" . $weaponsRow['id'] . "'/>"
                         ."<input type='hidden' value='0' name='wish" . $weaponsRow['id'] . "'/>"
-                        ."<td><center><input type='checkbox' value='1' $armoryCheck name='own" . $weaponsRow['id'] . "' onchange='this.form.submit()' class='checkbox'/></center>"
-                        ."<td><center><input type='checkbox' value='1'  $wishlistCheck name='wish" . $weaponsRow['id'] . "' onchange='this.form.submit()' class='checkbox'/></center>"
-                        .'<td><input type="submit" name="weaponPath" value="'.$weaponsRow['name'].'" class="button" > <input type="image" name="weaponImage" value='.$weaponsRow['weaponTypeId'].' src=assets/resources/weapons/'.$weaponsRow['weaponTypeId'].'.png height="20" width="20">'
+                        ."<td><center><input type='checkbox' value='1' name='own" . $weaponsRow['id'] . "' onchange='this.form.submit()' class='checkbox'/></center>"
+                        ."<td><center><input type='checkbox' value='1'  name='wish" . $weaponsRow['id'] . "' onchange='this.form.submit()' class='checkbox'/></center>"
+
+                        .'<td><input type="submit" name="weaponPath" value="'.$weaponsRow['name'].'" class="button" > <input type="image" name="weaponImage" value='.$weaponsRow['weaponTypeId'].' src=assets/resources/weapons/'.$weaponsRow['weaponTypeId'].'.png height="20" width="20">'.$createFlag . $finalFlag
                         ."<td BGCOLOR='$rareColorsRow[color]'><center>$weaponsRow[rare]</center>" 
                         ."<td><center>$weaponsRow[attack]</center></td>"
                         ."<td BGCOLOR='$elemBg'><center><input type ='image' name='elementImage' value=$elemType src=assets/resources/elements/$elemType.png height='20' width='20'></center></td>"
@@ -1020,6 +837,209 @@
             //END WEAPON SECTION
             //*****************************************
             echo("</div>"); //section
+
+            echo("<div id='aside'>");
+
+
+            //*****************************************
+            //ARMORY SECTION
+            //*****************************************
+            //******
+            //grab armory data
+            //******
+
+            if($armoryShowCheck=='checked'){
+                echo ("<H2>Armory</H2>");
+                $sql = 'SELECT *
+                        FROM armory';
+                $armoryTableResult = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; armory table error');
+                //$armoryTableRow=mysqli_fetch_array($armoryTableResult);
+
+            //******
+            //create armory table
+            //******
+
+                echo("<table class='data wish'>");
+                echo("<tr class='dataTh'>
+                    <th style='width: 95%;'>Name</th>
+                    </tr>");
+                while($row=mysqli_fetch_array($armoryTableResult))
+                {
+                    //$armoryName=str_replace('\'','&#39;',$row['name']);
+                    echo("<tr>"); //new table row
+                    //echo "<td>" . $row['name']
+                    echo '<td><input type="submit" name="weaponPath" value="'.$row['name'].'" class="button" > '
+                    . " <input type='image' name='searchClick' onclick = 'this.form.submit()' src=assets/resources/ui/search.png height='15' width='15' value='".$row['name']."'>"
+                    . " <input type='image' name='armoryDelete' onclick = 'this.form.submit()' src=assets/resources/ui/delete.png height='15' width='15' value='".$row['name']."'>";
+                    //. "<td> Delete";
+                    //. '<td><input type="submit" name="armoryDelete" value='.$row['id'].' class="button" > ';
+
+                //echo $row['name'];
+                }
+                echo("</table>");
+
+            }
+
+
+            //*****************************************
+            //END ARMORY SECTION
+            //*****************************************
+
+
+
+            //*****************************************
+            //WISHLIST SECTION
+            //*****************************************
+            //******
+            //grab wishlist data
+            //******
+            if($wishlistShowCheck=='checked'){
+                echo ("<H2>Wish List</H2>");
+                $sql = 'SELECT *
+                        FROM wishlist';
+                $wishlistTableResult = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; wishlist table error');
+                //$wishlistTableRow=mysqli_fetch_array($wishlistTableResult);
+
+            //******
+            //create armory table
+            //******
+
+                echo("<table class='data wish'>");
+                echo("<tr class='dataTh'>
+                    <th style='width: 95%;'>Name</th>
+                    </tr>");
+                while($row=mysqli_fetch_array($wishlistTableResult))
+                {
+                    //$wishName=str_replace('\'','&#39;',$row['name']);
+                    echo("<tr>"); //new table row
+                    echo '<td><input type="submit" name="weaponPath" value="'.$row['name'].'" class="button" > '
+                    . " <input type='image' name='searchClick' onclick = 'this.form.submit()' src=assets/resources/ui/search.png height='15' width='15' value='".$row['name']."'>"
+                    . " <input type='image' name='wishDelete' onclick = 'this.form.submit()' src=assets/resources/ui/delete.png height='15' width='15' value='".$row['name']."'>";
+                //echo $row['name'];
+                }
+                echo("</table>");
+
+            }
+
+
+            //*****************************************
+            //END WISHLIST SECTION
+            //*****************************************
+
+
+
+            //*****************************************
+            //UPGRADE PATH SECTION
+            //*****************************************
+                if ($weaponPath){
+                    $pathName=str_replace('\'','&#39;',$weaponPath);
+
+                    //use $pathName in sql
+                    //use $weaponPath in output
+                    $sql = 'SELECT id
+                            , name
+                            , rare
+                            , final
+                            , COALESCE(hierarchy,\'N/A\') AS hierarchy
+                        FROM weapondata
+                        WHERE name like \''.$pathName.'\'';
+
+                    $resultHierarchy = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; hierarchy error');
+                    $rowHierarchy=mysqli_fetch_array($resultHierarchy);
+
+                    $hierarchy = str_getcsv($rowHierarchy['hierarchy']);
+                    $id=$rowHierarchy['id'];
+
+                    $count=count($hierarchy);
+
+                    if ($rowHierarchy['final']==1) {$finalFlag = '<sup>F</sup>';
+                    } else {$finalFlag = null;}
+
+                    echo("<H2>Upgrade Path</H2>");
+                    echo("<table class='nav'>");
+
+                    //from end of hierarchy array
+                    for($i=count($hierarchy)-1;$i>-1;$i--)
+                    {
+                        if ($hierarchy[$i]!='N/A' && $hierarchy[$i]!=''){
+
+                        //return rarity from weapondata table where name=hierarchy[i]
+                        $sql = 'SELECT rare, id, final
+                            FROM weapondata
+                            WHERE name= \'' . $hierarchy[$i] . '\'';
+//                            WHERE name= \'' . $pathName . '\'';
+                        $result2 = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
+                        $row2=mysqli_fetch_array($result2);
+
+                        //weapons in path
+                        echo '<tr><td class=navTdTh><input type="submit" name="weaponPath"  value="'.$hierarchy[$i].'" class="button" >'
+                        . '<sup>'.$row2['rare'].'</sup>'
+                        . " <input type='image' name='searchClick' onclick = 'this.form.submit()' height='15' width='15' src=assets/resources/ui/search.png value='".$rowHierarchy['name']."'>"
+                        . '</tr>';
+
+                        //down arrow
+                            echo("<tr><td class='navTdTh'><center>&darr;</center></td></tr>");
+                        }
+                    }
+
+                    $sql = 'SELECT rare, name
+                        FROM weapondata
+                        WHERE id=' . $id;
+                    $result3 = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; rare error 2');
+                    $row3=mysqli_fetch_array($result3);
+
+                    //selected weapon
+                    echo '<tr><td class=navTdTh><input type="submit" name="weaponPath" value="'.$rowHierarchy['name'].'" class="button" >'
+                        . '<sup>'.$row3['rare'] . ' ' . $finalFlag . '</sup>'
+                        . " <input type='image' name='searchClick' onclick = 'this.form.submit()' height='15' width='15' src=assets/resources/ui/search.png value='".$rowHierarchy['name']."'>"
+                        . '</tr>';
+
+
+                    echo("<tr><th class='navTdTh'><br></th></tr>");
+                    echo("<tr class='dataTh'><th>Upgrades To</th></tr>");
+
+                    $sql = 'SELECT count(wt1.name) cnt
+                                , wt1.name
+                                , wt2.name nextWeapon
+                                , wt2.rare nextWeaponRare
+                                , wt2.id nextId
+                                , wt2.final nextFinal
+                            FROM weapondata wt1
+                            JOIN weapondata wt2
+                            ON wt2.parentId=wt1.id
+                            WHERE wt1.id=' . $id;
+                    $result4 = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
+
+
+                    while($upgradesTo=mysqli_fetch_array($result4)){
+
+                        //final check
+                        if ($upgradesTo['nextFinal']==1) {$finalFlag = '<sup>F</sup>';
+                        } else {$finalFlag = null;}
+
+                        if($upgradesTo['cnt']==0){
+                            echo '<td class=navTdTh>Cannot be upgraded further</tr>';
+                        } else {
+                            //weapons selected weapon can upgrade to
+                            echo '<td class=navTdTh><input type="submit" name="weaponPath" value="'.$upgradesTo['nextWeapon'].'" class="button" >'
+                            . '<sup>'.$upgradesTo['nextWeaponRare'] . ' ' . $finalFlag . '</sup>'
+                            . "<input type='image' name='searchClick' onclick = 'this.form.submit()' height='15' width='15' src=assets/resources/ui/search.png value='".$rowHierarchy['name']."'>"
+                            . '</tr>';
+                        }
+                    }
+                    echo("</table>");
+                }
+
+
+            //*****************************************
+            //END UPGRADE PATH SECTION
+            //*****************************************
+
+            echo("</div>");
+
+
+
+
             echo("</div>"); //wrapper
 
             echo("<div id='footer'>");
@@ -1027,6 +1047,7 @@
                 echo("<a href='#top'>Back to top</a>");
 
             echo("</div>"); //wrapper
+
         ?>
     </form>
 </body>

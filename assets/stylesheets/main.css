@@ -12,8 +12,6 @@ body {
         background:#253E66;
 }
 
-
-
 h2 {
         background:#E3DFD7;
         border-radius: 6px;
@@ -57,7 +55,6 @@ input, select {
         margin-top: 2%;
 }
 
-
 .dataTh {
         background-color: green;
         color: white;
@@ -90,16 +87,11 @@ input, select {
         cursor: pointer;
 }
 
-.mapImage:hover {
-        cursor: crosshair;
-}
 
 .button {
-
         border:none;
 	background:#86C093;
-
-        }
+}
 
 .button:hover{
         color:blue;
@@ -107,6 +99,18 @@ input, select {
         font-weight: bold;
         }
 
+#ex2 img:hover {
+        cursor: url(assets/resources/cursors/grab.cur), default;
+        }
+
+#ex2 img:active {
+        cursor: url(assets/resources/cursors/grabbed.cur), default;
+        }
+
+.zoom {
+        display:inline-block;
+        position: relative;
+}
 
 #wrapper.clearfix:after {
         clear: both;
@@ -150,44 +154,44 @@ input, select {
 }
 
 .sharpness-bar {
-    border: 1px #d3d3d3 solid;
- min-width: 92px;
-             height: 10px;
-    background-color: #d3d3d3;
-    float: left;
-    clear: both;
+        border: 1px #d3d3d3 solid;
+        min-width: 92px;
+        height: 10px;
+        background-color: #d3d3d3;
+        float: left;
+        clear: both;
 }
 
 .sharpness-bar span {
-    display: inline-block;
-    height: 100%;
-    float: left;
+        display: inline-block;
+        height: 100%;
+        float: left;
 }
 
 .sharpness-bar .red {
-    background-color: #C00C38;
+        background-color: #C00C38;
 }
 
 .sharpness-bar .orange {
-    background-color: #E85018;
+        background-color: #E85018;
 }
 
 .sharpness-bar .yellow {
-    background-color: #F0C830;
+        background-color: #F0C830;
 }
 
 .sharpness-bar .green {
-    background-color: #58D000;
+        background-color: #58D000;
 }
 
 .sharpness-bar .blue {
-    background-color: #3068E8;
+        background-color: #3068E8;
 }
 
 .sharpness-bar .white {
-    background-color: #F0F0F0;
+        background-color: #F0F0F0;
 }
 
 .sharpness-bar .purple {
-    background-color: #c3c;
+        background-color: #c3c;
 }
