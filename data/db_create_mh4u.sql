@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2015 at 04:12 AM
+-- Generation Time: Apr 09, 2015 at 03:22 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -3210,10 +3210,9 @@ CREATE TABLE IF NOT EXISTS `armory` (
 --
 
 INSERT INTO `armory` (`id`, `weaponTypeId`, `name`, `created`, `final`, `rare`) VALUES
-(6, 1, 'Ravager Blade+', 1, 0, 3),
-(19, 1, 'Blood Shock', 0, 1, 9),
-(20, 1, 'Santoku Reaver', 1, 0, 2),
-(1212, 7, 'Brimstren Draketail', 0, 0, 6);
+(1, 1, 'Iron Sword', 1, 0, 1),
+(2, 1, 'Iron Sword+', 0, 0, 1),
+(10, 1, 'Grandglory Blade', 0, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -45539,7 +45538,7 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
 
 INSERT INTO `wishlist` (`id`, `weaponTypeId`, `name`, `created`, `final`, `rare`) VALUES
 (1, 1, 'Iron Sword', 1, 0, 1),
-(799, 5, 'Bleeding Basher', 0, 0, 6),
+(2, 1, 'Iron Sword+', 0, 0, 1),
 (1136, 7, 'Megadrill Lance', 0, 0, 5),
 (1208, 7, 'Demon Lance', 0, 0, 6),
 (1212, 7, 'Brimstren Draketail', 0, 0, 6),

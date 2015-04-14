@@ -5,6 +5,18 @@ MH4U Database Companion
 =======
 What's New
 
+2015-04-07
+
+- Clicking search in the wishlist now populates the weapon type dropdown correctly.
+- More mobile styling
+- Upgrade path updates
+  * Replaced checkboxes with treasure chest (inventory) and checklist/clipboard (wishlist)
+  * Icons now each have their own columns
+- Formatted Inventory page
+  * Icons now each have their own column
+  * Search (left) and delete (right) separated
+  
+
 2015-04-06
 
 - More mobile styling

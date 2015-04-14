@@ -1,16 +1,4 @@
 <table class='data'>
-    <colgroup>
-        <col width="5%"><col width="5%">
-        <col width="5%"><col width="5%">
-        <col width="5%"><col width="5%">
-        <col width="5%"><col width="5%">
-    </colgroup>
-    <tr class='dataTh'>
-        <th colspan=5>Tree</th>
-        <th colspan=5>Name</th>
-        <th colspan=5>Points</th>
-        <th colspan=5>Description</th>
-    </tr>
     Jump to:
     <?php
         $letters=array();
@@ -21,14 +9,14 @@
             if (!in_array($nextLetter, $letters)) {
                 $letters[]=$nextLetter;
                 echo("<a href='#".$nextLetter."'>".$nextLetter."</a>"."&nbsp;");
-                echo("<tr><td colspan=20><a name='".$nextLetter."' class='menu'><a href='#top'>Back to top</a><h3>".$nextLetter."</h3></a></td></tr>");
+                echo("<tr><td colspan=4 class='navTdTh'><a name='".$nextLetter."'><a href='#top'>Back to top</a><h3>".$nextLetter."</h3></a></td></tr>");
             }
 
             echo("<tr>")
-                ."<td colspan=5><input type='submit' name='armorLoad' value='".$row['treeName']."' class='button' >"
-                ."<td colspan=5>" . $row['skillName']
-                ."<td colspan=5>" . $row['requiredSkillTreePoints']
-                ."<td colspan=5>" . $row['description']
+                ."<td><input type='submit' name='armorLoad' value='".$row['treeName']."' class='button'>"
+                ."<td>" . $row['skillName']
+                ."<td>" . $row['requiredSkillTreePoints']
+                ."<td>" . $row['description']
             ."</tr>";
         }
     ?>

@@ -17,13 +17,7 @@
             require_once('assets/modules/weapons/hidden_inputs.php');
             require_once('assets/modules/weapons/vars.php');
             require_once('assets/modules/weapons/reset_handler.php');
-
-            if(isset($_POST['wishDelete'])){
-                $wishDelete=str_replace('\'','&#39;',$_POST['wishDelete']);
-                $sql = "DELETE FROM wishlist
-                        WHERE id=$wishDelete";
-                $resultWishDelete = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; wish delete error');
-            }
+            require_once('assets/modules/weapons/wishlist_delete.php');
         ?>
         <div id='wrapper'>
             <div id='section' <?php if (!$weaponPath){?>style="display:none"<?php } ?>>

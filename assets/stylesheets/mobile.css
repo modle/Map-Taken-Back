@@ -32,6 +32,16 @@ img {
 	height: auto;
 }
 
+.selected{
+/*	font-size:105%;
+	font-weight: bold;
+*/        border:none;
+	background:inherit;
+	font-size:inherit;
+	text-align:left;
+	margin:0;
+}
+}
 .icon {
 	height: 1em;
 	width:  1em;
@@ -48,17 +58,24 @@ img {
 }
 
 .data{
-        /*border: 1px solid black;*/
+        border: 1px solid black;
 	border-bottom:  1px solid black;
 	border-top:  1px solid black;
         width:100% !important;
         border-collapse: collapse;
 	font-size:100%;
 }
+.path{
+        /*border: 1px solid black;*/
+        width:100% !important;
+        /*border-collapse: collapse;*/
+	font-size:100%;
+}
 
 
 .navTdTh {
         border: none;
+        /*border: dashed;*/
 }
 
 .textTd {
@@ -78,9 +95,8 @@ img {
         border:none;
 	background:inherit;
 	font-size:inherit;
-	text-align:left;
+	/*text-align:left;*/
 	margin:0;
-
 }
 
 .button:hover{

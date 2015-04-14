@@ -37,13 +37,24 @@
 
 
         if(isset($_POST['searchClick'])){
-            $weaponSearch=str_replace('\'','&#39;',$_POST['searchClick']);
-        } else {$weaponSearch=str_replace('\'','&#39;',$_POST['weaponName']);}
-
-        if(isset($_POST['weaponImage'])) {
-            $weaponType=$_POST['weaponImage'];
-        } else {$weaponType=$_POST['weaponType'];
+            $searchClickCSV = str_getcsv($_POST['searchClick']);
+            $sql='SELECT name
+                FROM weapondata
+                WHERE id='.$searchClickCSV[0];
+            
+            $searchResultName = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; searchresultname table error');
+            $row=mysqli_fetch_array($searchResultName);
+            $weaponSearch=str_replace('\'','&#39;',$row['name']);
+            
+            $weaponType=$searchClickCSV[1];
+        } else {
+            $weaponSearch=str_replace('\'','&#39;',$_POST['weaponName']);
+        
+            if(isset($_POST['weaponImage'])) {
+                $weaponType=$_POST['weaponImage'];
+            } else {$weaponType=$_POST['weaponType'];}
         }
+
 
         if(isset($_POST['minRaritySelect'])) {
             $minRaritySelect=$_POST['minRaritySelect'];

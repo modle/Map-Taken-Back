@@ -1,6 +1,6 @@
 <?php
     if((isset($_POST['wish'.$weaponsRow['id']])) && $_POST['wish'.$weaponsRow['id']]==1){
-        //add to armory table
+        //add to wishlist
         $sql = "INSERT IGNORE INTO wishlist (id, weaponTypeId, name, created, final, rare)
                 VALUES(
                     '$weaponsRow[id]'

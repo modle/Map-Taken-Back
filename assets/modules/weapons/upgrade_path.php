@@ -29,7 +29,7 @@
 
         echo("<H2>Upgrade Path</H2>");
         echo("<td class='navTdTh'><input type='submit' value='Hide Upgrade Path' name='Clear'/><br><br>");
-        echo("<table class='nav'>");
+        echo("<table class='path'>");
 
         //from end of hierarchy array
         for($i=count($hierarchy)-1;$i>-1;$i--)
@@ -44,35 +44,36 @@
                 $row2=mysqli_fetch_array($result2);
 
                 //weapons in path
-                echo '<tr><td class=navTdTh><input type="submit" name="weaponPath"  value="'.$hierarchy[$i].'" class="button" >'
-                . '<sup>'.$row2['rare'].'</sup>'
-                . " <input type='image' name='searchClick' onclick = 'this.form.submit()' height='15' width='15' src=assets/resources/ui/search.png value='".$rowHierarchy['name']."'>"
-                ."<input type='hidden' value='0' name='own$row2[id]'/>"
-                ."<input type='hidden' value='0' name='wish$row2[id]'/>"
-                ."<td><input type='checkbox' value='1' name='own$row2[id]' onchange='this.form.submit()' class='checkbox'/>"
-                ."<input type='checkbox' value='1'  name='wish$row2[id]' onchange='this.form.submit()' class='checkbox'/>"
+                echo "<tr><td class=navTdTh><input type='image' name='searchClick' onclick = 'this.form.submit()' class='icon' src=assets/resources/ui/search.png value='".$rowHierarchy['name']."'>"
+                .'<td class=navTdTh><input type="submit" name="weaponPath"  value="'.$hierarchy[$i].'" class="button" >'
+                .'<td class=navTdTh>'.$row2['rare']
+                ."<td class=navTdTh><input type='image' name='own$row2[id]' onclick='this.form.submit()' class='icon' src=assets/resources/ui/armory.png value='1'>"
+                ."<td class=navTdTh><input type='image' name='wish$row2[id]' onclick='this.form.submit()' class='icon' src=assets/resources/ui/wish.png value='1'>"
                 . '</tr>'
                 ;
                 //down arrow
-                    echo("<tr><td class='navTdTh'><center>&darr;</center></td></tr>");
+                echo("<tr><td class=navTdTh><td class=navTdTh>&darr;</td></tr>");
             }
         }
 
-        $sql = 'SELECT rare, name
+        $sql = 'SELECT rare, id, name
                 FROM weapondata
                 WHERE id=' . $id;
         $result3 = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; rare error 2');
         $row3=mysqli_fetch_array($result3);
 
         //selected weapon
-        echo '<tr><td class=navTdTh><input type="submit" name="weaponPath" value="'.$rowHierarchy['name'].'" class="button" >'
-            . '<sup>'.$row3['rare'] . ' ' . $finalFlag . '</sup>'
-            . " <input type='image' name='searchClick' onclick = 'this.form.submit()' height='15' width='15' src=assets/resources/ui/search.png value='".$rowHierarchy['name']."'>"
-            . '</tr>';
+        echo '<tr>'
+            ."<td class=navTdTh><input type='image' name='searchClick' onclick = 'this.form.submit()' class='icon' src=assets/resources/ui/search.png value='".$rowHierarchy['name']."'>"
+            .'<td class=navTdTh><input type="submit" name="weaponPath" value="'.$rowHierarchy['name'].'" class="selected" >'
+            .'<td class=navTdTh>'.$row3['rare'] . ' ' . $finalFlag . '</td>'
+            ."<td class=navTdTh><input type='image' name='own$row3[id]' onclick='this.form.submit()' class='icon' src=assets/resources/ui/armory.png value='1'>"
+            ."<td class=navTdTh><input type='image' name='wish$row3[id]' onclick='this.form.submit()' class='icon' src=assets/resources/ui/wish.png value='1'>"
+            .'</tr>';
 
 
         echo("<tr><th class='navTdTh'><br></th></tr>");
-        echo("<tr class='dataTh'><th>Upgrades To</th></tr>");
+        echo("<tr class=dataTh><th class=navTdTh></th><th>Upgrades To</th></tr>");
 
         $sql = 'SELECT count(wt1.name) cnt
                     , wt1.name
@@ -94,13 +95,13 @@
         } else {$finalFlag = null;}
 
         if($upgradesTo['cnt']==0){
-            echo '<td class=navTdTh>Cannot be upgraded further</tr>';
+            echo '<td class=navTdTh><td class=navTdTh>Cannot be upgraded further</tr>';
         } else {
             //weapons selected weapon can upgrade to
-            echo '<td class=navTdTh><input type="submit" name="weaponPath" value="'.$upgradesTo['nextWeapon'].'" class="button" >'
-            . '<sup>'.$upgradesTo['nextWeaponRare'] . ' ' . $finalFlag . '</sup>'
-            . "<input type='image' name='searchClick' onclick = 'this.form.submit()' height='15' width='15' src=assets/resources/ui/search.png value='".$rowHierarchy['name']."'>"
-            . '</tr>';
+            echo "<td class=navTdTh><input type='image' name='searchClick' onclick = 'this.form.submit()' class='icon' src=assets/resources/ui/search.png value='".$rowHierarchy['name']."'>"
+            .'<td class=navTdTh><input type="submit" name="weaponPath" value="'.$upgradesTo['nextWeapon'].'" class="button" >'
+            .'<td class=navTdTh>'.$upgradesTo['nextWeaponRare'] . ' ' . $finalFlag . '</sup>'
+            .'</tr>';
             }
         }
         echo("</table>");

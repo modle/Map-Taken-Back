@@ -1,10 +1,4 @@
 <table class='data' style='width:100%;'>
-    <tr class='dataTh'>
-        <th colspan=1>Name</th>
-        <th colspan=1>Goal</th>
-        <th colspan=1>Type</th>
-        <th colspan=1>Location</th>
-    </tr>
     Jump to:<br>
     <?php
         $jumps=array();
