@@ -72,12 +72,16 @@ input, select {
 }
 
 #aside,
-#section{
+#section,
+#main{
         border-radius: 6px;
         text-align: center;
 	padding:0.5%;
 	background:#86C093;
+        margin-right:2%;
+        margin-left:2%;
 }
+
 
 .range:hover {
         cursor: e-resize;
@@ -128,7 +132,6 @@ input, select {
         width: 22%;
         padding-bottom:25px;
         display: block;
-        margin-right:2%;
         margin-left:1%;
 }
 
@@ -138,8 +141,9 @@ input, select {
         padding-bottom:25px;
         display: block;
         margin-right:1%;
-        margin-left:2%;
 }
+
+
 
 #footer{
 	width:100%;
