@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <title>Weapon Path</title>
+    <link rel="stylesheet" type="text/css" href="mh4u_css_styles.css">
     <script type="text/javascript" src="mh4u_jsFunctions.js"></script>
 </head>
 <body>
