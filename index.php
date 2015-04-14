@@ -26,8 +26,10 @@
             }
         ?>
         <div id='wrapper'>
-            <div id='section'>
+            <div id='section' <?php if (!$weaponPath){?>style="display:none"<?php } ?>>
                 <?php require_once('assets/modules/weapons/upgrade_path.php'); ?>
+            </div>
+            <div id='section'>
                 <!--default values, to handle post when weapon checkbox is re-checked-->
                 <?php require_once('assets/modules/weapons/default_values.php'); ?>
 

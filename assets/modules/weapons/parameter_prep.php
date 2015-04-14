@@ -24,11 +24,11 @@
     $rareColorsRow=mysqli_fetch_array($colorResult);
 
     //create check
-    if ($weaponsRow['created']==1) {$createFlag = '<sub>C</sub>';
+    if ($weaponsRow['created']==1) {$createFlag = 'C';
     } else {$createFlag = null;}
 
     //final check
-    if ($weaponsRow['final']==1) {$finalFlag = '<sub>F</sub>';
+    if ($weaponsRow['final']==1) {$finalFlag = 'F';
     } else {$finalFlag = null;}
 
     //show awaken as raw if checkbox unchecked

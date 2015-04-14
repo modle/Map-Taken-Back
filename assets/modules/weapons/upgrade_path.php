@@ -2,6 +2,7 @@
 
     if ($weaponPath)
     {
+
         $pathName=str_replace('\'','&#39;',$weaponPath);
 
         //use $pathName in sql
@@ -27,7 +28,7 @@
 
 
         echo("<H2>Upgrade Path</H2>");
-        echo("<td class='navTdTh'><center><input type='submit' value='Hide Upgrade Path' name='Clear'/></center>");
+        echo("<td class='navTdTh'><input type='submit' value='Hide Upgrade Path' name='Clear'/><br><br>");
         echo("<table class='nav'>");
 
         //from end of hierarchy array
@@ -46,8 +47,12 @@
                 echo '<tr><td class=navTdTh><input type="submit" name="weaponPath"  value="'.$hierarchy[$i].'" class="button" >'
                 . '<sup>'.$row2['rare'].'</sup>'
                 . " <input type='image' name='searchClick' onclick = 'this.form.submit()' height='15' width='15' src=assets/resources/ui/search.png value='".$rowHierarchy['name']."'>"
-                . '</tr>';
-
+                ."<input type='hidden' value='0' name='own$row2[id]'/>"
+                ."<input type='hidden' value='0' name='wish$row2[id]'/>"
+                ."<td><input type='checkbox' value='1' name='own$row2[id]' onchange='this.form.submit()' class='checkbox'/>"
+                ."<input type='checkbox' value='1'  name='wish$row2[id]' onchange='this.form.submit()' class='checkbox'/>"
+                . '</tr>'
+                ;
                 //down arrow
                     echo("<tr><td class='navTdTh'><center>&darr;</center></td></tr>");
             }

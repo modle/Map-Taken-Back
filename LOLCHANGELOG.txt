@@ -5,6 +5,18 @@ MH4U Database Companion
 =======
 What's New
 
+2015-04-06
+
+- More mobile styling
+  * Fixed some table data overflow problems
+  * removed side borders on td elements
+  * changed many of the sizes to em
+  * made an icon class
+    + replaced many of the hardcoded icon size styles
+  
+
+
+
 2015-04-05
 
 - Added quests page

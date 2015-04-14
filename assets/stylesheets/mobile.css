@@ -6,16 +6,20 @@ html,
 body {
 	margin:0;
         height:100%;
-        font: 10px/20px "Source Code Pro", Inconsolata, "Lucida Console", Terminal, "Courier New", Courier;
-        background:#253E66;
+        font:1em Verdana, Geneva, sans-serif;
+	background:#253E66;
+}
+
+th, td {
+	border-bottom:  1px solid black;
+	border-top:  1px solid black;
 }
 
 h2 {
         background:#E3DFD7;
-        border-radius: 6px;
-        padding: 1%;
         margin: 0;
-	margin-bottom:  1.5%;
+	margin-bottom:1%;
+	font-size:0.5em;
 }
 
 h3 {
@@ -24,52 +28,41 @@ h3 {
 }
 
 img {
-        /*max-width: 96%;*/
-	/*max-height:  50%;*/
 	max-width:100%;
 	height: auto;
-
 }
 
-input, select {
-        font-family: Lucida Console;
+.icon {
+	height: 1em;
+	width:  1em;
 }
 
 .nav {
         border: none;
         max-width:98%;
-        margin: 0 1%;
+        /*margin: 0 1%;*/
         border-collapse: collapse;
         margin-left:auto;
         margin-right:auto;
+	font-size: inherit;
 }
 
-.weaponTable {
-        width: 100%;
-}
-
-.data, th, td {
-        border: 1px solid black;
-        max-width:98%;
-        margin: 0 1%;
+.data{
+        /*border: 1px solid black;*/
+	border-bottom:  1px solid black;
+	border-top:  1px solid black;
+        width:100% !important;
         border-collapse: collapse;
-        margin-left:auto;
-        margin-right:auto;
+	font-size:100%;
 }
 
-.dataTh {
-        background-color: green;
-        color: white;
-}
 
 .navTdTh {
         border: none;
 }
 
-.wish {
-        min-width:98%;
-        margin-bottom:5%;
-        margin-top: 2%;
+.textTd {
+	text-align: left;
 }
 
 .range:hover {
@@ -83,13 +76,16 @@ input, select {
 
 .button {
         border:none;
-	background:#86C093;
+	background:inherit;
+	font-size:inherit;
+	text-align:left;
+	margin:0;
+
 }
 
 .button:hover{
         color:blue;
         cursor: pointer;
-        font-weight: bold;
 }
 
 .zoom {
@@ -109,13 +105,12 @@ input, select {
 	background:#C29D4E;
         padding: 2%;
         text-align: center;
-	font-size: 200%;
-        margin-bottom:2.5%;
+	font-size: 1.5em;
+	margin-bottom:1.5%;
 }
 
 #title {
         background:#E3DFD7;
-        /*padding: 1%;*/
 	text-align: center;
 	font-weight: bold;
 }
@@ -123,14 +118,10 @@ input, select {
 #aside,
 #section,
 #main{
-        border-radius: 6px;
         text-align: center;
-	padding:0.5%;
 	background:#86C093;
-        margin-right:2%;
-        margin-left:2%;
 	margin-bottom:1.5%;
-	padding-bottom:1.5%
+	padding-bottom:1.5%;
 }
 
 #wrapper.clearfix:after {
@@ -142,6 +133,7 @@ input, select {
 	position:relative;
         margin: 0 auto;
         overflow:auto;
+	width:100%;
 }
 
 #aside {

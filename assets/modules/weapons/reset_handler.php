@@ -12,8 +12,8 @@
         $createFilter=0;
         $finalCheck='';
         $finalFilter=0;
-        $awakenCheck='checked';
-        $awakenFilter=1;
+        $awakenCheck=null;
+        $awakenFilter=0;
 
         $minRaritySelect=1;
         $maxRaritySelect=10;

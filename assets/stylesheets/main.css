@@ -6,9 +6,7 @@ html,
 body {
 	margin:0;
         height:100%;
-        font: 14px/24px "Source Code Pro", Inconsolata, "Lucida Console", Terminal, "Courier New", Courier;
-        /*padding: 15px 15px;*/
-        /*background-color: #3193A5;*/
+        font:1em Verdana, Geneva, sans-serif;
         background:#253E66;
 }
 
@@ -25,25 +23,24 @@ h3 {
 }
 
 img {
-        /*max-width: 96%;*/
+        max-width:100%;
+	height: auto;
+
 }
 
-input, select {
-        font-family: Lucida Console;
+.icon {
+	height: 1em;
+	width:  1em;
 }
 
 .nav {
         border: none;
         max-width:98%;
-        margin: 0 1%;
+        /*margin: 0 1%;*/
         border-collapse: collapse;
         margin-left:auto;
         margin-right:auto;
-}
-
-
-.weaponTable {
-        width: 100%;
+	font-size: inherit;
 }
 
 .data, th, td {
@@ -55,19 +52,8 @@ input, select {
         margin-right:auto;
 }
 
-.dataTh {
-        background-color: green;
-        color: white;
-}
-
 .navTdTh {
         border: none;
-}
-
-.wish {
-        min-width:98%;
-        margin-bottom:5%;
-        margin-top: 2%;
 }
 
 .range:hover {
@@ -105,14 +91,14 @@ input, select {
 
 #navigation {
 	background:#C29D4E;
-        padding: 10px;
+        padding: 2%;
         text-align: center;
-        margin-bottom:15px;
+	font-size: 1em;
+        margin-bottom:2.5%;
 }
 
 #title {
         background:#E3DFD7;
-        /*padding: 1%;*/
 	text-align: center;
 	font-weight: bold;
 }
@@ -137,6 +123,7 @@ input, select {
 	position:relative;
         margin: 0 auto;
         overflow:auto;
+	width:100%;
 }
 
 #aside {
@@ -159,7 +146,6 @@ input, select {
 	width:100%;
 	height:25px;
 	position:relative;
-        /*padding-top:25px;*/
         background:#E3DFD7;
 	bottom:0;
         left:0;
