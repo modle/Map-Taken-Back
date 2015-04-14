@@ -26,7 +26,7 @@
             $separatorTwo=null;
             $separatorThree=null;
             $weaknessString="
-                <img src=assets/resources/elements/" . $weaknessOne . ".png height='20' width='20'>";
+                <img src=assets/resources/elements/" . $weaknessOne . ".png class='icon'>";
             break;
         case "2":
             $weaknessOne = substr($monsterDataRow['weakness'],0,3);
@@ -38,9 +38,9 @@
             $separatorThree=null;
 
             $weaknessString="
-                <img src=assets/resources/elements/" . $weaknessOne . ".png height='20' width='20'>
+                <img src=assets/resources/elements/" . $weaknessOne . ".png class='icon'>
                 " . $separatorOne . "
-                <img src=assets/resources/elements/" . $weaknessTwo . ".png height='20' width='20'>";
+                <img src=assets/resources/elements/" . $weaknessTwo . ".png class='icon'>";
             break;
         case "3":
             $weaknessOne = substr($monsterDataRow['weakness'],0,3);
@@ -52,11 +52,11 @@
             $separatorThree=null;
 
             $weaknessString="
-                <img src=assets/resources/elements/" . $weaknessOne . ".png height='20' width='20'>
+                <img src=assets/resources/elements/" . $weaknessOne . ".png class='icon'>
                 " . $separatorOne . "
-                <img src=assets/resources/elements/" . $weaknessTwo . ".png height='20' width='20'>
+                <img src=assets/resources/elements/" . $weaknessTwo . ".png class='icon'>
                 " . $separatorTwo . "
-                <img src=assets/resources/elements/" . $weaknessThree . ".png height='20' width='20'>";
+                <img src=assets/resources/elements/" . $weaknessThree . ".png class='icon'>";
             break;
         case "4":
             $weaknessOne = substr($monsterDataRow['weakness'],0,3);
@@ -68,13 +68,13 @@
             $separatorThree=substr($monsterDataRow['weakness'],11,1);
 
             $weaknessString="
-                <img src=assets/resources/elements/" . $weaknessOne . ".png height='20' width='20'>
+                <img src=assets/resources/elements/" . $weaknessOne . ".png class='icon'>
                 " . $separatorOne . "
-                <img src=assets/resources/elements/" . $weaknessTwo . ".png height='20' width='20'>
+                <img src=assets/resources/elements/" . $weaknessTwo . ".png class='icon'>
                 " . $separatorTwo . "
-                <img src=assets/resources/elements/" . $weaknessThree . ".png height='20' width='20'>
+                <img src=assets/resources/elements/" . $weaknessThree . ".png class='icon'>
                 " . $separatorThree . "
-                <img src=assets/resources/elements/" . $weaknessFour . ".png height='20' width='20'>";
+                <img src=assets/resources/elements/" . $weaknessFour . ".png class='icon'>";
             break;
     }
 ?>

@@ -18,12 +18,7 @@
     if(isset($_POST['postCheck'])) {
         //this calls every post
 
-        //weapon path
-        if(isset($_POST['weaponPath'])){
-            $weaponPath=$_POST['weaponPath'];
-        } else {
-            $weaponPath=null;
-        }
+
 
         //weapons
         if($_POST['createShow']==1){ $createCheck='checked'; $createFilter=1;
@@ -40,16 +35,22 @@
             $searchClickCSV = str_getcsv($_POST['searchClick']);
             $sql='SELECT name
                 FROM weapondata
-                WHERE id='.$searchClickCSV[0];
-            
+                WHERE id='.$searchClickCSV[1];
+
             $searchResultName = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; searchresultname table error');
             $row=mysqli_fetch_array($searchResultName);
             $weaponSearch=str_replace('\'','&#39;',$row['name']);
-            
             $weaponType=$searchClickCSV[1];
         } else {
-            $weaponSearch=str_replace('\'','&#39;',$_POST['weaponName']);
-        
+            //weapon path
+            if(isset($_POST['weaponPath'])){
+                $weaponPath=$_POST['weaponPath'];
+                $weaponSearch=str_replace('\'','&#39;',$_POST['weaponPath']);
+            } else {
+                $weaponPath=null;
+                $weaponSearch=str_replace('\'','&#39;',$_POST['weaponName']);
+            }
+
             if(isset($_POST['weaponImage'])) {
                 $weaponType=$_POST['weaponImage'];
             } else {$weaponType=$_POST['weaponType'];}

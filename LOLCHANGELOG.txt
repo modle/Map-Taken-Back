@@ -5,10 +5,22 @@ MH4U Database Companion
 =======
 What's New
 
+2015-04-12
+
+- weapondata table now has itemId populated
+- updated weapondata id column to match the rest of the database 
+  * i.e. tableName.tableNameId
+
+2015-04-10
+
+- Armor page skill table updates
+  * Stored procedure to pivot skill name with armor slot, and sum the skills for the set
+
+
 2015-04-08
 
 - Armor Sets!
-  * DB did not have armor by set, making the armor page cumbersome
+  * DB did not have armor by set, making the armor page cumbersome and unwieldy
   * Assigned each armor a set name
 
 - Armor page updates  

@@ -1,9 +1,9 @@
 <?php
-    if((isset($_POST['own'.$weaponsRow['id']])) && $_POST['own'.$weaponsRow['id']]==1){
+    if((isset($_POST['own'.$weaponsRow['weaponId']])) && $_POST['own'.$weaponsRow['weaponId']]==1){
         //add to armory table
-        $sql = "INSERT IGNORE INTO armory (id, weaponTypeId, name, created, final, rare)
+        $sql = "INSERT IGNORE INTO armory (weaponId, weaponTypeId, name, created, final, rare)
                 VALUES(
-                    '$weaponsRow[id]'
+                    '$weaponsRow[weaponId]'
                     ,'$weaponsRow[weaponTypeId]'
                     ,'$weaponsRow[name]'
                     ,'$weaponsRow[created]'

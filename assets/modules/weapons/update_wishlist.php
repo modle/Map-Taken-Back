@@ -1,9 +1,9 @@
 <?php
-    if((isset($_POST['wish'.$weaponsRow['id']])) && $_POST['wish'.$weaponsRow['id']]==1){
+    if((isset($_POST['wish'.$weaponsRow['weaponId']])) && $_POST['wish'.$weaponsRow['weaponId']]==1){
         //add to wishlist
-        $sql = "INSERT IGNORE INTO wishlist (id, weaponTypeId, name, created, final, rare)
+        $sql = "INSERT IGNORE INTO wishlist (weaponId, weaponTypeId, name, created, final, rare)
                 VALUES(
-                    '$weaponsRow[id]'
+                    '$weaponsRow[weaponId]'
                     ,'$weaponsRow[weaponTypeId]'
                     ,'$weaponsRow[name]'
                     ,'$weaponsRow[created]'
