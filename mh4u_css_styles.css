@@ -1,0 +1,42 @@
+        .sharpness-bar {
+            border: 1px #d3d3d3 solid;
+         min-width: 92px;
+                     height: 10px;
+            background-color: #d3d3d3;
+            float: left;
+            clear: both;
+        }
+
+        .sharpness-bar span {
+            display: inline-block;
+            height: 100%;
+            float: left;
+        }
+
+        .sharpness-bar .red {
+            background-color: #C00C38;
+        }
+
+        .sharpness-bar .orange {
+            background-color: #E85018;
+        }
+
+        .sharpness-bar .yellow {
+            background-color: #F0C830;
+        }
+
+        .sharpness-bar .green {
+            background-color: #58D000;
+        }
+
+        .sharpness-bar .blue {
+            background-color: #3068E8;
+        }
+
+        .sharpness-bar .white {
+            background-color: #F0F0F0;
+        }
+
+        .sharpness-bar .purple {
+            background-color: #c3c;
+        }
