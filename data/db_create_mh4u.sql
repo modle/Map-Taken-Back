@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2015 at 05:20 AM
+-- Generation Time: Mar 22, 2015 at 10:07 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -31,24 +31,37 @@ USE `mh4u_app`;
 
 DROP TABLE IF EXISTS `areas`;
 CREATE TABLE IF NOT EXISTS `areas` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
-  `name` varchar(80) NOT NULL,
+  `id` int(5) NOT NULL,
+  `name` varchar(25) NOT NULL,
+  `map` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `areas`
 --
 
-INSERT INTO `areas` (`id`, `name`) VALUES
-(1, 'Ancestral Steppe'),
-(2, 'Dunes'),
-(3, 'Dunes (Night)'),
-(4, 'Frozen Seaway'),
-(5, 'Heaven''s Mount'),
-(6, 'Primal Forest'),
-(7, 'Sunken Hollow'),
-(8, 'Volcanic Hollow');
+INSERT INTO `areas` (`id`, `name`, `map`) VALUES
+(1, 'Ancestral Steppe', 'ancestral_steppe.png'),
+(2, 'Sunken Hollow', 'sunken_hollow.png'),
+(3, 'Primal Forest', 'primal_forest.png'),
+(4, 'Frozen Seaway', 'frozen_seaway.png'),
+(5, 'Volcanic Hollow', 'volcanic_hollow.png'),
+(6, 'Heaven''s Mount', 'heavens_mount.png'),
+(7, 'Dunes (D)', 'dunes_day.png'),
+(8, 'Dunes (N)', 'dunes_night.png'),
+(9, 'Sanctuary', NULL),
+(10, 'Great Sea', NULL),
+(11, 'Great Desert', NULL),
+(12, 'Ingle Isle', NULL),
+(13, 'Polar Field', NULL),
+(14, 'Speartip Crag', NULL),
+(15, 'Tower Summit', NULL),
+(16, 'Castle Schrade', NULL),
+(17, 'Battlequarters', NULL),
+(18, 'Arena', NULL),
+(19, 'Slayground', NULL),
+(20, 'Everwood', NULL);
 
 -- --------------------------------------------------------
 
@@ -1650,7 +1663,7 @@ CREATE TABLE IF NOT EXISTS `greatsword` (
 
 INSERT INTO `greatsword` (`id`, `parentId`, `name`, `attack`, `element`, `elementValue`, `created`, `final`, `slot`, `rare`, `affinity`, `defense`, `special`, `awaken`, `red`, `orange`, `yellow`, `green`, `blue`, `white`, `purple`, `redPlus`, `orangePlus`, `yellowPlus`, `greenPlus`, `bluePlus`, `whitePlus`, `purplePlus`, `own`, `hierarchy`) VALUES
 (1, 0, 'Iron Sword', 288, 'RAW', 0, 1, 0, 0, 1, '0.00', 0, '0', 0, 16, 20, 4, 0, 0, 0, 0, 16, 20, 12, 2, 0, 0, 0, 0, ''),
-(2, 1, 'Iron Sword+', 336, 'RAW', 0, 0, 0, 0, 1, '0.00', 0, '0', 0, 18, 14, 8, 0, 0, 0, 0, 18, 14, 16, 2, 0, 0, 0, 0, 'Iron Sword'),
+(2, 1, 'Iron Sword+', 336, 'RAW', 0, 0, 0, 0, 1, '0.00', 0, '0', 0, 18, 14, 8, 0, 0, 0, 0, 18, 14, 16, 2, 0, 0, 0, 1, 'Iron Sword'),
 (3, 2, 'Buster Sword', 384, 'RAW', 0, 0, 0, 0, 1, '0.00', 0, '0', 0, 16, 14, 8, 2, 0, 0, 0, 16, 14, 8, 12, 0, 0, 0, 0, 'Iron Sword+,Iron Sword'),
 (4, 3, 'Buster Sword+', 480, 'RAW', 0, 0, 0, 0, 2, '0.00', 0, '0', 0, 8, 8, 18, 6, 0, 0, 0, 8, 8, 18, 16, 0, 0, 0, 0, 'Buster Sword,Iron Sword+,Iron Sword'),
 (5, 4, 'Ravager Blade', 528, 'RAW', 0, 0, 0, 0, 2, '0.00', 10, '0', 0, 14, 8, 10, 8, 0, 0, 0, 14, 8, 10, 18, 0, 0, 0, 0, 'Buster Sword+,Buster Sword,Iron Sword+,Iron Sword'),
@@ -1658,7 +1671,7 @@ INSERT INTO `greatsword` (`id`, `parentId`, `name`, `attack`, `element`, `elemen
 (7, 6, 'Lacerator Blade', 720, 'FIR', 250, 0, 0, 2, 4, '0.05', 20, '0', 1, 10, 14, 16, 20, 0, 0, 0, 10, 14, 16, 20, 10, 0, 0, 0, 'Ravager Blade+,Ravager Blade,Buster Sword+,Buster Sword,Iron Sword+,Iron Sword'),
 (8, 7, 'Devastator Blade', 768, 'FIR', 380, 0, 0, 3, 5, '0.05', 30, '0', 1, 16, 8, 22, 20, 4, 0, 0, 16, 8, 22, 20, 12, 2, 0, 0, 'Lacerator Blade,Ravager Blade+,Ravager Blade,Buster Sword+,Buster Sword,Iron Sword+,Iron Sword'),
 (9, 8, 'Exemplar Blade', 1104, 'FIR', 400, 1, 0, 3, 8, '0.10', 35, '0', 1, 12, 10, 22, 18, 8, 0, 0, 12, 10, 22, 18, 12, 6, 0, 0, 'Devastator Blade,Lacerator Blade,Ravager Blade+,Ravager Blade,Buster Sword+,Buster Sword,Iron Sword+,Iron Sword'),
-(10, 9, 'Grandglory Blade', 1248, 'FIR', 430, 0, 1, 3, 9, '0.10', 40, '0', 1, 8, 12, 16, 24, 18, 2, 0, 8, 12, 16, 24, 18, 8, 4, 0, 'Exemplar Blade,Devastator Blade,Lacerator Blade,Ravager Blade+,Ravager Blade,Buster Sword+,Buster Sword,Iron Sword+,Iron Sword'),
+(10, 9, 'Grandglory Blade', 1248, 'FIR', 430, 0, 1, 3, 9, '0.10', 40, '0', 1, 8, 12, 16, 24, 18, 2, 0, 8, 12, 16, 24, 18, 8, 4, 1, 'Exemplar Blade,Devastator Blade,Lacerator Blade,Ravager Blade+,Ravager Blade,Buster Sword+,Buster Sword,Iron Sword+,Iron Sword'),
 (11, 6, 'Chrome Razor', 720, 'POI', 300, 0, 0, 1, 4, '0.15', 0, '0', 0, 38, 4, 12, 16, 0, 0, 0, 38, 4, 12, 16, 8, 2, 0, 0, 'Ravager Blade+,Ravager Blade,Buster Sword+,Buster Sword,Iron Sword+,Iron Sword'),
 (12, 11, 'Chrome Quietus', 768, 'POI', 370, 0, 0, 2, 5, '0.20', 0, '0', 0, 30, 4, 16, 18, 2, 0, 0, 30, 4, 16, 18, 8, 4, 0, 0, 'Chrome Razor,Ravager Blade+,Ravager Blade,Buster Sword+,Buster Sword,Iron Sword+,Iron Sword'),
 (13, 12, 'Chrome Hell', 1056, 'POI', 420, 0, 0, 2, 8, '0.20', 0, '0', 0, 18, 8, 22, 14, 8, 0, 0, 18, 8, 22, 14, 12, 6, 0, 0, 'Chrome Quietus,Chrome Razor,Ravager Blade+,Ravager Blade,Buster Sword+,Buster Sword,Iron Sword+,Iron Sword'),
@@ -4622,6 +4635,9 @@ DROP TABLE IF EXISTS `monsters`;
 CREATE TABLE IF NOT EXISTS `monsters` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `monster` varchar(80) NOT NULL,
+  `locationId` int(5) DEFAULT NULL,
+  `startArea` int(5) DEFAULT NULL,
+  `moveAreas` varchar(20) DEFAULT NULL,
   `weakness` varchar(20) NOT NULL,
   `weaknessCount` int(1) NOT NULL,
   `poisonDamage` int(5) NOT NULL,
@@ -4629,80 +4645,125 @@ CREATE TABLE IF NOT EXISTS `monsters` (
   `poisonLimits` varchar(20) NOT NULL,
   `blastDamage` int(5) NOT NULL,
   `blastLimits` varchar(20) NOT NULL,
+  `pitfallTrap` int(1) NOT NULL,
+  `shockTrap` int(1) NOT NULL,
+  `flashBomb` int(1) NOT NULL,
+  `sonicBomb` int(1) NOT NULL,
+  `dungBomb` int(1) NOT NULL,
+  `meat` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=67 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=76 ;
 
 --
 -- Dumping data for table `monsters`
 --
 
-INSERT INTO `monsters` (`id`, `monster`, `weakness`, `weaknessCount`, `poisonDamage`, `poisonDuration`, `poisonLimits`, `blastDamage`, `blastLimits`) VALUES
-(1, 'Akantor', 'DRA>THU', 2, 240, 60, '400/150/1000', 300, '140/75/2015'),
-(2, 'Basarios', 'WAT=DRA', 2, 240, 60, '200/75/500', 200, '130/45/1030'),
-(3, 'Basarios (Ruby)', 'ICE>WAT', 2, 240, 60, '200/75/500', 200, '130/45/1030'),
-(4, 'Brachydios / Raging', 'WAT>ICE', 2, 200, 40, '150/150/750', 100, '200/100/3000'),
-(5, 'Cephadrome', 'ICE>THU', 2, 120, 30, '100/100/400', 100, '70/30/670'),
-(6, 'Chameleos', 'FIR>DRA', 2, 120, 60, '200/75/500', 100, '70/30/670'),
-(7, 'Congalala', 'FIR>ICE', 2, 240, 60, '200/75/500', 100, '70/30/670'),
-(8, 'Congalala (Emerald)', 'ICE>WAT', 2, 240, 60, '200/125/700', 100, '70/30/670'),
-(9, 'Dah''ren Mohran', 'THU>DRA', 2, 0, 0, '0', 500, '140/75/2015'),
-(10, 'Daimyo Hermitaur', 'THU=FIR', 2, 240, 60, '200/75/500', 100, '70/30/670'),
-(11, 'Daimyo Hermitaur (Plum)', 'ICE>THU', 2, 240, 60, '200/75/500', 100, '70/30/670'),
-(12, 'Dalamadur / Shah', 'DRA>ICE=THU', 3, 0, 0, '0', 300, '140/75/2015'),
-(13, 'Deviljho', 'THU=DRA', 2, 360, 45, '100/50/600', 300, '130/45/1030'),
-(14, 'Deviljho (Savage)', 'THU>OTH', 2, 360, 45, '100/50/600', 300, '130/45/1030'),
-(15, 'Diablos / Black', 'ICE>DRA>WAT=THU', 4, 400, 80, '100/50/600', 200, '70/55/1445'),
-(16, 'Fatalis (Crimson)', 'DRA>ICE', 2, 0, 0, '0', 0, '0'),
-(17, 'Fatalis / White', 'DRA>FIR', 2, 0, 0, '0', 0, '0'),
-(18, 'Gendrome', 'ICE>THU', 2, 150, 30, '100/50/300', 100, '70/30/670'),
-(19, 'Gogmazios', 'DRA>FIR', 2, 0, 0, '0', 500, '180/100/2180'),
-(20, 'Gore Magala', 'FIR>DRA', 2, 300, 60, '180/120/660', 100, '70/30/670'),
-(21, 'Gravios', 'WAT>DRA', 2, 240, 60, '150/75/450', 200, '130/45/1030'),
-(22, 'Gravios (Black)', 'WAT', 1, 300, 60, '150/75/450', 200, '130/45/1030'),
-(23, 'Great Jaggi', 'FIR>WAT=ICE=THU', 4, 150, 30, '90/30/300', 100, '55/45/1080'),
-(24, 'Gypceros / Purple', 'FIR>ICE', 2, 200, 40, '250/150/800', 100, '70/30/670'),
-(25, 'Iodrome', 'WAT=THU', 2, 70, 20, '200/100/500', 100, '55/45/1080'),
-(26, 'Kecha Wacha', 'FIR>THU', 2, 200, 40, '150/100/450', 100, '70/30/670'),
-(27, 'Kecha Wacha (Ash)', 'WAT>ICE=THU', 3, 200, 40, '150/100/450', 100, '70/30/670'),
-(28, 'Khezu', 'FIR', 1, 60, 30, '110/75/410', 100, '70/30/670'),
-(29, 'Khezu (Red)', 'WAT', 1, 60, 30, '110/75/410', 100, '70/30/670'),
-(30, 'Kirin', 'FIR=WAT>ICE', 3, 60, 30, '200/90/560', 100, '70/30/670'),
-(31, 'Kirin (Oroshi)', 'FIR=WAT>THU', 3, 60, 30, '200/90/560', 100, '70/70/670'),
-(32, 'Kushala Daora', 'DRA>THU', 2, 240, 120, '150/50/350', 200, '55/45/1090'),
-(33, 'Kushala Daora (Rusted)', 'WAT>DRA', 2, 240, 120, '150/50/350', 200, '55/45/1090'),
-(34, 'Lagombi', 'FIR>THU', 2, 150, 60, '150/60/300', 100, '70/30/670'),
-(35, 'Monoblos / White', 'THU>ICE', 2, 180, 90, '100/75/550', 200, '70/45/1030'),
-(36, 'Najarala', 'ICE>WAT', 2, 120, 60, '230/110/670', 100, '70/30/670'),
-(37, 'Najarala (Tidal)', 'FIR>THU', 2, 120, 60, '230/110/670', 100, '70/30/670'),
-(38, 'Nerscylla', 'FIR>THU', 2, 50, 30, '180/100/580', 100, '40/20/440'),
-(39, 'Nerscylla (Shrouded)', 'ICE>FIR', 2, 50, 30, '180/100/580', 100, '40/20/440'),
-(40, 'Rajang / Furious', 'ICE', 1, 240, 60, '180/80/420', 120, '85/55/1130'),
-(41, 'Rathalos', 'DRA>THU', 2, 150, 60, '180/100/580', 100, '70/30/670'),
-(42, 'Rathalos (Azure)', 'DRA>ICE>THU=WAT', 4, 150, 60, '180/100/580', 100, '70/30/670'),
-(43, 'Rathalos (Silver)', 'WAT>THU>ICE', 3, 150, 60, '180/100/580', 100, '70/20/470'),
-(44, 'Rathian (Gold)', 'THU>WAT', 2, 150, 60, '180/100/580', 100, '70/20/470'),
-(45, 'Rathian / Pink', 'DRA>THU', 2, 150, 60, '180/100/580', 100, '70/30/670'),
-(46, 'Seltas', 'THU>FIR', 2, 150, 60, '100/50/300', 100, '50/40/1050'),
-(47, 'Seltas (Desert)', 'ICE>THU', 2, 150, 60, '100/50/300', 100, '50/40/1050'),
-(48, 'Seltas Queen', 'FIR>ICE', 2, 300, 60, '180/120/660', 100, '40/20/440'),
-(49, 'Seltas Queen (Desert)', 'ICE', 1, 300, 60, '180/120/660', 100, '40/20/440'),
-(50, 'Seregios', 'THU>ICE', 2, 150, 60, '180/100/580', 100, '70/30/670'),
-(51, 'Shagaru Magala', 'DRA>FIR', 2, 300, 60, '180/140/740', 100, '70/30/670'),
-(52, 'Teostra', 'WAT=ICE', 2, 200, 40, '180/100/580', 100, '180/100/2180'),
-(53, 'Tetsucabra', 'WAT>THU', 2, 240, 60, '100/100/500', 100, '55/45/1080'),
-(54, 'Tetsucabra (Berserk)', 'ICE>THU', 2, 240, 60, '100/100/500', 100, '90/90/1080'),
-(55, 'Tigrex', 'THU>DRA>WAT', 3, 240, 60, '180/110/620', 100, '70/30/670'),
-(56, 'Tigrex (Brute)', 'WAT>THU>DRA', 3, 240, 60, '180/110/620', 100, '70/30/670'),
-(57, 'Tigrex (Molten)', 'WAT>ICE', 2, 300, 60, '200/150/800', 50, '180/100/2180'),
-(58, 'Ukanlos', 'FIR>THU>DRA', 3, 150, 60, '400/150/1000', 300, '140/75/2015'),
-(59, 'Velocidrome', 'ICE>FIR=WAT=THU', 4, 150, 30, '80/40/200', 100, '70/30/670'),
-(60, 'Yian Garuga', 'WAT>ICE', 2, 0, 0, '0', 100, '55/45/1090'),
-(61, 'Yian Kut-Ku', 'ICE>THU>WAT', 3, 200, 40, '100/100/400', 100, '130/45/1030'),
-(62, 'Yian Kut-Ku (Blue)', 'WAT>THU>ICE', 3, 200, 40, '150/120/510', 100, '130/45/1030'),
-(63, 'Zamtrios', 'THU>FIR', 2, 300, 60, '150/100/550', 100, '130/45/1030'),
-(64, 'Zamtrios (Tigerstripe)', 'ICE>THU', 2, 360, 60, '150/100/550', 100, '130/45/1030'),
-(65, 'Zinogre', 'ICE>WAT', 2, 200, 40, '180/100/580', 100, '85/50/585'),
-(66, 'Zinogre (Stygian)', 'THU>WAT>ICE', 3, 200, 40, '180/100/580', 100, '60/30/960');
+INSERT INTO `monsters` (`id`, `monster`, `locationId`, `startArea`, `moveAreas`, `weakness`, `weaknessCount`, `poisonDamage`, `poisonDuration`, `poisonLimits`, `blastDamage`, `blastLimits`, `pitfallTrap`, `shockTrap`, `flashBomb`, `sonicBomb`, `dungBomb`, `meat`) VALUES
+(1, 'Akantor', 0, 0, 'NULL', 'DRA>THU', 2, 240, 60, '400/150/1000', 300, '140/75/2015', 0, 0, 2, 1, 0, 0),
+(2, 'Basarios', 0, 0, 'NULL', 'WAT=DRA', 2, 240, 60, '200/75/500', 200, '130/45/1030', 2, 2, 2, 0, 2, 0),
+(3, 'Basarios (Ruby)', 0, 0, 'NULL', 'ICE>WAT', 2, 240, 60, '200/75/500', 200, '130/45/1030', 2, 2, 2, 0, 2, 0),
+(4, 'Brachydios', 4, 3, '6>7>9', 'WAT>ICE', 2, 200, 40, '150/150/750', 100, '200/100/3000', 2, 2, 2, 0, 2, 0),
+(5, 'Brachydios (Raging)', 0, 0, 'NULL', 'WAT>ICE', 2, 200, 40, '150/150/750', 100, '200/100/3000', 0, 0, 2, 0, 2, 0),
+(6, 'Cephadrome', 7, 7, '2', 'ICE>THU', 2, 120, 30, '100/100/400', 100, '70/30/670', 2, 2, 0, 2, 2, 0),
+(7, 'Chameleos', 1, 4, '2>3>6>8', 'FIR>DRA', 2, 120, 60, '200/75/500', 100, '70/30/670', 0, 0, 2, 0, 0, 0),
+(8, 'Congalala', 2, 8, '1>4>6', 'FIR>ICE', 2, 240, 60, '200/75/500', 100, '70/30/670', 2, 2, 2, 0, 2, 2),
+(9, 'Congalala (Emerald)', 1, 2, '3>4>8', 'ICE>WAT', 2, 240, 60, '200/125/700', 100, '70/30/670', 2, 2, 2, 0, 2, 2),
+(10, 'Dah''ren Mohran', 0, 0, 'NULL', 'THU>DRA', 2, 0, 0, '0', 500, '140/75/2015', 0, 0, 0, 0, 0, 0),
+(11, 'Daimyo Hermitaur', 3, 3, '1>4>5', 'THU=FIR', 2, 240, 60, '200/75/500', 100, '70/30/670', 2, 2, 0, 2, 2, 0),
+(12, 'Daimyo Hermitaur (Plum)', 3, 3, '1>4>5', 'ICE>THU', 2, 240, 60, '200/75/500', 100, '70/30/670', 2, 2, 0, 2, 2, 0),
+(13, 'Dalamadur', 0, 0, 'NULL', 'DRA>ICE=THU', 3, 0, 0, '0', 300, '140/75/2015', 0, 0, 0, 0, 0, 0),
+(14, 'Dalamadur (Shah)', 0, 0, 'NULL', 'DRA>ICE=THU', 3, 0, 0, '0', 300, '140/75/2015', 0, 0, 0, 0, 0, 0),
+(15, 'Deviljho', 1, 3, '4>6>8', 'THU=DRA', 2, 360, 45, '100/50/600', 300, '130/45/1030', 2, 2, 2, 0, 2, 2),
+(16, 'Deviljho (Savage)', 1, 3, '4>6>8', 'THU>OTH', 2, 360, 45, '100/50/600', 300, '130/45/1030', 2, 2, 2, 0, 2, 2),
+(17, 'Diablos', 7, 7, '1>2>3>4>10', 'ICE>DRA>WAT=THU', 4, 400, 80, '100/50/600', 200, '70/55/1445', 2, 2, 2, 1, 2, 0),
+(18, 'Diablos (Black)', 7, 7, '1>2>3>4>10', 'ICE>DRA>WAT=THU', 4, 400, 80, '100/50/600', 200, '70/55/1445', 2, 2, 2, 1, 2, 0),
+(19, 'Fatalis', 0, 0, 'NULL', 'DRA>FIR', 2, 0, 0, '0', 0, '0', 0, 0, 0, 0, 0, 0),
+(20, 'Fatalis (Crimson)', 0, 0, 'NULL', 'DRA>ICE', 2, 0, 0, '0', 0, '0', 0, 0, 0, 0, 0, 0),
+(21, 'Fatalis (White)', 0, 0, 'NULL', 'DRA>FIR', 2, 0, 0, '0', 0, '0', 0, 0, 0, 0, 0, 0),
+(22, 'Gendrome', 2, 2, '1>3>4', 'ICE>THU', 2, 150, 30, '100/50/300', 100, '70/30/670', 2, 2, 2, 0, 2, 2),
+(23, 'Gogmazios', 0, 0, 'NULL', 'DRA>FIR', 2, 0, 0, '0', 500, '180/100/2180', 0, 0, 0, 0, 0, 0),
+(24, 'Gravios', 3, 5, '1>2>4', 'WAT>DRA', 2, 240, 60, '150/75/450', 200, '130/45/1030', 2, 2, 2, 0, 2, 0),
+(25, 'Gravios (Black)', 3, 5, '1>2>4', 'WAT', 1, 300, 60, '150/75/450', 200, '130/45/1030', 2, 2, 2, 0, 2, 0),
+(26, 'Great Jaggi', 1, 6, '2>3>4>8', 'FIR>WAT=ICE=THU', 4, 150, 30, '90/30/300', 100, '55/45/1080', 2, 2, 2, 0, 2, 2),
+(27, 'Gypceros', 1, 2, '4>6>7>8', 'FIR>ICE', 2, 200, 40, '250/150/800', 100, '70/30/670', 2, 0, 0, 0, 2, 0),
+(28, 'Gypceros (Purple)', 2, 3, '1>5>6>8', 'FIR>ICE', 2, 200, 40, '250/150/800', 100, '70/30/670', 2, 0, 0, 0, 2, 0),
+(29, 'Iodrome', 3, 5, '2>6', 'WAT=THU', 2, 70, 20, '200/100/500', 100, '55/45/1080', 2, 2, 2, 0, 2, 2),
+(30, 'Kecha Wacha', 1, 4, '2>8', 'FIR>THU', 2, 200, 40, '150/100/450', 100, '70/30/670', 2, 2, 2, 1, 2, 0),
+(31, 'Kecha Wacha (Ash)', 1, 3, '2>4>8', 'WAT>ICE=THU', 3, 200, 40, '150/100/450', 100, '70/30/670', 2, 2, 2, 1, 2, 0),
+(32, 'Khezu', 2, 8, '2>7>9', 'FIR', 1, 60, 30, '110/75/410', 100, '70/30/670', 2, 2, 0, 0, 2, 0),
+(33, 'Khezu (Red)', 2, 8, '2>7>9', 'WAT', 1, 60, 30, '110/75/410', 100, '70/30/670', 2, 2, 0, 0, 2, 0),
+(34, 'Kirin', 0, 0, 'NULL', 'FIR=WAT>ICE', 3, 60, 30, '200/90/560', 100, '70/30/670', 0, 0, 0, 0, 0, 0),
+(35, 'Kirin (Oroshi)', 0, 0, 'NULL', 'FIR=WAT>THU', 3, 60, 30, '200/90/560', 100, '70/70/670', 0, 0, 0, 0, 0, 0),
+(36, 'Kushala Daora', 4, 3, '1>2>9', 'DRA>THU', 2, 240, 120, '150/50/350', 200, '55/45/1090', 0, 0, 2, 0, 0, 0),
+(37, 'Kushala Daora (Rusted)', 0, 0, 'NULL', 'WAT>DRA', 2, 240, 120, '150/50/350', 200, '55/45/1090', 0, 0, 2, 0, 0, 0),
+(38, 'Lagombi', 4, 2, '1>3>6>7>9', 'FIR>THU', 2, 150, 60, '150/60/300', 100, '70/30/670', 2, 2, 2, 1, 2, 0),
+(39, 'Magala (Gore)', 1, 3, '4>5>6>7>8', 'FIR>DRA', 2, 300, 60, '180/120/660', 100, '70/30/670', 2, 2, 0, 0, 0, 0),
+(40, 'Magala (Shagaru)', 0, 0, 'NULL', 'DRA>FIR', 2, 300, 60, '180/140/740', 100, '70/30/670', 0, 0, 2, 0, 0, 0),
+(41, 'Monoblos', 7, 7, '1>2>3>4>10', 'THU>ICE', 2, 180, 90, '100/75/550', 200, '70/45/1030', 2, 2, 2, 2, 2, 0),
+(42, 'Monoblos (White)', 0, 0, 'NULL', 'THU>ICE', 2, 180, 90, '100/75/550', 200, '70/45/1030', 2, 2, 2, 2, 2, 0),
+(43, 'Najarala', 3, 5, '1>3>4', 'ICE>WAT', 2, 120, 60, '230/110/670', 100, '70/30/670', 2, 2, 2, 0, 2, 2),
+(44, 'Najarala (Tidal)', 4, 2, '3>7', 'FIR>THU', 2, 120, 60, '230/110/670', 100, '70/30/670', 2, 2, 2, 0, 2, 2),
+(45, 'Nerscylla', 2, 6, '4', 'FIR>THU', 2, 50, 30, '180/100/580', 100, '40/20/440', 2, 2, 2, 0, 2, 0),
+(46, 'Nerscylla (Shrouded)', 7, 7, '4>10', 'ICE>FIR', 2, 50, 30, '180/100/580', 100, '40/20/440', 2, 2, 2, 0, 2, 0),
+(47, 'Rajang', 1, 4, '2>3>8', 'ICE', 1, 240, 60, '180/80/420', 120, '85/55/1130', 1, 1, 2, 0, 0, 0),
+(48, 'Rajang (Golden)', 1, 4, '2>3>8', 'ICE', 1, 240, 60, '180/80/420', 120, '85/55/1130', 1, 1, 2, 0, 0, 0),
+(49, 'Rathalos', 1, 4, '2>6>7>8', 'DRA>THU', 2, 150, 60, '180/100/580', 100, '70/30/670', 2, 2, 2, 0, 2, 2),
+(50, 'Rathalos (Azure)', 1, 4, '2>6>7>8', 'DRA>ICE>THU=WAT', 4, 150, 60, '180/100/580', 100, '70/30/670', 2, 2, 2, 0, 2, 2),
+(51, 'Rathalos (Silver)', 0, 0, 'NULL', 'WAT>THU>ICE', 3, 150, 60, '180/100/580', 100, '70/20/470', 2, 2, 2, 0, 0, 0),
+(52, 'Rathian', 1, 3, '2>4>6>7>8', 'DRA>THU', 2, 150, 60, '180/100/580', 100, '70/30/670', 2, 2, 2, 0, 2, 2),
+(53, 'Rathian (Gold)', 0, 0, 'NULL', 'THU>WAT', 2, 150, 60, '180/100/580', 100, '70/20/470', 2, 2, 2, 0, 0, 0),
+(54, 'Rathian (Pink)', 2, 9, '1>2>4>5>8', 'DRA>THU', 2, 150, 60, '180/100/580', 100, '70/30/670', 2, 2, 2, 0, 2, 2),
+(55, 'Seltas', 1, 4, '2>3>7>8', 'THU>FIR', 2, 150, 60, '100/50/300', 100, '50/40/1050', 2, 2, 2, 0, 2, 0),
+(56, 'Seltas (Desert)', 1, 4, '2>3>7>8', 'ICE>THU', 2, 150, 60, '100/50/300', 100, '50/40/1050', 2, 2, 2, 0, 2, 0),
+(57, 'Seltas Queen', 1, 4, '2>3>8', 'FIR>ICE', 2, 300, 60, '180/120/660', 100, '40/20/440', 1, 2, 2, 0, 2, 0),
+(58, 'Seltas Queen (Desert)', 7, 4, '7>10', 'ICE', 1, 300, 60, '180/120/660', 100, '40/20/440', 1, 2, 2, 0, 2, 0),
+(59, 'Seregios', 1, 8, '3>4>6>7', 'THU>ICE', 2, 150, 60, '180/100/580', 100, '70/30/670', 2, 2, 2, 0, 2, 2),
+(60, 'Teostra', 5, 2, '8', 'WAT=ICE', 2, 200, 40, '180/100/580', 100, '180/100/2180', 0, 0, 2, 0, 0, 0),
+(61, 'Tetsucabra', 2, 8, '1>2>3', 'WAT>THU', 2, 240, 60, '100/100/500', 100, '55/45/1080', 2, 2, 2, 0, 2, 0),
+(62, 'Tetsucabra (Berserk)', 2, 8, '1>2>3', 'ICE>THU', 2, 240, 60, '100/100/500', 100, '90/90/1080', 2, 2, 2, 0, 2, 0),
+(63, 'Tigrex', 1, 8, '2>3>4>7', 'THU>DRA>WAT', 3, 240, 60, '180/110/620', 100, '70/30/670', 2, 2, 2, 0, 2, 2),
+(64, 'Tigrex (Brute)', 3, 5, '2>3>7>8', 'WAT>THU>DRA', 3, 240, 60, '180/110/620', 100, '70/30/670', 2, 2, 2, 0, 2, 2),
+(65, 'Tigrex (Molten)', 0, 0, 'NULL', 'WAT>ICE', 2, 300, 60, '200/150/800', 50, '180/100/2180', 2, 2, 2, 0, 0, 0),
+(66, 'Ukanlos', 0, 0, 'NULL', 'FIR>THU>DRA', 3, 150, 60, '400/150/1000', 300, '140/75/2015', 0, 0, 2, 1, 0, 0),
+(67, 'Velocidrome', 0, 0, 'NULL', 'ICE>FIR=WAT=THU', 4, 150, 30, '80/40/200', 100, '70/30/670', 2, 2, 2, 0, 2, 2),
+(68, 'Yian Garuga', 0, 0, 'NULL', 'WAT>ICE', 2, 0, 0, '0', 100, '55/45/1090', 1, 2, 2, 0, 2, 0),
+(69, 'Yian Kut-Ku', 0, 0, 'NULL', 'ICE>THU>WAT', 3, 200, 40, '100/100/400', 100, '130/45/1030', 2, 2, 2, 1, 2, 0),
+(70, 'Yian Kut-Ku (Blue)', 1, 3, '2>4>6>7>8', 'WAT>THU>ICE', 3, 200, 40, '150/120/510', 100, '130/45/1030', 2, 2, 2, 1, 2, 0),
+(71, 'Zamtrios', 4, 2, '1>3>6', 'THU>FIR', 2, 300, 60, '150/100/550', 100, '130/45/1030', 2, 2, 2, 1, 2, 0),
+(72, 'Zamtrios (Tigerstripe)', 7, 4, '1>5>7>10', 'ICE>THU', 2, 360, 60, '150/100/550', 100, '130/45/1030', 2, 2, 2, 1, 2, 0),
+(73, 'Zinogre', 3, 3, '1>4>5>8', 'ICE>WAT', 2, 200, 40, '180/100/580', 100, '85/50/585', 2, 2, 2, 0, 2, 0),
+(74, 'Zinogre (Stygian)', 4, 4, '3>5>6>7>9', 'THU>WAT>ICE', 3, 200, 40, '180/100/580', 100, '60/30/960', 2, 2, 2, 0, 2, 0),
+(75, 'Magala (Chaotic Gore )', 6, 6, '1>5>7', 'FIR=DRA>THU=ICE', 4, 0, 0, '0', 0, '0', 2, 2, 0, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rarecolors`
+--
+
+DROP TABLE IF EXISTS `rarecolors`;
+CREATE TABLE IF NOT EXISTS `rarecolors` (
+  `id` int(2) NOT NULL AUTO_INCREMENT,
+  `color` varchar(7) NOT NULL,
+  `rare` int(2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `rarecolors`
+--
+
+INSERT INTO `rarecolors` (`id`, `color`, `rare`) VALUES
+(1, '#FFFFFF', 1),
+(2, '#A050C9', 2),
+(3, '#DAD75B', 3),
+(4, '#E4ADE6', 4),
+(5, '#77DD9A', 5),
+(6, '#667AED', 6),
+(7, '#EE5454', 7),
+(8, '#A4C8FB', 8),
+(9, '#FEBE56', 9),
+(10, '#EA4DF2', 10);
 
 -- --------------------------------------------------------
 
