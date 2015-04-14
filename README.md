@@ -1,22 +1,8 @@
-Inventory Tracker
+Experiments with MySQL and PHP
 =======
 Backlog
-<ol type="1">
-<li><strike>Select table based on item type from dropdown (done)</strike>
-<ol type="a">
-<li><strike>Return to previous table after an item is updated (done)</strike>
-<li><strike>Remove redirects - single page database update (done)</strike>
-</ol>
-
-
-<li><strike>Toggle items between 'have'/'don't have' (done) </strike><br>
-<li>When toggling 'have', also select checkbox indicating item is NOT an upgrade (default: toggle consumed item to 'don't have'; typically items are upgraded rather than obtained mid-path)
-<ol type="a">
-<li>Format data for weapon hierarchy/paths (GS and DS done)
-</ol>
-<li>Based on target input, select likely item candidate
-<ol>
-<li>Monster database, including elemental/status and slash/blunt/pierce weaknesses
-</ol>
-<li>Format for mobile web
-<ol>
+1. Select table based on item type from dropdown (done)<br>
+1a. Return to previous table after an item is updated<br>
+2. Toggle items between 'have'/'don't have' (done)<br>
+3. When toggling 'have', select whether item is an upgrade (toggles preceeding item to 'don't have')<br>
+4. Based on target input, select likely item candidate<br>
