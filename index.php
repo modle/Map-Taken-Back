@@ -90,8 +90,10 @@
                 } else {$weaponName=$_POST['weaponName'];}
 
 
-
-                $weaponType=$_POST['weaponType'];
+                if(isset($_POST['weaponImage'])) {
+                    $weaponType=$_POST['weaponImage'];
+                } else {$weaponType=$_POST['weaponType'];
+                }
 
                 if(isset($_POST['minRaritySelect'])) {
                     $minRaritySelect=$_POST['minRaritySelect'];
@@ -101,8 +103,15 @@
                     $maxRaritySelect=10;
                 }
 
-                $elemFilter=$_POST['elem'];
-                switch($_POST['elem']) {
+
+                if(isset($_POST['elementImage'])) {
+                    $elemFilter=$_POST['elementImage'];
+                } else {
+                    $elemFilter=$_POST['elem'];
+                }
+
+//                switch($_POST['elem']) {
+                switch($elemFilter) {
                     case "%": $allCheck = "checked"; break;
                     case "RAW": $rawCheck = "checked"; break;
                     case "FIR": $firCheck = "checked"; break;
@@ -145,7 +154,7 @@
                 $awakenFilter=1;
                 $weaponCheck='checked';
                 $weaponName=null;
-                $weaponType='greatsword';
+                $weaponType=1;
 
                 $minRaritySelect=1;
                 $maxRaritySelect=10;
@@ -179,7 +188,7 @@
                 $weaponCheck='checked';
 
                 $weaponName=null;
-                $weaponType='greatsword';
+                $weaponType=1;
 
                 $createCheck='';
                 $createFilter=0;
@@ -234,12 +243,12 @@
             echo("<tr>");
             echo
                 "<td class='navTdTh'><center><input type='submit' value='Reset All Fields' name='ResetButton'/></center>"
-                ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $monsterCheck . " name='monsterShow' onchange='this.form.submit()'/></center>"
-                ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $mapCheck . " name='mapShow' onchange='this.form.submit()'/></center>"
-                ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $itemCheck . " name='itemShow' onchange='this.form.submit()'/></center>"
-                ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $weaponCheck . " name='weaponShow' onchange='this.form.submit()'/></center>"
-                ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $armoryShowCheck . " name='armoryShow' onchange='this.form.submit()'/></center>"
-                ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $wishlistShowCheck . " name='wishlistShow' onchange='this.form.submit()'/></center>";
+                ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $monsterCheck . " name='monsterShow' onchange='this.form.submit()' class='checkbox'/></center>"
+                ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $mapCheck . " name='mapShow' onchange='this.form.submit()' class='checkbox'/></center>"
+                ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $itemCheck . " name='itemShow' onchange='this.form.submit()' class='checkbox'/></center>"
+                ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $weaponCheck . " name='weaponShow' onchange='this.form.submit()' class='checkbox'/></center>"
+                ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $armoryShowCheck . " name='armoryShow' onchange='this.form.submit()' class='checkbox'/></center>"
+                ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $wishlistShowCheck . " name='wishlistShow' onchange='this.form.submit()' class='checkbox'/></center>";
 
             echo("</table>");
 
@@ -302,7 +311,7 @@
             //grab wishlist data
             //******
             if($wishlistShowCheck=='checked'){
-                echo ("<H2>Wishlist</H2>");
+                echo ("<H2>Wish List</H2>");
                 $sql = 'SELECT *
                         FROM wishlist';
                 $wishlistTableResult = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; wishlist table error');
@@ -347,7 +356,8 @@
                             , rare
                             , final
                             , COALESCE(hierarchy,\'N/A\') AS hierarchy
-                        FROM ' . $weaponType . ' WHERE name like \''.$pathName.'\'';
+                        FROM weapondata
+                        WHERE name like \''.$pathName.'\'';
 
                     $resultHierarchy = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; hierarchy error');
                     $rowHierarchy=mysqli_fetch_array($resultHierarchy);
@@ -368,9 +378,10 @@
                     {
                         if ($hierarchy[$i]!='N/A' && $hierarchy[$i]!=''){
 
-                        //return rarity from $weaponType table where name=hierarchy[i]
+                        //return rarity from weapondata table where name=hierarchy[i]
                         $sql = 'SELECT rare, id, final
-                            FROM ' . $weaponType . ' WHERE name= \'' . $pathName . '\'';
+                            FROM weapondata
+                            WHERE name= \'' . $pathName . '\'';
                         $result2 = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
                         $row2=mysqli_fetch_array($result2);
 
@@ -386,7 +397,8 @@
                     }
 
                     $sql = 'SELECT rare, name
-                        FROM ' . $weaponType . ' WHERE id=' . $id;
+                        FROM weapondata
+                        WHERE id=' . $id;
                     $result3 = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; rare error 2');
                     $row3=mysqli_fetch_array($result3);
 
@@ -406,8 +418,8 @@
                                 , wt2.rare nextWeaponRare
                                 , wt2.id nextId
                                 , wt2.final nextFinal
-                            FROM ' . $weaponType . ' wt1
-                            JOIN ' . $weaponType . ' wt2
+                            FROM weapondata wt1
+                            JOIN weapondata wt2
                             ON wt2.parentId=wt1.id
                             WHERE wt1.id=' . $id;
                     $result4 = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
@@ -453,7 +465,9 @@
 
             if($monsterCheck=='checked'){
                 echo ("<H2>Monster</H2>");
-                $sql="SELECT monster,id FROM monsters order by monster";
+                $sql = "SELECT monster, id
+                        FROM monsters
+                        ORDER BY monster";
                 $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli) . '; monster dropdown error');
                 echo "<select name='monster' onchange='this.form.submit()' value='' >Monster</option>";
                 while($row=mysqli_fetch_array($result))
@@ -635,7 +649,10 @@
             if($mapCheck=='checked'){
                 echo ("<H2>Maps</H2>");
 
-                $sql="SELECT id, name, map FROM areas WHERE map IS NOT NULL ORDER BY id";
+                $sql = "SELECT id, name, map
+                        FROM areas
+                        WHERE map IS NOT NULL
+                        ORDER BY id";
                 $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli) . '; area dropdown error');
                 echo "<select name='area' onchange='this.form.submit()' value='' >Area</option>";
                 while($row=mysqli_fetch_array($result))
@@ -653,7 +670,7 @@
                 //MAPS - image
                 //******
 
-                echo("<img src=assets/resources/maps/".$area.".png>");
+                echo("<img src=assets/resources/maps/".$area.".png class='mapImage'>");
             }
             //*****************************************
             //END MAPS SECTION
@@ -724,14 +741,16 @@
                 echo ("<H2>Weapons</H2>");
 
                 //define dropdown
-                $sql="SELECT type,id FROM weapon_types order by weaponTypeId";
+                $sql = "SELECT type, weapontypeid
+                        FROM weapon_types
+                        ORDER BY weaponTypeId";
                 $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli) . '; weapon dropdown error');
                 $weaponDropdownString = "<select name='weaponType' onchange='this.form.submit()' value='' >Weapon Type</option>";
                 while($row=mysqli_fetch_array($result)){
-                    if($row['id']==$weaponType){
-                        $weaponDropdownString .= "<option value=$row[id] selected>$row[type]</option>";
+                    if($row['weapontypeid']==$weaponType){
+                        $weaponDropdownString .= "<option value=$row[weapontypeid] selected>$row[type]</option>";
                     } else{
-                        $weaponDropdownString .= "<option value=$row[id]>$row[type]</option>";
+                        $weaponDropdownString .= "<option value=$row[weapontypeid]>$row[type]</option>";
                     }
                 }
                 $weaponDropdownString .= "</select>";
@@ -747,9 +766,9 @@
                 echo("<tr>");
                 echo
                     "<td class='navTdTh'><input type='text' placeholder='Weapon Name' value='" . $weaponName . "' name='weaponName' />"
-                    ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $createCheck . " name='createShow' onchange='this.form.submit()'/></center>"
-                    ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $finalCheck . " name='finalShow' onchange='this.form.submit()'/></center>"
-                    ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $awakenCheck . " name='awakenShow' onchange='this.form.submit()'/></center>";
+                    ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $createCheck . " name='createShow' onchange='this.form.submit()' class='checkbox'/></center>"
+                    ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $finalCheck . " name='finalShow' onchange='this.form.submit()' class='checkbox'/></center>"
+                    ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $awakenCheck . " name='awakenShow' onchange='this.form.submit()' class='checkbox'/></center>";
                 echo("</table>");
                 echo("<br>");
 
@@ -766,61 +785,76 @@
                 echo "<br>";
                 echo "Min Rarity: ";
 
-                echo "<input type='range' min=1 max=10 value=" . $minRaritySelect . " step=1.0 id='minRange' name='minRaritySelect' onchange='updateRarityMin(this.value, maxRaritySelect.value); this.form.submit();' />";
+                echo "<input type='range' min=1 max=10 value=" . $minRaritySelect . " step=1.0 id='minRange' name='minRaritySelect' onchange='updateRarityMin(this.value, maxRaritySelect.value)' class='range' >";
 
                 echo "<br>";
                 echo "Max Rarity: ";
 
-                echo "<input type='range' min=1 max=10 value=" . $maxRaritySelect . " step=1.0 id='maxRange' name='maxRaritySelect' onchange='updateRarityMax(minRaritySelect.value, this.value); this.form.submit();' />";
+                echo "<input type='range' min=1 max=10 value=" . $maxRaritySelect . " step=1.0 id='maxRange' name='maxRaritySelect' onchange='updateRarityMax(minRaritySelect.value, this.value)' class='range' >";
                 echo "<br>";
 
                 //Element Radios
+
+                //All and raw
+                echo("<table class='nav'>")
+                    ."<tr>"
+                    ."<td class='navTdTh'><input type='radio' id='all' value='%' name='elem' onchange='this.form.submit();'" . $allCheck . ">"
+                    ."ALL"
+                    ." | "
+                    ."<td class='navTdTh'><input type='radio' id='raw' value='RAW' name='elem' onchange='this.form.submit()'" . $rawCheck . ">"
+                    ."<img src=assets/resources/elements/RAW.png height='20' width='20'>"
+                    ."</tr>"
+                    ."</table>";
+
+                //elements
+                echo("<table class='nav'>")
+                    ."<tr><td class='navTdTh'><input type='radio' id='fire' value='FIR' name='elem' onchange='this.form.submit()'" . $firCheck . ">"
+                    ."<img src=assets/resources/elements/FIR.png height='20' width='20'>"
+                    ." | "
+                    ."<td class='navTdTh'><input type='radio' id='water' value='WAT' name='elem' onchange='this.form.submit()'" . $watCheck . ">"
+                    ."<img src=assets/resources/elements/WAT.png height='20' width='20'>"
+                    ." | "
+                    ."<td class='navTdTh'><input type='radio' id='thunder' value='THU' name='elem' onchange='this.form.submit()'" . $thuCheck . ">"
+                    ."<img src=assets/resources/elements/THU.png height='20' width='20'>"
+                    ." | "
+                    ."<td class='navTdTh'><input type='radio' id='ice' value='ICE' name='elem' onchange='this.form.submit()'" . $iceCheck . ">"
+                    ."<img src=assets/resources/elements/ICE.png height='20' width='20'>"
+                    ." | "
+                    ."<td class='navTdTh'><input type='radio' id='dragon' value='DRA' name='elem' onchange='this.form.submit()'" . $draCheck . ">"
+                    ."<img src=assets/resources/elements/DRA.png height='20' width='20'>"
+                    ."</tr>"
+                    ."</table>";
+
+                //status effects
+                echo("<table class='nav'>")
+                    ."<tr><td class='navTdTh'><input type='radio' id='paralysis' value='PAR' name='elem' onchange='this.form.submit()'" . $parCheck . ">"
+                    ."<img src=assets/resources/elements/PAR.png height='20' width='20'>"
+                    ." | "
+                    ."<td class='navTdTh'><input type='radio' id='poison' value='POI' name='elem' onchange='this.form.submit()'" . $poiCheck . ">"
+                    ."<img src=assets/resources/elements/POI.png height='20' width='20'>"
+                    ." | "
+                    ."<td class='navTdTh'><input type='radio' id='sleep' value='SLE' name='elem' onchange='this.form.submit()'" . $sleCheck . ">"
+                    ."<img src=assets/resources/elements/SLE.png height='20' width='20'>"
+                    ." | "
+                    ."<td class='navTdTh'><input type='radio' id='blast' value='BLA' name='elem' onchange='this.form.submit()'" . $blaCheck . ">"
+                    ."<img src=assets/resources/elements/BLA.png height='20' width='20'>"
+                    ."<td class='navTdTh'></tr>"
+                    ."</table>";
+
                 echo "<br>";
-                echo "<input type='radio' id='all' value='%' name='elem' onchange='this.form.submit()'" . $allCheck . ">";
-                echo "ALL";
-                echo " | ";
-                echo "<input type='radio' id='raw' value='RAW' name='elem' onchange='this.form.submit()'" . $rawCheck . ">";
-                echo "<img src=assets/resources/elements/RAW.png height='20' width='20'>";
-                echo " | ";
-                echo "<input type='radio' id='fire' value='FIR' name='elem' onchange='this.form.submit()'" . $firCheck . ">";
-                echo "<img src=assets/resources/elements/FIR.png height='20' width='20'>";
-                echo " | ";
-                echo "<input type='radio' id='water' value='WAT' name='elem' onchange='this.form.submit()'" . $watCheck . ">";
-                echo "<img src=assets/resources/elements/WAT.png height='20' width='20'>";
-                echo " | ";
-                echo "<input type='radio' id='thunder' value='THU' name='elem' onchange='this.form.submit()'" . $thuCheck . ">";
-                echo "<img src=assets/resources/elements/THU.png height='20' width='20'>";
-                echo " | ";
-                echo "<input type='radio' id='ice' value='ICE' name='elem' onchange='this.form.submit()'" . $iceCheck . ">";
-                echo "<img src=assets/resources/elements/ICE.png height='20' width='20'>";
-                echo " | ";
-                echo "<input type='radio' id='dragon' value='DRA' name='elem' onchange='this.form.submit()'" . $draCheck . ">";
-                echo "<img src=assets/resources/elements/DRA.png height='20' width='20'>";
-                echo " | ";
-                echo "<input type='radio' id='paralysis' value='PAR' name='elem' onchange='this.form.submit()'" . $parCheck . ">";
-                echo "<img src=assets/resources/elements/PAR.png height='20' width='20'>";
-                echo " | ";
-                echo "<input type='radio' id='poison' value='POI' name='elem' onchange='this.form.submit()'" . $poiCheck . ">";
-                echo "<img src=assets/resources/elements/POI.png height='20' width='20'>";
-                echo " | ";
-                echo "<input type='radio' id='sleep' value='SLE' name='elem' onchange='this.form.submit()'" . $sleCheck . ">";
-                echo "<img src=assets/resources/elements/SLE.png height='20' width='20'>";
-                echo " | ";
-                echo "<input type='radio' id='blast' value='BLA' name='elem' onchange='this.form.submit()'" . $blaCheck . ">";
-                echo "<img src=assets/resources/elements/BLA.png height='20' width='20'>";
-                echo "<br><br>";
                 //echo("<a href='#top'>Back to top</a>");
 
                 //******
                 //grab weapon data
                 //******
-                $sql = 'SELECT id, name, rare, attack, element, elementValue, slot, affinity, own, parentId, hierarchy, awaken, special, created, final
-                        FROM ' . $weaponType . '
+                $sql = 'SELECT *
+                        FROM weapondata
                         WHERE instr(name,"' . $weaponName . '")>0
                         AND rare BETWEEN ' . $minRaritySelect . ' AND ' . $maxRaritySelect . '
                         AND element LIKE \'%' . $elemFilter . '%\'
                         AND (' . $createFilter . '=0 OR created=' . $createFilter .')
                         AND (' . $finalFilter . '=0 OR final=' . $finalFilter .')
+                        AND (0='.$weaponType.' OR weapontypeid='.$weaponType.')
                         ORDER BY id';
                 $result = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; weapon table error');
 
@@ -828,18 +862,18 @@
                 //******
                 //create weapon table
                 //******
-                echo("<table class='data'>");
+                echo("<table class='data weaponTable'>");
                 echo("<tr class='dataTh'>
-                     <th>Armory</th>
-                     <th>Wishlist</th>
-                     <th>Name</th>
-                     <th>Rarity</th>
-                     <th>Attack</th>
-                     <th>Element</th>
-                     <th>Element Value</th>
-                     <th>Slot</th>
-                     <th>Affinity</th>
-                     <th>Special</th>
+                     <th style='width: 7%;'>Armory</th>
+                     <th style='width: 7%;'>Wish<br>List</th>
+                     <th style='width: 30%;'>Name</th>
+                     <th style='width: 7%;'>Rarity</th>
+                     <th style='width: 7%;'>Attack</th>
+                     <th style='width: 7%;'>Element</th>
+                     <th style='width: 7%;'>Element Value</th>
+                     <th style='width: 7%;'>Slot</th>
+                     <th style='width: 7%;'>Affin.</th>
+                     <th style='width: 10%;'>Special</th>
                      </tr>");
                     //<th>Hierarchy</th>
                     //<th>ID</th>
@@ -937,11 +971,11 @@
                     $rareColorsRow=mysqli_fetch_array($colorResult);
 
                     //create check
-                    if ($weaponsRow['created']==1) {$createFlag = '<sup>C</sup>';
+                    if ($weaponsRow['created']==1) {$createFlag = '<sub>C</sub>';
                     } else {$createFlag = null;}
 
                     //final check
-                    if ($weaponsRow['final']==1) {$finalFlag = '<sup>F</sup>';
+                    if ($weaponsRow['final']==1) {$finalFlag = '<sub>F</sub>';
                     } else {$finalFlag = null;}
 
                     //show awaken as raw if checkbox unchecked
@@ -967,17 +1001,14 @@
                         //"<td>" . $row['id'] . "</td>" //table data tag
                         "<input type='hidden' value='0' name='own" . $weaponsRow['id'] . "'/>"
                         ."<input type='hidden' value='0' name='wish" . $weaponsRow['id'] . "'/>"
-                        ."<td><center><input type='checkbox' value='1' $armoryCheck name='own" . $weaponsRow['id'] . "' onchange='this.form.submit()'/></center>"
-                        ."<td><center><input type='checkbox' value='1'  $wishlistCheck name='wish" . $weaponsRow['id'] . "' onchange='this.form.submit()'/></center>"
-                        .'<td><input type="submit" name="weaponPath" value="'.$weaponsRow['name'].'" class="button" >'
-                        //."<td><a href='index.php?weaponPath=$weaponsRow[id]'>$weaponsRow[name]</a> $createFlag $finalFlag"
-                        //' onClick='javascript:popUp(\"path.php?weaponType=$weaponType&id=$weaponsRow[id]\")'> $weaponsRow[name]</a> $createFlag $finalFlag" //weapon Name
-                        ."<td BGCOLOR='$rareColorsRow[color]'><center>$weaponsRow[rare]</center></td>"
+                        ."<td><center><input type='checkbox' value='1' $armoryCheck name='own" . $weaponsRow['id'] . "' onchange='this.form.submit()' class='checkbox'/></center>"
+                        ."<td><center><input type='checkbox' value='1'  $wishlistCheck name='wish" . $weaponsRow['id'] . "' onchange='this.form.submit()' class='checkbox'/></center>"
+                        .'<td><input type="submit" name="weaponPath" value="'.$weaponsRow['name'].'" class="button" > <input type="image" name="weaponImage" value='.$weaponsRow['weaponTypeId'].' src=assets/resources/weapons/'.$weaponsRow['weaponTypeId'].'.png height="20" width="20">'
+                        ."<td BGCOLOR='$rareColorsRow[color]'><center>$weaponsRow[rare]</center>" 
                         ."<td><center>$weaponsRow[attack]</center></td>"
-                        ."<td BGCOLOR='$elemBg'><center><img src=assets/resources/elements/$elemType.png height='20' width='20'></center></td>"
+                        ."<td BGCOLOR='$elemBg'><center><input type ='image' name='elementImage' value=$elemType src=assets/resources/elements/$elemType.png height='20' width='20'></center></td>"
+//                        ."<td BGCOLOR='$elemBg'><center><img src=assets/resources/elements/$elemType.png height='20' width='20'></center></td>"
                         ."<td><center>$elemValue</center></td>"
-                        //."<td BGCOLOR='$elemBg'><center><img src=assets/resources/elements/$weaponsRow[element].png height='20' width='20'></center></td>"
-                        //."<td><center>$weaponsRow[elementValue]</center></td>"
                         ."<td><center>$slot</center></td>"
                         ."<td BGCOLOR='$affinityBg'><center>$affinity%</center></td>"
                         ."<td>$weaponsRow[special]</td>"

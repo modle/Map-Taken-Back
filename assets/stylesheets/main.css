@@ -12,6 +12,8 @@ body {
         background:#253E66;
 }
 
+
+
 h2 {
         background:#E3DFD7;
         border-radius: 6px;
@@ -25,7 +27,6 @@ img {
 
 input, select {
         font-family: Lucida Console;
-        font-weight: bold;
 }
 
 .nav {
@@ -35,7 +36,10 @@ input, select {
         border-collapse: collapse;
         margin-left:auto;
         margin-right:auto;
-        
+}
+
+.weaponTable {
+        width: 100%;
 }
 
 .data, th, td {
@@ -78,15 +82,30 @@ input, select {
 	background:#86C093;
 }
 
+.range:hover {
+        cursor: e-resize;
+}
+
+.checkbox:hover {
+        cursor: pointer;
+}
+
+.mapImage:hover {
+        cursor: crosshair;
+}
 
 .button {
+
         border:none;
 	background:#86C093;
-        }
-.button:hover{
-        color:blue;
+
         }
 
+.button:hover{
+        color:blue;
+        cursor: pointer;
+        font-weight: bold;
+        }
 
 
 #wrapper.clearfix:after {

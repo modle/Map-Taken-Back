@@ -1,0 +1,59 @@
+***view with something better than notepad.exe***
+
+
+Experiments with MySQL and PHP
+=======
+What's New
+
+2015-03-25
+- Click name in main weapon table to see upgrade path
+- Click name in path to see upgrade path for that name
+- Click search icon to stuff weapon search field with that name
+
+2015-03-26
+- Started a CHANGELOG. lolDocumentation. 
+	* (I AM keeping an archive of versions, based on date. I'll git it someday.)
+- Combined weapon tables into a single table
+	* can now view all weapon data by choosing 'all' from the drop-down
+	* added weapon type icons next to the weapon names
+		+ click the weapon icon to set the weapon type filter to that weapon type
+
+- Changed element icons to image submits. 
+	* Clicking an element icon will set the element filter to that element		
+
+- Split element radios into groups (all/raw, elements, status effects)
+	* Each row is a table; may use this to rearrange later.
+
+- Set width %s on weapon table columns
+
+- Cleaned up weapon data
+	* special will be NULL instead of 0 for weapons without special data
+	* shortened the special info for insect glaive (cutting > cut, ' ~ ' > '~')
+	
+	
+- Cursor types on hover
+	- Check boxes or weapon names : pointer		
+	- Sliders : resize
+	- Map : cross-hairs
+
+	
+	
+Bugs
+
+2015-03-26
+- wish list clearing randomly. idkwtf.
+- sliders no longer submit page on change - css problem? The rest of the slider change script is triggering
+- rare values in upgrade path div are all set to the selected weapon, rather than indicated weapon
+
+
+
+Todo
+
+2015-03-26
+- Add final/created flags back to weapon rows
+	* indicate this outside the <td> somehow?
+- Add links to the delete column in wish list/armory tables
+- Sharpness bars!
+- Carve data
+- Split data groups into separate pages (monsters, maps, etc)
+- Skill data
