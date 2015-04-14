@@ -2,11 +2,11 @@
 <html>
 <head>
     <title>Inventory</title>
-    <link rel="stylesheet" type="text/css" href="mh4u_css_styles.css">
-    <script type="text/javascript" src="mh4u_jsFunctions.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/main.css">
+    <script type="text/javascript" src="assets/scripts/mh4u_jsFunctions.js"></script>
 </head>
 <body>
-    <script src="mh4u_jquery.js"></script>
+    <script src="assets/scripts/mh4u_jquery.js"></script>
     <form method=POST name="form">
         <?php
             //*****************************************
@@ -36,6 +36,7 @@
             //*****************************************
             //POST VARIABLE CHECK SECTION
             //*****************************************
+
             if(isset($_POST['postCheck'])) {
                 //this calls every post
 
@@ -46,6 +47,13 @@
                 //wishlist
                 if($_POST['wishlistShow']==1){ $wishlistShowCheck='checked';
                 } else { $wishlistShowCheck='';}
+
+                //weapon path
+                if(isset($_POST['weaponPath'])){
+                    $weaponPath=$_POST['weaponPath'];
+                } else {
+                    $weaponPath=null;
+                }
 
                 //maps
                 if($_POST['mapShow']==1){ $mapCheck='checked';
@@ -75,7 +83,14 @@
 
                 if($_POST['weaponShow']==1) {$weaponCheck='checked';
                 } else {$weaponCheck='';}
-                $weaponName=$_POST['weaponName'];
+
+
+                if(isset($_POST['searchClick'])){
+                    $weaponName=$_POST['searchClick'];
+                } else {$weaponName=$_POST['weaponName'];}
+
+
+
                 $weaponType=$_POST['weaponType'];
 
                 if(isset($_POST['minRaritySelect'])) {
@@ -105,8 +120,9 @@
                 //this only calls on load, sets defaults
 
                 //armory and wishlist
-                $armoryShowCheck='';
-                $wishlistShowCheck='';
+                $armoryShowCheck='checked';
+                $wishlistShowCheck='checked';
+                $weaponPath=null;
 
                 //maps
                 $mapCheck='';
@@ -147,8 +163,9 @@
             //*****************************************
             if(isset($_POST['ResetButton'])){
                 //set defaults
-                $armoryShowCheckCheck='';
-                $wishlistShowCheck='';
+                $armoryShowCheck='checked';
+                $wishlistShowCheck='checked';
+                $weaponPath=null;
 
                 $mapCheck='';
                 $area=1;
@@ -203,32 +220,38 @@
             echo "<input type='submit' value='Search' name='SearchButton' id='defaultActionButton' style='display:none;' />"; //button for enter listener
 
 
-            echo("<table border='0'>");
+            echo("<div id='navigation'>");
+            echo("<table class='nav'>");
             echo("<tr>
-                 <th>Preferences</th>
-                 <th>[Monsters]</th>
-                 <th>[Maps]</th>
-                 <th>[Items]</th>
-                 <th>[Weapons]</th>
-                 <th>[Armory]</th>
-                 <th>[Wishlist]</th>
+                 <th class='navTdTh'>Preferences</th>
+                 <th class='navTdTh'>[Monsters]</th>
+                 <th class='navTdTh'>[Maps]</th>
+                 <th class='navTdTh'>[Items]</th>
+                 <th class='navTdTh'>[Weapons]</th>
+                 <th class='navTdTh'>[Armory]</th>
+                 <th class='navTdTh'>[Wishlist]</th>
                  </tr>");
             echo("<tr>");
             echo
-                "<td><center><input type='submit' value='Reset All Fields' name='ResetButton' /></center>"
-                ."<td><center><input type='checkbox' value='1' " . $monsterCheck . " name='monsterShow' onchange='this.form.submit()'/></center>"
-                ."<td><center><input type='checkbox' value='1' " . $mapCheck . " name='mapShow' onchange='this.form.submit()'/></center>"
-                ."<td><center><input type='checkbox' value='1' " . $itemCheck . " name='itemShow' onchange='this.form.submit()'/></center>"
-                ."<td><center><input type='checkbox' value='1' " . $weaponCheck . " name='weaponShow' onchange='this.form.submit()'/></center>"
-                ."<td><center><input type='checkbox' value='1' " . $armoryShowCheck . " name='armoryShow' onchange='this.form.submit()'/></center>"
-                ."<td><center><input type='checkbox' value='1' " . $wishlistShowCheck . " name='wishlistShow' onchange='this.form.submit()'/></center>";
+                "<td class='navTdTh'><center><input type='submit' value='Reset All Fields' name='ResetButton'/></center>"
+                ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $monsterCheck . " name='monsterShow' onchange='this.form.submit()'/></center>"
+                ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $mapCheck . " name='mapShow' onchange='this.form.submit()'/></center>"
+                ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $itemCheck . " name='itemShow' onchange='this.form.submit()'/></center>"
+                ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $weaponCheck . " name='weaponShow' onchange='this.form.submit()'/></center>"
+                ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $armoryShowCheck . " name='armoryShow' onchange='this.form.submit()'/></center>"
+                ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $wishlistShowCheck . " name='wishlistShow' onchange='this.form.submit()'/></center>";
 
             echo("</table>");
-            echo("<br>");
+
+            echo("</div>");
+
             //*****************************************
             //END PREFERENCES SECTION
             //*****************************************
 
+            echo("<div id='wrapper'>");
+
+            echo("<div id='aside'>");
 
 
             //*****************************************
@@ -239,7 +262,7 @@
             //******
 
             if($armoryShowCheck=='checked'){
-                echo ("<H1>Armory</H1>");
+                echo ("<H2>Armory</H2>");
                 $sql = 'SELECT *
                         FROM armory';
                 $armoryTableResult = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; armory table error');
@@ -249,15 +272,17 @@
             //create armory table
             //******
 
-                echo("<table border='1'>");
-                echo("<tr>
-                     <th>Name</th>
-                     <th>Delete</th>
-                     </tr>");
+                echo("<table class='data wish'>");
+                echo("<tr class='dataTh'>
+                    <th style='width: 70%;'>Name</th>
+                    <th>Delete</th>
+                    </tr>");
                 while($row=mysqli_fetch_array($armoryTableResult))
                 {
                     echo("<tr>"); //new table row
-                    echo "<td>" . $row['name'];
+                    echo "<td>" . $row['name']
+                    . " <input type='image' name='searchClick' onclick = 'this.form.submit()' src=assets/resources/ui/search.png value='".$row['name']."'>"
+                    . "<td> Delete";
                 }
                 echo("</table>");
             }
@@ -276,9 +301,8 @@
             //******
             //grab wishlist data
             //******
-
             if($wishlistShowCheck=='checked'){
-                echo ("<H1>Wishlist</H1>");
+                echo ("<H2>Wishlist</H2>");
                 $sql = 'SELECT *
                         FROM wishlist';
                 $wishlistTableResult = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; wishlist table error');
@@ -288,25 +312,133 @@
             //create armory table
             //******
 
-                echo("<table border='1'>");
-                echo("<tr>
-                     <th>Name</th>
-                     <th>Delete</th>
-                     </tr>");
+                echo("<table class='data wish'>");
+                echo("<tr class='dataTh'>
+                    <th style='width: 70%;'>Name</th>
+                    <th>Delete</th>
+                    </tr>");
                 while($row=mysqli_fetch_array($wishlistTableResult))
                 {
                     echo("<tr>"); //new table row
-                    echo "<td>" . $row['name'];
+                    echo "<td>" . $row['name']
+                    . " <input type='image' name='searchClick' onclick = 'this.form.submit()' src=assets/resources/ui/search.png value='".$row['name']."'>"
+                    . "<td> Delete";
                 }
                 echo("</table>");
             }
-
 
 
             //*****************************************
             //END WISHLIST SECTION
             //*****************************************
 
+
+
+            //*****************************************
+            //UPGRADE PATH SECTION
+            //*****************************************
+                if ($weaponPath){
+                    $pathName=str_replace('\'','\'\'',$weaponPath);
+
+                    //use $pathName in sql
+                    //use $weaponPath in output
+                    $sql = 'SELECT id
+                            , name
+                            , rare
+                            , final
+                            , COALESCE(hierarchy,\'N/A\') AS hierarchy
+                        FROM ' . $weaponType . ' WHERE name like \''.$pathName.'\'';
+
+                    $resultHierarchy = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; hierarchy error');
+                    $rowHierarchy=mysqli_fetch_array($resultHierarchy);
+
+                    $hierarchy = str_getcsv($rowHierarchy['hierarchy']);
+                    $id=$rowHierarchy['id'];
+
+                    $count=count($hierarchy);
+
+                    if ($rowHierarchy['final']==1) {$finalFlag = '<sup>F</sup>';
+                    } else {$finalFlag = null;}
+
+                    echo("<H2>Upgrade Path</H2>");
+                    echo("<table class='nav'>");
+
+                    //from end of hierarchy array
+                    for($i=count($hierarchy)-1;$i>-1;$i--)
+                    {
+                        if ($hierarchy[$i]!='N/A' && $hierarchy[$i]!=''){
+
+                        //return rarity from $weaponType table where name=hierarchy[i]
+                        $sql = 'SELECT rare, id, final
+                            FROM ' . $weaponType . ' WHERE name= \'' . $pathName . '\'';
+                        $result2 = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
+                        $row2=mysqli_fetch_array($result2);
+
+                        //weapons in path
+                        echo '<tr><td class=navTdTh><input type="submit" name="weaponPath" value="'.$hierarchy[$i].'" class="button" >'
+                        . '<sup>'.$row2['rare'].'</sup>'
+                        . " <input type='image' name='searchClick' onclick = 'this.form.submit()' src=assets/resources/ui/search.png value='".$rowHierarchy['name']."'>"
+                        . '</tr>';
+
+                        //down arrow
+                            echo("<tr><td class='navTdTh'><center>&darr;</center></td></tr>");
+                        }
+                    }
+
+                    $sql = 'SELECT rare, name
+                        FROM ' . $weaponType . ' WHERE id=' . $id;
+                    $result3 = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; rare error 2');
+                    $row3=mysqli_fetch_array($result3);
+
+                    //selected weapon
+                    echo '<tr><td class=navTdTh><input type="submit" name="weaponPath" value="'.$rowHierarchy['name'].'" class="button" >'
+                        . '<sup>'.$row3['rare'] . ' ' . $finalFlag . '</sup>'
+                        . " <input type='image' name='searchClick' onclick = 'this.form.submit()' src=assets/resources/ui/search.png value='".$rowHierarchy['name']."'>"
+                        . '</tr>';
+
+                        
+                    echo("<tr><th class='navTdTh'><br></th></tr>");
+                    echo("<tr class='dataTh'><th>Upgrades To</th></tr>");
+
+                    $sql = 'SELECT count(wt1.name) cnt
+                                , wt1.name
+                                , wt2.name nextWeapon
+                                , wt2.rare nextWeaponRare
+                                , wt2.id nextId
+                                , wt2.final nextFinal
+                            FROM ' . $weaponType . ' wt1
+                            JOIN ' . $weaponType . ' wt2
+                            ON wt2.parentId=wt1.id
+                            WHERE wt1.id=' . $id;
+                    $result4 = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
+
+
+                    while($upgradesTo=mysqli_fetch_array($result4)){
+
+                        //final check
+                        if ($upgradesTo['nextFinal']==1) {$finalFlag = '<sup>F</sup>';
+                        } else {$finalFlag = null;}
+
+                        if($upgradesTo['cnt']==0){
+                            echo '<td class=navTdTh>Cannot be upgraded further</tr>';
+                        } else {
+                            //weapons selected weapon can upgrade to
+                            echo '<td class=navTdTh><input type="submit" name="weaponPath" value="'.$upgradesTo['nextWeapon'].'" class="button" >'
+                            . '<sup>'.$upgradesTo['nextWeaponRare'] . ' ' . $finalFlag . '</sup>'
+                            . "<input type='image' name='searchClick' onclick = 'this.form.submit()' src=assets/resources/ui/search.png value='".$rowHierarchy['name']."'>"
+                            . '</tr>';
+                        }
+                    }
+                    echo("</table>");
+                }
+
+                
+            //*****************************************
+            //END UPGRADE PATH SECTION
+            //*****************************************
+
+            echo("</div>");
+            echo("<div id='section'>");
 
 
             //*****************************************
@@ -320,7 +452,7 @@
             echo ("<input type='hidden' value='1' name='monster'>");
 
             if($monsterCheck=='checked'){
-                echo ("<H1>Monster</H1>");
+                echo ("<H2>Monster</H2>");
                 $sql="SELECT monster,id FROM monsters order by monster";
                 $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli) . '; monster dropdown error');
                 echo "<select name='monster' onchange='this.form.submit()' value='' >Monster</option>";
@@ -356,7 +488,7 @@
                             $separatorThree=null;
 
                             $weaknessString="
-                            <img src=resources/elements/" . $weaknessOne . ".png height='20' width='20'>";
+                            <img src=assets/resources/elements/" . $weaknessOne . ".png height='20' width='20'>";
                             break;
                         case "2":
                             $weaknessOne = substr($monsterDataRow['weakness'],0,3);
@@ -368,9 +500,9 @@
                             $separatorThree=null;
 
                             $weaknessString="
-                            <img src=resources/elements/" . $weaknessOne . ".png height='20' width='20'>
+                            <img src=assets/resources/elements/" . $weaknessOne . ".png height='20' width='20'>
                                 " . $separatorOne . "
-                            <img src=resources/elements/" . $weaknessTwo . ".png height='20' width='20'>";
+                            <img src=assets/resources/elements/" . $weaknessTwo . ".png height='20' width='20'>";
                             break;
                         case "3":
                             $weaknessOne = substr($monsterDataRow['weakness'],0,3);
@@ -382,11 +514,11 @@
                             $separatorThree=null;
 
                             $weaknessString="
-                            <img src=resources/elements/" . $weaknessOne . ".png height='20' width='20'>
+                            <img src=assets/resources/elements/" . $weaknessOne . ".png height='20' width='20'>
                                 " . $separatorOne . "
-                            <img src=resources/elements/" . $weaknessTwo . ".png height='20' width='20'>
+                            <img src=assets/resources/elements/" . $weaknessTwo . ".png height='20' width='20'>
                                 " . $separatorTwo . "
-                            <img src=resources/elements/" . $weaknessThree . ".png height='20' width='20'>";
+                            <img src=assets/resources/elements/" . $weaknessThree . ".png height='20' width='20'>";
                             break;
                         case "4":
                             $weaknessOne = substr($monsterDataRow['weakness'],0,3);
@@ -398,13 +530,13 @@
                             $separatorThree=substr($monsterDataRow['weakness'],11,1);
 
                             $weaknessString="
-                            <img src=resources/elements/" . $weaknessOne . ".png height='20' width='20'>
+                            <img src=assets/resources/elements/" . $weaknessOne . ".png height='20' width='20'>
                                 " . $separatorOne . "
-                            <img src=resources/elements/" . $weaknessTwo . ".png height='20' width='20'>
+                            <img src=assets/resources/elements/" . $weaknessTwo . ".png height='20' width='20'>
                                 " . $separatorTwo . "
-                            <img src=resources/elements/" . $weaknessThree . ".png height='20' width='20'>
+                            <img src=assets/resources/elements/" . $weaknessThree . ".png height='20' width='20'>
                                 " . $separatorThree . "
-                            <img src=resources/elements/" . $weaknessFour . ".png height='20' width='20'>";
+                            <img src=assets/resources/elements/" . $weaknessFour . ".png height='20' width='20'>";
                             break;
                 }
 
@@ -441,18 +573,18 @@
                 //******
                 //create Monster table
                 //******
-                echo("<table border='1'>");
-                echo("<tr>
+                echo("<table class='data'>");
+                echo("<tr class='dataTh'>
                      <th>Name</th>
                      <th>Weakness</th>
-                     <th><img src=resources/elements/POI.png height='20' width='20'> Damage</th>
-                     <th><img src=resources/elements/POI.png height='20' width='20'> Duration</th>
-                     <th><img src=resources/elements/POI.png height='20' width='20'> Tolerance<br>Initial/Step/Max</th>
-                     <th><img src=resources/elements/BLA.png height='20' width='20'> Damage</th>
-                     <th><img src=resources/elements/BLA.png height='20' width='20'> Tolerance<br>Initial/Step/Max</th>
-                     <th><img src=resources/tools/pitfall.png height='20' width='20'>/<img src=resources/tools/shock.png height='20' width='20'></th>
-                     <th><img src=resources/tools/flash.png height='20' width='20'>/<img src=resources/tools/sonic.png height='20' width='20'>/<img src=resources/tools/dung.png height='20' width='20'></th>
-                     <th><img src=resources/tools/meat.png height='20' width='20'></th>
+                     <th><img src=assets/resources/elements/POI.png height='20' width='20'> Damage</th>
+                     <th><img src=assets/resources/elements/POI.png height='20' width='20'> Duration</th>
+                     <th><img src=assets/resources/elements/POI.png height='20' width='20'> Tolerance<br>Initial/Step/Max</th>
+                     <th><img src=assets/resources/elements/BLA.png height='20' width='20'> Damage</th>
+                     <th><img src=assets/resources/elements/BLA.png height='20' width='20'> Tolerance<br>Initial/Step/Max</th>
+                     <th><img src=assets/resources/tools/pitfall.png height='20' width='20'>/<img src=assets/resources/tools/shock.png height='20' width='20'></th>
+                     <th><img src=assets/resources/tools/flash.png height='20' width='20'>/<img src=assets/resources/tools/sonic.png height='20' width='20'>/<img src=assets/resources/tools/dung.png height='20' width='20'></th>
+                     <th><img src=assets/resources/tools/meat.png height='20' width='20'></th>
                      </tr>");
                 echo("<tr>"); //new table row
                 echo
@@ -468,12 +600,12 @@
                     ."<td><center> " . $monsterDataRow['meat'] . "</center>"
                                         ;
                 echo("</table>");
-
+                echo("<br>");
                 //******
                 //create monster area table
                 //******
-                echo("<table border='1'>");
-                echo("<tr>
+                echo("<table class='data'>");
+                echo("<tr class='dataTh'>
                      <th>Location</th>
                      <th>Start Area</th>
                      <th>Move Areas</th>
@@ -484,7 +616,6 @@
                     ."<td><center> " . $monsterDataRow['startArea'] . "</center>"
                     ."<td><center> " . $monsterDataRow['moveAreas'] . "</center>";
                 echo("</table>");
-                echo("<br>");
             }
             //*****************************************
             //END MONSTERS SECTION
@@ -502,11 +633,11 @@
             echo ("<input type='hidden' value='1' name='area'>");
 
             if($mapCheck=='checked'){
-                echo ("<H1>Maps</H1>");
+                echo ("<H2>Maps</H2>");
 
                 $sql="SELECT id, name, map FROM areas WHERE map IS NOT NULL ORDER BY id";
                 $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli) . '; area dropdown error');
-                echo "<select name='area' onchange='this.form.submit()' value=''>Area</option>";
+                echo "<select name='area' onchange='this.form.submit()' value='' >Area</option>";
                 while($row=mysqli_fetch_array($result))
                 {
                     if($row[id]==$area) {
@@ -521,9 +652,9 @@
                 //******
                 //MAPS - image
                 //******
-                echo("<img src=resources/maps/".$area.".png height='500' width='800'>");
+
+                echo("<img src=assets/resources/maps/".$area.".png>");
             }
-            echo("<br>");
             //*****************************************
             //END MAPS SECTION
             //*****************************************
@@ -533,10 +664,10 @@
             //*****************************************
             //ITEM SECTION
             //*****************************************
-            echo ("<input type='hidden' placeholder='Item Name' name='itemName'>");
+            echo ("<input type='hidden' name='itemName'>");
 
             if($itemCheck=='checked'){
-                echo ("<H1>Item Search</H1>");
+                echo ("<H2>Item Search</H2>");
 
                 echo("<input type='hidden' value='0' name='itemName'>");
                 echo("<input type='text' placeholder='Item Name' value='" . $itemName . "' name='itemName' />"); //text field, weapon search
@@ -557,8 +688,8 @@
                 //******
 
                     echo "<br><br>";
-                    echo("<table border='1'>");
-                    echo("<tr>
+                    echo("<table class='data'>");
+                    echo("<tr class='dataTh'>
                          <th>Item</th>
                          <th>Source</th>
                          </tr>");
@@ -570,7 +701,6 @@
                     }
                     echo("</table>");
                 }
-                echo "<br><br>";
             }
             //*****************************************
             //END ITEM SECTION
@@ -591,12 +721,12 @@
             echo ("<input type='hidden' value='0' name='awakenShow'>");
 
             if($weaponCheck=='checked'){
-                echo ("<H1>Weapons</H1>");
+                echo ("<H2>Weapons</H2>");
 
                 //define dropdown
                 $sql="SELECT type,id FROM weapon_types order by weaponTypeId";
                 $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli) . '; weapon dropdown error');
-                $weaponDropdownString = "<select name='weaponType' onchange='this.form.submit()' value=''>Weapon Type</option>";
+                $weaponDropdownString = "<select name='weaponType' onchange='this.form.submit()' value='' >Weapon Type</option>";
                 while($row=mysqli_fetch_array($result)){
                     if($row['id']==$weaponType){
                         $weaponDropdownString .= "<option value=$row[id] selected>$row[type]</option>";
@@ -607,19 +737,19 @@
                 $weaponDropdownString .= "</select>";
 
 
-                echo("<table border='0'>");
+                echo("<table class='nav'>");
                 echo("<tr>
-                     <th>$weaponDropdownString</th>
-                     <th>[Create]</th>
-                     <th>[Final]</th>
-                     <th>[Awaken]</th>
+                     <th class='navTdTh'>$weaponDropdownString</th>
+                     <th class='navTdTh'>[Create]</th>
+                     <th class='navTdTh'>[Final]</th>
+                     <th class='navTdTh'>[Awaken]</th>
                      </tr>");
                 echo("<tr>");
                 echo
-                    "<td><input type='text' placeholder='Weapon Name' value='" . $weaponName . "' name='weaponName' />"
-                    ."<td><center><input type='checkbox' value='1' " . $createCheck . " name='createShow' onchange='this.form.submit()'/></center>"
-                    ."<td><center><input type='checkbox' value='1' " . $finalCheck . " name='finalShow' onchange='this.form.submit()'/></center>"
-                    ."<td><center><input type='checkbox' value='1' " . $awakenCheck . " name='awakenShow' onchange='this.form.submit()'/></center>";
+                    "<td class='navTdTh'><input type='text' placeholder='Weapon Name' value='" . $weaponName . "' name='weaponName' />"
+                    ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $createCheck . " name='createShow' onchange='this.form.submit()'/></center>"
+                    ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $finalCheck . " name='finalShow' onchange='this.form.submit()'/></center>"
+                    ."<td class='navTdTh'><center><input type='checkbox' value='1' " . $awakenCheck . " name='awakenShow' onchange='this.form.submit()'/></center>";
                 echo("</table>");
                 echo("<br>");
 
@@ -632,14 +762,14 @@
                 //echo "<input type='text' placeholder='Weapon Name' value='" . $weaponName . "' name='weaponName' />";
 
                 //rarity sliders
-                echo "<input type='text' id='rarity' value='Rarity: " . $minRaritySelect . " - " . $maxRaritySelect . "' style='border: 0px; background-color: #d0e4fe;' readonly>";
+                echo "Rarity: " . $minRaritySelect . " - " . $maxRaritySelect;
                 echo "<br>";
-                echo "<input type='text' id='minRarity' value='Min Rarity:' style='border: 0px; background-color: #d0e4fe;' readonly size=6>";
+                echo "Min Rarity: ";
 
                 echo "<input type='range' min=1 max=10 value=" . $minRaritySelect . " step=1.0 id='minRange' name='minRaritySelect' onchange='updateRarityMin(this.value, maxRaritySelect.value); this.form.submit();' />";
 
                 echo "<br>";
-                echo "<input type='text' id='maxRarity' value='Max Rarity:' style='border: 0px; background-color: #d0e4fe;' readonly size=6>";
+                echo "Max Rarity: ";
 
                 echo "<input type='range' min=1 max=10 value=" . $maxRaritySelect . " step=1.0 id='maxRange' name='maxRaritySelect' onchange='updateRarityMax(minRaritySelect.value, this.value); this.form.submit();' />";
                 echo "<br>";
@@ -647,38 +777,39 @@
                 //Element Radios
                 echo "<br>";
                 echo "<input type='radio' id='all' value='%' name='elem' onchange='this.form.submit()'" . $allCheck . ">";
-                echo "<input type='text' value='ALL' style='border: 0px; background-color: #d0e4fe;' readonly size=1>";
+                echo "ALL";
                 echo " | ";
                 echo "<input type='radio' id='raw' value='RAW' name='elem' onchange='this.form.submit()'" . $rawCheck . ">";
-                echo "<img src=resources/elements/RAW.png height='20' width='20'>";
+                echo "<img src=assets/resources/elements/RAW.png height='20' width='20'>";
                 echo " | ";
                 echo "<input type='radio' id='fire' value='FIR' name='elem' onchange='this.form.submit()'" . $firCheck . ">";
-                echo "<img src=resources/elements/FIR.png height='20' width='20'>";
+                echo "<img src=assets/resources/elements/FIR.png height='20' width='20'>";
                 echo " | ";
                 echo "<input type='radio' id='water' value='WAT' name='elem' onchange='this.form.submit()'" . $watCheck . ">";
-                echo "<img src=resources/elements/WAT.png height='20' width='20'>";
+                echo "<img src=assets/resources/elements/WAT.png height='20' width='20'>";
                 echo " | ";
                 echo "<input type='radio' id='thunder' value='THU' name='elem' onchange='this.form.submit()'" . $thuCheck . ">";
-                echo "<img src=resources/elements/THU.png height='20' width='20'>";
+                echo "<img src=assets/resources/elements/THU.png height='20' width='20'>";
                 echo " | ";
                 echo "<input type='radio' id='ice' value='ICE' name='elem' onchange='this.form.submit()'" . $iceCheck . ">";
-                echo "<img src=resources/elements/ICE.png height='20' width='20'>";
+                echo "<img src=assets/resources/elements/ICE.png height='20' width='20'>";
                 echo " | ";
                 echo "<input type='radio' id='dragon' value='DRA' name='elem' onchange='this.form.submit()'" . $draCheck . ">";
-                echo "<img src=resources/elements/DRA.png height='20' width='20'>";
+                echo "<img src=assets/resources/elements/DRA.png height='20' width='20'>";
                 echo " | ";
                 echo "<input type='radio' id='paralysis' value='PAR' name='elem' onchange='this.form.submit()'" . $parCheck . ">";
-                echo "<img src=resources/elements/PAR.png height='20' width='20'>";
+                echo "<img src=assets/resources/elements/PAR.png height='20' width='20'>";
                 echo " | ";
                 echo "<input type='radio' id='poison' value='POI' name='elem' onchange='this.form.submit()'" . $poiCheck . ">";
-                echo "<img src=resources/elements/POI.png height='20' width='20'>";
+                echo "<img src=assets/resources/elements/POI.png height='20' width='20'>";
                 echo " | ";
                 echo "<input type='radio' id='sleep' value='SLE' name='elem' onchange='this.form.submit()'" . $sleCheck . ">";
-                echo "<img src=resources/elements/SLE.png height='20' width='20'>";
+                echo "<img src=assets/resources/elements/SLE.png height='20' width='20'>";
                 echo " | ";
                 echo "<input type='radio' id='blast' value='BLA' name='elem' onchange='this.form.submit()'" . $blaCheck . ">";
-                echo "<img src=resources/elements/BLA.png height='20' width='20'>";
+                echo "<img src=assets/resources/elements/BLA.png height='20' width='20'>";
                 echo "<br><br>";
+                //echo("<a href='#top'>Back to top</a>");
 
                 //******
                 //grab weapon data
@@ -697,8 +828,8 @@
                 //******
                 //create weapon table
                 //******
-                echo("<table border='1'>");
-                echo("<tr>
+                echo("<table class='data'>");
+                echo("<tr class='dataTh'>
                      <th>Armory</th>
                      <th>Wishlist</th>
                      <th>Name</th>
@@ -736,9 +867,9 @@
                                 VALUES ('$weaponsRow[id]','$weaponName')";
                         $armoryInsert = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; armory error');
                     } else {
-                        $sql = "DELETE FROM armory
-                            WHERE id=$weaponsRow[id]";
-                        $armoryDelete = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; armory error');
+                        //$sql = "DELETE FROM armory
+                        //    WHERE id=$weaponsRow[id]";
+                        //$armoryDelete = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; armory error');
                     }
 
                     //check armory for weapon id
@@ -763,6 +894,9 @@
                                 VALUES ('$weaponsRow[id]','$weaponName')";
                         $wishlistInsert = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; armory error');
                     } else {
+                        //this calls when first loading the site,
+                        //when weapon type is switched,
+                        //or when weapon visibility is toggled
                         $sql = "DELETE FROM wishlist
                             WHERE id=$weaponsRow[id]";
                         $wishlistDelete = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; armory error');
@@ -825,6 +959,9 @@
                         }
                     }
 
+                    //$weaponName=str_replace('\'','*',$weaponsRow['name']);
+
+
                     echo("<tr>"); //new table row
                     echo
                         //"<td>" . $row['id'] . "</td>" //table data tag
@@ -832,12 +969,14 @@
                         ."<input type='hidden' value='0' name='wish" . $weaponsRow['id'] . "'/>"
                         ."<td><center><input type='checkbox' value='1' $armoryCheck name='own" . $weaponsRow['id'] . "' onchange='this.form.submit()'/></center>"
                         ."<td><center><input type='checkbox' value='1'  $wishlistCheck name='wish" . $weaponsRow['id'] . "' onchange='this.form.submit()'/></center>"
-                        ."<td><a href='#' onClick='javascript:popUp(\"path.php?weaponType=$weaponType&id=$weaponsRow[id]\")'> $weaponsRow[name]</a> $createFlag $finalFlag" //weapon Name
+                        .'<td><input type="submit" name="weaponPath" value="'.$weaponsRow['name'].'" class="button" >'
+                        //."<td><a href='index.php?weaponPath=$weaponsRow[id]'>$weaponsRow[name]</a> $createFlag $finalFlag"
+                        //' onClick='javascript:popUp(\"path.php?weaponType=$weaponType&id=$weaponsRow[id]\")'> $weaponsRow[name]</a> $createFlag $finalFlag" //weapon Name
                         ."<td BGCOLOR='$rareColorsRow[color]'><center>$weaponsRow[rare]</center></td>"
                         ."<td><center>$weaponsRow[attack]</center></td>"
-                        ."<td BGCOLOR='$elemBg'><center><img src=resources/elements/$elemType.png height='20' width='20'></center></td>"
+                        ."<td BGCOLOR='$elemBg'><center><img src=assets/resources/elements/$elemType.png height='20' width='20'></center></td>"
                         ."<td><center>$elemValue</center></td>"
-                        //."<td BGCOLOR='$elemBg'><center><img src=resources/elements/$weaponsRow[element].png height='20' width='20'></center></td>"
+                        //."<td BGCOLOR='$elemBg'><center><img src=assets/resources/elements/$weaponsRow[element].png height='20' width='20'></center></td>"
                         //."<td><center>$weaponsRow[elementValue]</center></td>"
                         ."<td><center>$slot</center></td>"
                         ."<td BGCOLOR='$affinityBg'><center>$affinity%</center></td>"
@@ -849,7 +988,14 @@
             //*****************************************
             //END WEAPON SECTION
             //*****************************************
+            echo("</div>"); //section
+            echo("</div>"); //wrapper
 
+            echo("<div id='footer'>");
+
+                echo("<a href='#top'>Back to top</a>");
+
+            echo("</div>"); //wrapper
         ?>
     </form>
 </body>
