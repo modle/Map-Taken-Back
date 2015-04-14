@@ -1,0 +1,28 @@
+***view with something better than notepad.exe***
+
+
+MH4U Database Companion
+=======
+Bugs
+2015-04-03
+- skill and armor names need to be escaped to load side panel data properly. See 'hunter's. ..'
+
+
+2015-03-29
+- certain skills aren't showing up when searching by name
+  * Fixed. First row of results was being parsed outside the while/table loop
+
+2015-03-27
+- items added to the wish list or armory only show up after the next refresh, not on the refresh they are added
+	* Tables load before code checks for additions
+	* Fixed. Moved armory/wish list/upgrade table loads after main section load (which contains the insert statements)
+
+2015-03-26
+- wish list clearing randomly. idkwtf.
+	* Fixed. Had some stray delete sql from an earlier version.
+
+- sliders no longer submit page on change
+  * css problem? The rest of the slider change script is triggering
+
+- rare values in upgrade path div are all set to the selected weapon, rather than indicated weapon
+	* Fixed. Query was referencing selected weapon rather than iterated weapon.
