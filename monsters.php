@@ -11,64 +11,66 @@
 </head>
 
 <body>
-
-    <div id='navigation'>
-        <a href="index.php">Weapons</a>
-        <a href="monsters.php">Monsters</a>
-        <a href="maps.php">Maps</a>
-        <a href="items.php">Items</a>
-        <a href="armor.php">Armor</a>
-        <a href="skills.php">Skills</a>
-    </div>
-
-    <input type='hidden' name='postCheck'>
-    <input type='hidden' value='1' name='monster'>
-    <?php
-
-        require_once('db_connect.php');
-            if(isset($_POST['postCheck'])) {
-                $monsterName=$_POST['monsterName'];
-                $monster=$_POST['monster'];
-            } else {
-                $monsterName=null;
-                $monster=88;
-            }
-    ?>
-
     <form method=POST name="form">
+
+        <div id='navigation'>
+            <a href="index.php">Weapons</a>
+            <a href="monsters.php">Monsters</a>
+            <a href="maps.php">Maps</a>
+            <a href="items.php">Items</a>
+            <a href="armor.php">Armor</a>
+            <a href="skills.php">Skills</a>
+    
+            <?php require_once('db_connect.php'); ?>        
+            <input type='hidden' name='postCheck'>
+            <input type='hidden' value='88' name='monsterDropdown'>
+            <input type='submit' value='Search' name='SearchButton' id='defaultActionButton' style='display:none;' /> <!--button for enter listener-->
+        
+            <?php
+                if(isset($_POST['postCheck'])) {
+                    $monsterName=$_POST['monsterName'];
+                    $monsterId=$_POST['monsterDropdown'];
+                } else {
+                    $monsterName=null;
+                    $monsterId=88;
+                }
+            ?>
+        
+    
+        </div>
 
         <div id='section'>
             <H2>Monsters</H2>
+            <input type='submit' value='Reset All Fields' name='ResetButton'/><br>
+            <input type='text' placeholder='Monster Name' value='<?php echo($monsterName); ?>' name='monsterName'/><br>
+            <!---->
+            <!--Monster Name Dropdown and search-->
+            <!---->
             <?php
-                //******
-                //Monster Name Dropdown and search
-                //******
-
                 $sql = "SELECT monster, id
                         FROM monsters
                         WHERE type='monster'
                         ORDER BY monster";
                 $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli) . '; monster dropdown error');
-                echo "<select name='monster' onchange='this.form.submit()' value='' >Monster</option>";
+                echo "<select name='monsterDropdown' onchange='this.form.submit()' value='' >Monster</option>";
                 while($row=mysqli_fetch_array($result))
                 {
-                    if($row[id]==$monster) {
+                    if($row[id]==$monsterId) {
                         echo "<option value=$row[id] selected>$row[monster]</option>";
                     } else {
                         echo "<option value=$row[id]>$row[monster]</option>";
                     }
                 }
-                echo "</select>"
-                    ."<input type='text' placeholder='Monster Name' value='$monsterName' name='monsterName' />";
+                echo "</select>";
 
             ?>
 
-            <H3>Carve Data Here</H3>
+            <H3>Carve Data</H3>
             <?php
                 $sql = "SELECT *
                         FROM huntingreward hr
                         JOIN item i ON hr.itemId=i.itemId
-                        WHERE monsterId=$monster
+                        WHERE monsterId=$monsterId
                         ORDER BY id";
                 $result=mysqli_query($mysqli, $sql) or die(mysqli_error($mysqli) . '; carve table error');
                 
@@ -94,9 +96,9 @@
             ?>
             </table>
         </div>
-
+    
         <div id='aside'>
-
+    
             <H2>Weaknesses</H2>
 
             <?php
@@ -107,7 +109,7 @@
                 $sql = 'SELECT *
                         FROM monsters
                         WHERE type="monster"
-                        AND id=' . $monster;
+                        AND id=' . $monsterId;
                 $result = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; table error');
                 $monsterDataRow=mysqli_fetch_array($result);
 
@@ -251,11 +253,12 @@
             <!---->
             <!--create monster area table-->
             <!---->
+            <H2>Location Details</H2>
             <table class='data'>
             <tr class='dataTh'>
             </table>
             </center>
-        </form>
-    </div>
+        </div>
+    </form>
 </body>
 </html>

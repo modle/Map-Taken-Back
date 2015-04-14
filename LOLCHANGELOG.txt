@@ -5,6 +5,18 @@ MH4U Database Companion
 =======
 What's New
 
+2015-03-29
+- Added Armor page
+	* Rarity, hunter type, name filters
+	* Clicking the name of an armor will load skill data into the side panel
+	
+- Added Skills page
+	* Name filter. 
+	* Clicking the name of the skill tree will load armor data into side panel
+		+ When a name is clicked, the armor slot dropdown filter will be applied to the results
+
+- Added Source to item page side pane. Loads monster source data when a monster component is clicked
+		
 2015-03-28
 - Split sections into separate pages.
 	* Added navigation
@@ -62,6 +74,10 @@ What's New
 - Click search icon to set weapon search field to that name
 	
 Bugs
+
+2015-03-29
+- certain skills aren't showing up when searching by name
+
 2015-03-27
 - items added to the wish list or armory only show up after the next refresh, not on the refresh they are added
 	* Tables load before code checks for additions
@@ -78,12 +94,18 @@ Bugs
 
 
 Todo
+2015-03-29
+- Add links to Skills page from the armor page's skill side pane 
+- Add links to Armor page from the skill page's armor side pane 
+- Format item, skill, armor tables 
+
+
 2015-03-28
 - Add filters for:
-	* Carve table
-	* Items
-	* Skills
-	* Armor
+	* DONE - Carve table
+	* Items (only added item name filter)
+	* DONE - Skills
+	* DONE - Armor
 		+ Add stat details
 
 - External server access
@@ -104,7 +126,7 @@ Todo
 
 - Sharpness bars!
 
-- Split data groups into separate pages (monsters, maps, etc.)
-	* Add pages
+- DONE - Split data groups into separate pages (monsters, maps, etc.)
+	* DONE - Add pages
 		+ Armor 
 		+ Skills
