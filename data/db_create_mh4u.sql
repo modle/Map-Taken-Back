@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2015 at 04:18 AM
+-- Generation Time: Apr 15, 2015 at 05:58 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -65716,14 +65716,14 @@ INSERT INTO `weapondata` (`weaponId`, `parentWeaponId`, `itemId`, `weaponTypeId`
 
 DROP TABLE IF EXISTS `wishlist`;
 CREATE TABLE IF NOT EXISTS `wishlist` (
-  `id` int(5) NOT NULL,
+  `weaponId` int(5) NOT NULL,
   `weaponTypeId` int(5) NOT NULL,
   `name` varchar(80) NOT NULL,
   `created` int(1) NOT NULL,
   `final` int(1) NOT NULL,
   `rare` int(2) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
+  PRIMARY KEY (`weaponId`),
+  UNIQUE KEY `id` (`weaponId`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -65731,7 +65731,7 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
 -- Dumping data for table `wishlist`
 --
 
-INSERT INTO `wishlist` (`id`, `weaponTypeId`, `name`, `created`, `final`, `rare`) VALUES
+INSERT INTO `wishlist` (`weaponId`, `weaponTypeId`, `name`, `created`, `final`, `rare`) VALUES
 (663, 4, 'Spiral Edges', 0, 0, 5),
 (1208, 7, 'Demon Lance', 0, 0, 6),
 (1365, 8, 'Great Demon Gunlance', 0, 0, 7),
