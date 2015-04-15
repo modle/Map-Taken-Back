@@ -33,14 +33,16 @@
 
         if(isset($_POST['searchClick'])){
             $searchClickCSV = str_getcsv($_POST['searchClick']);
+            $weaponType=$searchClickCSV[1];
             $sql='SELECT name
                 FROM weapondata
-                WHERE id='.$searchClickCSV[1];
-
+                WHERE weaponId='.$searchClickCSV[0].'
+                AND weaponTYpeId='.$weaponType;
             $searchResultName = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; searchresultname table error');
             $row=mysqli_fetch_array($searchResultName);
+
             $weaponSearch=str_replace('\'','&#39;',$row['name']);
-            $weaponType=$searchClickCSV[1];
+            $weaponPath=$row['name'];
         } else {
             //weapon path
             if(isset($_POST['weaponPath'])){
