@@ -62,7 +62,7 @@
         $result3 = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; rare error 2');
         $row3=mysqli_fetch_array($result3);
 
-        if ($row2['final']==1) {$finalFlag = '<sup>F</sup>';
+        if ($row3['final']==1) {$finalFlag = '<sup>F</sup>';
         } else {$finalFlag = null;}
 
         //selected weapon

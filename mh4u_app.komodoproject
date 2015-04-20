@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Komodo Project File - DO NOT EDIT -->
 <project id="3ba38f0d-bc03-43b1-8bd7-30e055c8d52c" kpf_version="5" name="mh4u_app.komodoproject">
+<preference-set idref="3ba38f0d-bc03-43b1-8bd7-30e055c8d52c" id="project" preftype="project">
+  <long id="prefs_version">1</long>
+</preference-set>
 </project>
