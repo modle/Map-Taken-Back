@@ -1,15 +1,15 @@
 <?php
+    //initialization
+    $itemName=null;
+    $sourceLoad=null;
 
-    if(isset($_POST['postCheck'])) {
-        $itemName=$_POST['itemName'];
+    if(isset($_SESSION['items'])) {
+        $itemName=$_SESSION['items']['itemName'];
 
-        if(isset($_POST['sourceLoad'])){
-            $sourceLoad=$_POST['sourceLoad'];
+        if(isset($_SESSION['items']['sourceLoad'])){
+            $sourceLoad=$_SESSION['items']['sourceLoad'];
         }else{
             $sourceLoad=null;
         }
-    } else {
-        $itemName=null;
-        $sourceLoad=null;
-    }
+    } 
 ?>

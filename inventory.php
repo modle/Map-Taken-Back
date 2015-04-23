@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Inventory</title>
-    <?php require_once('assets/modules/general/scripts_and_stylesheets.php'); ?>
+    <?php require_once('assets/modules/general/header.php'); ?>
 </head>
 <body>
     <div id='title'>

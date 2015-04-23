@@ -1,4 +1,5 @@
 <?php
+    //initialization
     $allCheck = "";
     $rawCheck = "";
     $firCheck = "";
@@ -10,29 +11,46 @@
     $poiCheck = "";
     $sleCheck = "";
     $blaCheck = "";
+    $weaponSearch="";
 
-    //*****************************************
-    //POST VARIABLE CHECK
-    //*****************************************
+    $weaponPath=null;
+    $createCheck='';
+    $createFilter=0;
+    $finalCheck='';
+    $finalFilter=0;
+    $awakenCheck=null;
+    $awakenFilter=0;
+    $weaponSearch=null;
+    $weaponType=1;
 
-    if(isset($_POST['postCheck'])) {
+    $minRaritySelect=1;
+    $maxRaritySelect=10;
+    $allCheck = "checked";
+
+    if(isset($_SESSION['weapons'])) {
         //this calls every post
-
-
-
         //weapons
-        if($_POST['createShow']==1){ $createCheck='checked'; $createFilter=1;
+
+        if($_SESSION['weapons']['createShow']==1){ $createCheck='checked'; $createFilter=1;
         } else { $createCheck=''; $createFilter=0;}
 
-        if($_POST['finalShow']==1){ $finalCheck='checked'; $finalFilter=1;
+        //if($_SESSION['weapons']['createShow']==1){ $createCheck='checked'; $createFilter=1;
+        //} else { $createCheck=''; $createFilter=0;}
+
+        if($_SESSION['weapons']['finalShow']==1){ $finalCheck='checked'; $finalFilter=1;
         } else { $finalCheck=''; $finalFilter=0;}
 
-        if($_POST['awakenShow']==1){ $awakenCheck='checked'; $awakenFilter=1;
+        //if($_SESSION['weapons']['finalShow']==1){ $finalCheck='checked'; $finalFilter=1;
+        //} else { $finalCheck=''; $finalFilter=0;}
+
+        if($_SESSION['weapons']['awakenShow']==1){ $awakenCheck='checked'; $awakenFilter=1;
         } else { $awakenCheck=''; $awakenFilter=0;}
 
+        //if($_SESSION['weapons']['awakenShow']==1){ $awakenCheck='checked'; $awakenFilter=1;
+        //} else { $awakenCheck=''; $awakenFilter=0;}
 
-        if(isset($_POST['searchClick'])){
-            $searchClickCSV = str_getcsv($_POST['searchClick']);
+        if(isset($_SESSION['weapons']['searchClick'])){
+            $searchClickCSV = str_getcsv($_SESSION['weapons']['searchClick']);
             $weaponType=$searchClickCSV[1];
             $sql='SELECT name
                 FROM weapondata
@@ -45,32 +63,38 @@
             $weaponPath=$row['name'];
         } else {
             //weapon path
-            if(isset($_POST['weaponPath'])){
-                $weaponPath=$_POST['weaponPath'];
-                $weaponSearch=str_replace('\'','&#39;',$_POST['weaponPath']);
+            if(isset($_SESSION['weapons']['weaponPath'])){
+                $weaponPath=$_SESSION['weapons']['weaponPath'];
+                $weaponSearch=str_replace('\'','&#39;',$_SESSION['weapons']['weaponPath']);
             } else {
                 $weaponPath=null;
-                $weaponSearch=str_replace('\'','&#39;',$_POST['weaponName']);
+                
+                if(isset($_SESSION['weapons']['weaponName'])){
+                    $weaponSearch=str_replace('\'','&#39;',$_SESSION['weapons']['weaponName']);
+                }
             }
 
-            if(isset($_POST['weaponImage'])) {
-                $weaponType=$_POST['weaponImage'];
-            } else {$weaponType=$_POST['weaponType'];}
+            if(isset($_SESSION['weapons']['weaponImage'])) {
+                $weaponType=$_SESSION['weapons']['weaponImage'];
+            } else {$weaponType=$_SESSION['weapons']['weaponType'];}
         }
 
-
-        if(isset($_POST['minRaritySelect'])) {
-            $minRaritySelect=$_POST['minRaritySelect'];
-            $maxRaritySelect=$_POST['maxRaritySelect'];
+        if(isset($_SESSION['weapons']['minRaritySelect'])) {
+            $minRaritySelect=$_SESSION['weapons']['minRaritySelect'];
+            $maxRaritySelect=$_SESSION['weapons']['maxRaritySelect'];
         } else {
             $minRaritySelect=1;
             $maxRaritySelect=10;
         }
 
-        if(isset($_POST['elementImage'])) {
-            $elemFilter=$_POST['elementImage'];
+        if(isset($_SESSION['weapons']['elementImage'])) {
+            $elemFilter=$_SESSION['weapons']['elementImage'];
         } else {
-            $elemFilter=$_POST['elem'];
+            if(isset($_SESSION['weapons']['elem'])){
+                $elemFilter=$_SESSION['weapons']['elem'];
+            } else {
+                $elemFilter='%';
+            }
         }
 
         switch($elemFilter) {
@@ -86,30 +110,5 @@
             case "SLE": $sleCheck = "checked"; break;
             case "BLA": $blaCheck = "checked"; break;
         }
-
-    } else {
-        //this only calls on load, sets defaults
-
-        //armory and wishlist
-        $weaponPath=null;
-
-        //weapons
-        $createCheck='';
-        $createFilter=0;
-        $finalCheck='';
-        $finalFilter=0;
-        $awakenCheck=null;
-        $awakenFilter=0;
-        $weaponSearch=null;
-        $weaponType=1;
-
-        $minRaritySelect=1;
-        $maxRaritySelect=10;
-        $elemFilter='%';
-        $allCheck = "checked";
     }
-    //*****************************************
-    //END POST VARIABLE CHECK SECTION
-    //*****************************************
-
 ?>

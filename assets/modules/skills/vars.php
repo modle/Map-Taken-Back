@@ -1,19 +1,17 @@
 <?php
-    if(isset($_POST['postCheck'])) {
-        $skillName=$_POST['skillName'];
+    //initialization
+    $skillName=null;
+    $armorLoad=null;
+    $equipSlotId=0;
 
-        if(isset($_POST['armorLoad'])){
-                $armorLoad=$_POST['armorLoad'];
+    if(isset($_SESSION['skills'])) {
+        $skillName=$_SESSION['skills']['skillName'];
+
+        if(isset($_SESSION['skills']['armorLoad'])){
+                $armorLoad=$_SESSION['skills']['armorLoad'];
             }else{
                 $armorLoad=null;
             }
-
-        $equipSlotId=$_POST['equipSlot'];
-
-    } else {
-        $skillName=null;
-        $armorLoad=null;
-        $equipSlotId=0;
-
-    }
+        $equipSlotId=$_SESSION['skills']['equipSlot'];
+    } 
 ?>

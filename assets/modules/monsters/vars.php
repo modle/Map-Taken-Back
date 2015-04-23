@@ -1,7 +1,9 @@
 <?php
-    if(isset($_POST['postCheck'])) {
-        $monsterId=$_POST['monsterDropdown'];
-    } else {
-        $monsterId=88;
-    }
+    //initialization
+    $monsterId=88;
+
+    if(isset($_SESSION['monsters'])) {
+        $monsterId=$_SESSION['monsters']['monsterDropdown'];
+        echo "session is set";
+    } 
 ?>

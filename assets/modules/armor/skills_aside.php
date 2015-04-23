@@ -1,6 +1,6 @@
 <?php
-    if ($skillLoad){
 
+    if ($skillLoad){
         $armorSet=str_replace('\'','&#39;',$skillLoad);
         echo("<h4>".$skillLoad."</h4>");
 
@@ -12,32 +12,32 @@
 ?>
 
 
-<?php
-        echo ("<table class='data'>"
-            ."<tr class='dataTh'>
-                <th></th>
-                <th><img src=assets/resources/armor/head.png class='icon'></th>
-                <th><img src=assets/resources/armor/body.png class='icon'></th>
-                <th><img src=assets/resources/armor/arms.png class='icon'></th>
-                <th><img src=assets/resources/armor/waist.png class='icon'></th>
-                <th><img src=assets/resources/armor/legs.png class='icon'></th>
-                <th>MATHS</th>
-            </tr>");
-        while($row=mysqli_fetch_array($result))
-        {
-            $sum=$row['head']+$row['body']+$row['arms']+$row['waist']+$row['legs'];
-
-            echo("<tr>"
-                    ."<td>" . $row['name']
-                    ."<td>" . $row['head']
-                    ."<td>" . $row['body']
-                    ."<td>" . $row['arms']
-                    ."<td>" . $row['waist']
-                    ."<td>" . $row['legs']
-                    ."<td>" . $sum
-                .'</tr>'
-            );
-        }
-    echo("</table>");
-}
-?>
+        <table class='data'>
+        <tr class='dataTh'>
+            <th></th>
+            <th><img src=assets/resources/armor/head.png class='icon'></th>
+            <th><img src=assets/resources/armor/body.png class='icon'></th>
+            <th><img src=assets/resources/armor/arms.png class='icon'></th>
+            <th><img src=assets/resources/armor/waist.png class='icon'></th>
+            <th><img src=assets/resources/armor/legs.png class='icon'></th>
+            <th>MATHS</th>
+        </tr>
+        <?php
+            while($row=mysqli_fetch_array($result))
+            {
+                $sum=$row['head']+$row['body']+$row['arms']+$row['waist']+$row['legs'];
+    
+                echo("<tr>"
+                        ."<td>" . $row['name']
+                        ."<td>" . $row['head']
+                        ."<td>" . $row['body']
+                        ."<td>" . $row['arms']
+                        ."<td>" . $row['waist']
+                        ."<td>" . $row['legs']
+                        ."<td>" . $sum
+                    .'</tr>'
+                );
+            }
+        echo("</table>");
+    }
+        ?>

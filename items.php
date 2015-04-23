@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Items</title>
-    <?php require_once('assets/modules/general/scripts_and_stylesheets.php'); ?>
+    <?php require_once('assets/modules/general/header.php'); ?>
 </head>
 <body>
     <div id='title'>
@@ -23,6 +23,7 @@
             <div id='aside' <?php if (!$sourceLoad){?>style="display:none"<?php } ?>>
                 <h2>Source</h2>
                 <?php
+                    echo $_SESSION['post-data']['createShow'];
                     require('assets/modules/general/reset_button.php');
                     require_once('assets/modules/items/source.php');
                 ?>

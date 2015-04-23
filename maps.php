@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Maps</title>
-    <?php require_once('assets/modules/general/scripts_and_stylesheets.php'); ?>
+    <?php require_once('assets/modules/general/header.php'); ?>
 </head>
 <body>
     <div id='title'>
@@ -13,12 +13,12 @@
     </div>
     <form method=POST name="form">
         <?php require_once('assets/modules/general/db_connect.php'); ?>
-        <input type='hidden' name='postCheck'>
+        <input type='hidden' name='mapsPostCheck'>
         <input type='hidden' value='1' name='area'>
         <input type='submit' value='Search' name='SearchButton' id='defaultActionButton' style='display:none;' />
 
-        <?php if(isset($_POST['postCheck'])) {
-                $area=$_POST['area'];
+        <?php if(isset($_SESSION['maps'])) {
+                $area=$_SESSION['maps']['area'];
             } else {
                 $area=1;
             }

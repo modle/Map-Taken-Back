@@ -1,6 +1,8 @@
-<?php if(isset($_POST['postCheck'])) {
-        $area=$_POST['area'];
-    } else {
-        $area=1;
-    }
+<?php
+    //initialization
+    //$var=1;
+    
+    if(isset($_SESSION['inventory'])) {
+        //$var=$_SESSION['inventory']['var'];
+    } 
 ?>
