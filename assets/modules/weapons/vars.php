@@ -1,16 +1,16 @@
 <?php
     //initialization
-    $allCheck = "";
-    $rawCheck = "";
-    $firCheck = "";
-    $watCheck = "";
-    $thuCheck = "";
-    $iceCheck = "";
-    $draCheck = "";
-    $parCheck = "";
-    $poiCheck = "";
-    $sleCheck = "";
-    $blaCheck = "";
+    $allCheck="";
+    $rawCheck="";
+    $firCheck="";
+    $watCheck="";
+    $thuCheck="";
+    $iceCheck="";
+    $draCheck="";
+    $parCheck="";
+    $poiCheck="";
+    $sleCheck="";
+    $blaCheck="";
     $weaponSearch="";
 
     $weaponPath=null;
@@ -25,33 +25,24 @@
 
     $minRaritySelect=1;
     $maxRaritySelect=10;
-    $allCheck = "checked";
+    $allCheck= "checked";
+    $elemFilter="%";
 
     if(isset($_SESSION['weapons'])) {
         //this calls every post
         //weapons
 
-        if($_SESSION['weapons']['createShow']==1){ $createCheck='checked'; $createFilter=1;
-        } else { $createCheck=''; $createFilter=0;}
-
-        //if($_SESSION['weapons']['createShow']==1){ $createCheck='checked'; $createFilter=1;
-        //} else { $createCheck=''; $createFilter=0;}
-
-        if($_SESSION['weapons']['finalShow']==1){ $finalCheck='checked'; $finalFilter=1;
-        } else { $finalCheck=''; $finalFilter=0;}
-
-        //if($_SESSION['weapons']['finalShow']==1){ $finalCheck='checked'; $finalFilter=1;
-        //} else { $finalCheck=''; $finalFilter=0;}
-
-        if($_SESSION['weapons']['awakenShow']==1){ $awakenCheck='checked'; $awakenFilter=1;
-        } else { $awakenCheck=''; $awakenFilter=0;}
-
-        //if($_SESSION['weapons']['awakenShow']==1){ $awakenCheck='checked'; $awakenFilter=1;
-        //} else { $awakenCheck=''; $awakenFilter=0;}
+        if($_SESSION['weapons']['createShow']==1){ $createCheck='checked'; $createFilter=1;}
+        if($_SESSION['weapons']['finalShow']==1){ $finalCheck='checked'; $finalFilter=1;}
+        if($_SESSION['weapons']['awakenShow']==1){ $awakenCheck='checked'; $awakenFilter=1;}
 
         if(isset($_SESSION['weapons']['searchClick'])){
             $searchClickCSV = str_getcsv($_SESSION['weapons']['searchClick']);
+
+            //weapon type
             $weaponType=$searchClickCSV[1];
+
+            //weapon name
             $sql='SELECT name
                 FROM weapondata
                 WHERE weaponId='.$searchClickCSV[0].'
@@ -60,31 +51,25 @@
             $row=mysqli_fetch_array($searchResultName);
 
             $weaponSearch=str_replace('\'','&#39;',$row['name']);
-            $weaponPath=$row['name'];
         } else {
-            //weapon path
-            if(isset($_SESSION['weapons']['weaponPath'])){
-                $weaponPath=$_SESSION['weapons']['weaponPath'];
-                $weaponSearch=str_replace('\'','&#39;',$_SESSION['weapons']['weaponPath']);
-            } else {
-                $weaponPath=null;
-                
-                if(isset($_SESSION['weapons']['weaponName'])){
+            //weapon name
+            if(isset($_SESSION['weapons']['weaponName'])){
                     $weaponSearch=str_replace('\'','&#39;',$_SESSION['weapons']['weaponName']);
-                }
             }
 
+            //weapon type
             if(isset($_SESSION['weapons']['weaponImage'])) {
                 $weaponType=$_SESSION['weapons']['weaponImage'];
             } else {$weaponType=$_SESSION['weapons']['weaponType'];}
         }
 
+        if(isset($_SESSION['weapons']['weaponPath'])){
+            $weaponPath=$_SESSION['weapons']['weaponPath'];
+        }
+
         if(isset($_SESSION['weapons']['minRaritySelect'])) {
             $minRaritySelect=$_SESSION['weapons']['minRaritySelect'];
             $maxRaritySelect=$_SESSION['weapons']['maxRaritySelect'];
-        } else {
-            $minRaritySelect=1;
-            $maxRaritySelect=10;
         }
 
         if(isset($_SESSION['weapons']['elementImage'])) {
@@ -92,9 +77,7 @@
         } else {
             if(isset($_SESSION['weapons']['elem'])){
                 $elemFilter=$_SESSION['weapons']['elem'];
-            } else {
-                $elemFilter='%';
-            }
+            } 
         }
 
         switch($elemFilter) {

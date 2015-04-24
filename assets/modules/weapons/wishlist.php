@@ -26,6 +26,10 @@
 
             echo("<tr>")
                 ."<td><input type='image' name='searchClick' onclick='this.form.submit()' src=assets/resources/ui/search.png class='icon' value={$row['weaponId']},{$row['weaponTypeId']}></td>"
+
+                ."<td><input type='image' name='weaponPath' onclick='this.form.submit()' src=assets/resources/ui/path.png class='icon' value='$row[name]'></td>"
+
+
                 .'<td>'.$row['name'].'</td>'
                 .'<td><img src=assets/resources/weapons/'.$row['weaponTypeId'].'.png class="icon"></td>'
                 .'<td>'.$row['rare'].'</td>'

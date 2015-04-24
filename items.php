@@ -23,7 +23,7 @@
             <div id='aside' <?php if (!$sourceLoad){?>style="display:none"<?php } ?>>
                 <h2>Source</h2>
                 <?php
-                    echo $_SESSION['post-data']['createShow'];
+                    echo $_SESSION['weapons']['createShow'];
                     require('assets/modules/general/reset_button.php');
                     require_once('assets/modules/items/source.php');
                 ?>

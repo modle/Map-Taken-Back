@@ -14,13 +14,12 @@
     <form method=POST name="form">
         <?php
             require_once('assets/modules/general/db_connect.php');
-            require_once('assets/modules/weapons/hidden_inputs.php');
+            require_once('assets/modules/monsters/hidden_inputs.php');
             require_once('assets/modules/monsters/vars.php');
         ?>
 
         <div id='wrapper'>
             <div id='aside'>
-                <!--<input type='submit' value='Reset All Fields' name='ResetButton'/><br>-->
                 <?php require_once('assets/modules/monsters/dropdown.php'); ?>
                 <?php require_once('assets/modules/monsters/weaknesses_data_prep.php'); ?>
                 <br>

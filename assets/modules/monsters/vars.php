@@ -4,6 +4,5 @@
 
     if(isset($_SESSION['monsters'])) {
         $monsterId=$_SESSION['monsters']['monsterDropdown'];
-        echo "session is set";
     } 
 ?>

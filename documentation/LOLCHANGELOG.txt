@@ -5,12 +5,32 @@ MH4U Database Companion
 =======
 What's New
 
+
+2015-04-23
+
+- Session variables, hurray!
+- Removed 'links' from weapon names 
+  * This allows the width to adjust dynamically, wrapping the text to another row; keeps table within div
+  * Replaced functionality with an upgrade icon/button
+- Split search and upgrade path functionality
+  * Had been populating the text search field with the weapon name, and loading the path
+    + This was annoying, since user would have to reset the search field and resubmit the page to get the full weapon table back
+- Can no longer populate the search field from the main weapon table
+  * This can only be achieved by clicking the search icon in path or wishlist
+
+  
+2015-04-15 ish
+
+- Github sync of old versions
+
+
 2015-04-12
 
 - weapondata table now has itemId populated
 - updated weapondata id column to match the rest of the database 
   * i.e. tableName.tableNameId
 
+  
 2015-04-10
 
 - Armor page skill table updates
@@ -28,7 +48,6 @@ What's New
   * Removed equip slot dropdown filter
   * Reconfigured Skills section to load the armor set rather than individual pieces
    
-
 
 2015-04-07
 
@@ -52,8 +71,6 @@ What's New
     + replaced many of the hardcoded icon size styles
   
 
-
-
 2015-04-05
 
 - Added quests page
@@ -62,12 +79,12 @@ What's New
 
 - Added area and quest info to monster page
 
+
 2015-04-04
 
 - Added clear button to asides
 
 - Mobile stylesheet
-
 
 - Changed maps to function properly on both mobile and desktop
   * Added touchend.zoom to jquery_zoom.js
@@ -98,7 +115,6 @@ What's New
   * Weapon type, Rarity, Create, Final flags added 
   
   
-
 2015-04-01
 - Added stats to Armor page. 
 - Fixed a bug in armor / item / skill pages where first result was parsed outside where loop for table, resulting in missing entries
@@ -106,7 +122,6 @@ What's New
   * armor side panel by slot
   * item by alpha
   * skill tree by alpha
-
 
 
 2015-03-29
@@ -120,7 +135,8 @@ What's New
 		+ When a name is clicked, the armor slot dropdown filter will be applied to the results
 
 - Added Source to item page side pane. Loads monster source data when a monster component is clicked
-		
+	
+	
 2015-03-28
 - Split sections into separate pages.
 	* Added navigation
@@ -143,6 +159,7 @@ What's New
 	* http://www.jacklmoore.com/zoom - pretty slick
 
 - Added links to weapon names in wish list/armory which will refresh path table
+
 
 2015-03-26
 - Started a CHANGELOG. lolDocumentation. 
@@ -170,96 +187,10 @@ What's New
 	* Sliders : resize
 	* Map : cross-hairs
 
+	
 2015-03-25
 - Click name in main weapon table to see upgrade path
 
 - Click name in path to see upgrade path for that name
 
 - Click search icon to set weapon search field to that name
-	
-Bugs
-2015-04-03
-- skill and armor names need to be escaped to load side panel data properly. See 'hunter's. ..'
-
-
-2015-03-29
-- certain skills aren't showing up when searching by name
-  * Fixed. First row of results was being parsed outside the while/table loop
-
-2015-03-27
-- items added to the wish list or armory only show up after the next refresh, not on the refresh they are added
-	* Tables load before code checks for additions
-	* Fixed. Moved armory/wish list/upgrade table loads after main section load (which contains the insert statements)
-
-2015-03-26
-- wish list clearing randomly. idkwtf.
-	* Fixed. Had some stray delete sql from an earlier version.
-
-- sliders no longer submit page on change
-  * css problem? The rest of the slider change script is triggering
-
-- rare values in upgrade path div are all set to the selected weapon, rather than indicated weapon
-	* Fixed. Query was referencing selected weapon rather than iterated weapon.
-
-
-Todo
-2015-04-03
-
-- Monster page: Add Quest where monster can be found to monster page
-
-- Monster page: Add monster location movement info
-
-- Skills page armor side panel: section by LR/HR/G  rank
-
-- Sanitize inputs (trim, validate, etc)
-
-2015-03-30
-
-- Item
-  * DONE - Alpha separators for item list
-
-- Skills
-  * Option to sort by armor name, DONE - slot (move to aside), rarity, or skill value
-  * DONE - Show rarity
-
-
-2015-03-29
-
-- Add links to Skills page from the armor page's skill side pane 
-- Add links to Armor page from the skill page's armor side pane 
-- Format item, skill, armor tables 
-
-
-2015-03-28
-
-- Add filters for:
-	* DONE - Carve table
-	* Items (only added item name filter)
-	* DONE - Skills
-	* DONE - Armor
-		+ DONE - Add stat details
-
-- DONE - External server access
-
-- Replace Armory/Wish List checkboxes with "+" or "Add". Can use button as link code.
-	* Gray out/disable add function if already on list?
-
-- Hierarchy lines in weapon table
-
-
-2015-03-26
-
-- DONE - Add final/created flags back to weapon rows
-	* indicate this outside the <td> somehow?
-
-- DONE - Add links to the delete column in wish list/armory tables
-
-- DONE - Add links to names of wish list/armory tables
-	* update path with clicked
-
-- Sharpness bars!
-
-- DONE - Split data groups into separate pages (monsters, maps, etc.)
-	* DONE - Add pages
-		+ Armor 
-		+ Skills

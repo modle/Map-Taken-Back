@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2015 at 05:58 AM
+-- Generation Time: Apr 24, 2015 at 04:52 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -52210,6 +52210,34 @@ INSERT INTO `monstertoquest` (`monsterToQuestId`, `monsterId`, `questId`, `unsta
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pages`
+--
+
+DROP TABLE IF EXISTS `pages`;
+CREATE TABLE IF NOT EXISTS `pages` (
+  `pageId` int(2) NOT NULL AUTO_INCREMENT,
+  `pageName` varchar(20) NOT NULL,
+  `pageURL` varchar(30) NOT NULL,
+  PRIMARY KEY (`pageId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `pages`
+--
+
+INSERT INTO `pages` (`pageId`, `pageName`, `pageURL`) VALUES
+(1, 'weapons', 'index.php'),
+(2, 'quests', 'quests.php'),
+(3, 'monsters', 'monsters.php'),
+(4, 'skills', 'skills.php'),
+(5, 'armor', 'armor.php'),
+(6, 'items', 'items.php'),
+(7, 'maps', 'maps.php'),
+(8, 'inventory', 'inventory.php');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `quest`
 --
 
@@ -63751,6 +63779,23 @@ INSERT INTO `temp_skill_table_output` (`setPiece`, `points`, `skillTreeId`) VALU
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `variables`
+--
+
+DROP TABLE IF EXISTS `variables`;
+CREATE TABLE IF NOT EXISTS `variables` (
+  `variableId` int(5) NOT NULL,
+  `pageId` int(5) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `value` varchar(20) NOT NULL,
+  `dateAdded` datetime NOT NULL,
+  `dateModified` datetime DEFAULT NULL,
+  PRIMARY KEY (`variableId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `weapon_types`
 --
 
@@ -65732,13 +65777,10 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
 --
 
 INSERT INTO `wishlist` (`weaponId`, `weaponTypeId`, `name`, `created`, `final`, `rare`) VALUES
-(663, 4, 'Spiral Edges', 0, 0, 5),
-(1208, 7, 'Demon Lance', 0, 0, 6),
-(1365, 8, 'Great Demon Gunlance', 0, 0, 7),
-(1418, 8, 'Leviathan Gunlance', 0, 0, 6),
-(1448, 8, 'Fatalis Gunlance', 1, 0, 7),
-(1456, 8, 'Eldaora&#39;s Brigia', 1, 1, 10),
-(1466, 8, 'Luna&#39;s Flare', 0, 0, 7);
+(653, 4, 'Wyvern Conciliation', 0, 1, 10),
+(673, 4, 'Appallagombs', 0, 1, 9),
+(681, 4, 'Brimstren Drakeclaws+', 0, 0, 9),
+(1698, 10, 'Maximinsect', 0, 1, 9);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

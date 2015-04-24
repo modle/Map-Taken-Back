@@ -7,8 +7,10 @@
             require('assets/modules/weapons/parameter_prep.php');
 
             echo("<tr>")
-                .'<td class="textTd"><input type="submit" name="weaponPath" value="'.$weaponsRow['name'].'" class="button" >'
-                //.'<td class="textTd">'.$weaponsRow['name']
+                ."<td><input type='image' name='weaponPath' onclick='this.form.submit()' src=assets/resources/ui/path.png class='icon' value='$weaponsRow[name]'></td>"
+
+                .'<td>'.$weaponsRow['name']
+
                 ."<td BGCOLOR='$rareColorsRow[color]'>$weaponsRow[rare]<br>".$createFlag . $finalFlag
                 ."<td>$weaponsRow[attack]<br><input class='icon' type='image' name='weaponImage' value=$weaponsRow[weaponTypeId] src=assets/resources/weapons/$weaponsRow[weaponTypeId].png class='icon'></td>"
                 ."<td><input type ='image' name='elementImage' value=$elemType src=assets/resources/elements/$elemType.png class='icon'>"
