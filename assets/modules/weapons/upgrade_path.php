@@ -31,7 +31,7 @@
             if ($hierarchy[$i]!='N/A' && $hierarchy[$i]!=''){
 
                 //return rarity and id from weapondata table where name=hierarchy[i]
-                $sql = 'SELECT rare, weaponId, final, weaponTypeId, final
+                $sql = 'SELECT name, rare, weaponId, final, weaponTypeId, final, created
                     FROM weapondata
                     WHERE name= \'' . $hierarchy[$i] . '\'';
                 $result2 = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
@@ -39,15 +39,19 @@
 
                 if ($row2['final']==1) {$finalFlag = '<sup>F</sup>';
                 } else {$finalFlag = null;}
+                if ($row2['created']==1) {$createFlag = '<sup>C</sup>';
+                } else {$createFlag = null;}
 
                 //weapons in path
                 echo '<tr>'
                 ."<td class=navTdTh><input type='image' name='searchClick' onclick = 'this.form.submit()' class='icon' src=assets/resources/ui/search.png value='$row2[weaponId],$row2[weaponTypeId]'>"
+                ."<td class=navTdTh><input type='image' name='weaponPath' onclick='this.form.submit()' src=assets/resources/ui/path.png class='icon' value='$row2[name],$row2[weaponId]'></td>"
 
-                ."<td class=navTdTh><input type='image' name='materialsClick' onclick = 'this.form.submit()' class='icon' src=assets/resources/ui/materials.png value='$row2[weaponId]'>"
+                .'<td class=navTdTh>'.$hierarchy[$i]
 
-                .'<td class=navTdTh><input type="submit" name="weaponPath"  value="'.$hierarchy[$i].'" class="button" >'
-                .'<td class=navTdTh>'.$row2['rare']
+                //.'<td class=navTdTh>'.$row2['rare']
+                .'<td class=navTdTh>'.$row2['rare'] . ' ' . $finalFlag . ' ' . $createFlag . '</td>'
+
                 ."<td class=navTdTh><input type='image' name='own$row2[weaponId]' onclick='this.form.submit()' class='icon' src=assets/resources/ui/armory.png value='1'>"
                 ."<td class=navTdTh><input type='image' name='wish$row2[weaponId]' onclick='this.form.submit()' class='icon' src=assets/resources/ui/wish.png value='1'>"
                 . '</tr>'
@@ -58,7 +62,7 @@
         }
 
         //this will only have 1 result: the selected weapon
-        $sql = 'SELECT rare, weaponId, name, weaponTypeId, final
+        $sql = 'SELECT rare, weaponId, name, weaponTypeId, final, created
                 FROM weapondata
                 WHERE weaponId=' . $id;
         $result3 = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; rare error 2');
@@ -66,13 +70,17 @@
 
         if ($row3['final']==1) {$finalFlag = '<sup>F</sup>';
         } else {$finalFlag = null;}
+        if ($row3['created']==1) {$createFlag = '<sup>C</sup>';
+        } else {$createFlag = null;}
 
         //selected weapon
         echo '<tr>'
             ."<td class=navTdTh><input type='image' name='searchClick' onclick = 'this.form.submit()' class='icon' src=assets/resources/ui/search.png value='$row3[weaponId],$row3[weaponTypeId]'>"
-            ."<td class=navTdTh><input type='image' name='materialsClick' onclick = 'this.form.submit()' class='icon' src=assets/resources/ui/materials.png value='$row3[weaponId]'>"
-            .'<td class=navTdTh><input type="submit" name="weaponPath" value="'.$row3['name'].'" class="selected" >'
-            .'<td class=navTdTh>'.$row3['rare'] . ' ' . $finalFlag . '</td>'
+            ."<td class=navTdTh><input type='image' name='weaponPath' onclick='this.form.submit()' src=assets/resources/ui/path.png class='icon' value='$row3[name],$row3[weaponId]'></td>"
+
+            .'<td class=navTdTh><b>'.$row3['name'].'</b>'
+
+            .'<td class=navTdTh>'.$row3['rare'] . ' ' . $finalFlag . ' ' . $createFlag . '</td>'
             ."<td class=navTdTh><input type='image' name='own$row3[weaponId]' onclick='this.form.submit()' class='icon' src=assets/resources/ui/armory.png value='1'>"
             ."<td class=navTdTh><input type='image' name='wish$row3[weaponId]' onclick='this.form.submit()' class='icon' src=assets/resources/ui/wish.png value='1'>"
             .'</tr>';
@@ -83,11 +91,12 @@
         echo("<tr class=dataTh><th class=navTdTh></th><th class=navTdTh></th><th>Upgrades To</th></tr>");
 
         $sql = 'SELECT count(wt1.name) cnt
-                    , wt1.name
+                    , wt1.name name
                     , wt2.name nextWeapon
                     , wt2.rare nextWeaponRare
                     , wt2.weaponId nextId
                     , wt2.final nextFinal
+                    , wt2.created nextCreated
                     , wt2.weaponTypeId
                 FROM weapondata wt1
                 JOIN weapondata wt2
@@ -101,6 +110,8 @@
             //final check
             if ($upgradesTo['nextFinal']==1) {$finalFlag = '<sup>F</sup>';
             } else {$finalFlag = null;}
+            if ($upgradesTo['nextCreated']==1) {$createFlag = '<sup>C</sup>';
+            } else {$createFlag = null;}
 
             if($upgradesTo['cnt']==0){
                 echo '<td class=navTdTh><td class=navTdTh><td class=navTdTh>Cannot be upgraded further</tr>';
@@ -108,9 +119,11 @@
                 //weapons selected weapon can upgrade to
                 echo
                 "<td class=navTdTh><input type='image' name='searchClick' onclick = 'this.form.submit()' class='icon' src=assets/resources/ui/search.png value='$upgradesTo[nextId],$upgradesTo[weaponTypeId]'>"
-                ."<td class=navTdTh><input type='image' name='materialsClick' onclick = 'this.form.submit()' class='icon' src=assets/resources/ui/materials.png value='$upgradesTo[nextId]'>"
-                .'<td class=navTdTh><input type="submit" name="weaponPath" value="'.$upgradesTo['nextWeapon'].'" class="button" >'
-                .'<td class=navTdTh>'.$upgradesTo['nextWeaponRare'] . ' ' . $finalFlag . '</sup>'
+                ."<td class=navTdTh><input type='image' name='weaponPath' onclick='this.form.submit()' src=assets/resources/ui/path.png class='icon' value='$upgradesTo[nextWeapon],$upgradesTo[nextId]'></td>"
+
+                .'<td class=navTdTh>'.$upgradesTo['nextWeapon']
+
+                .'<td class=navTdTh>'.$upgradesTo['nextWeaponRare'] . ' ' . $finalFlag . ' ' . $createFlag . '</td>'
                 .'</tr>';
                 }
         }

@@ -22,7 +22,8 @@
             require_once('assets/modules/weapons/wishlist_delete.php');
         ?>
         <div id='wrapper'>
-            <div id='section' <?php if (!$weaponPath){?>style="display:none"<?php } ?>>
+            <div id='section' <?php if (!$weaponPath && !$materialsResult){?>style="display:none"<?php } ?>>
+                <?php require_once('assets/modules/weapons/materials.php'); ?>
                 <?php require_once('assets/modules/weapons/upgrade_path.php'); ?>
             </div>
             <div id='section'>
@@ -45,6 +46,7 @@
         </div>
         <div id='footer'>
             <a href='#top'>Back to top</a>
+            <?php session_destroy(); ?>
         </div>
     </form>
 </body>

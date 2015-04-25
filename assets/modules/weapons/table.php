@@ -7,7 +7,7 @@
             require('assets/modules/weapons/parameter_prep.php');
 
             echo("<tr>")
-                ."<td><input type='image' name='weaponPath' onclick='this.form.submit()' src=assets/resources/ui/path.png class='icon' value='$weaponsRow[name]'></td>"
+                ."<td><input type='image' name='weaponPath' onclick='this.form.submit()' src=assets/resources/ui/path.png class='icon' value='$weaponsRow[name],$weaponsRow[weaponId]'></td>"
 
                 .'<td>'.$weaponsRow['name']
 

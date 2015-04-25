@@ -27,6 +27,7 @@
     $maxRaritySelect=10;
     $allCheck= "checked";
     $elemFilter="%";
+    $materialsResult=null;
 
     if(isset($_SESSION['weapons'])) {
         //this calls every post
@@ -64,8 +65,26 @@
         }
 
         if(isset($_SESSION['weapons']['weaponPath'])){
-            $weaponPath=$_SESSION['weapons']['weaponPath'];
+            $materialsClickCSV = str_getcsv($_SESSION['weapons']['weaponPath']);
+
+            //weapon materials
+            $sql = 'SELECT i.name name
+                    , c.createdItemId createdItemId
+                    , c.componentItemId componentItemId
+                    , c.quantity quantity
+                    , c.type type
+                    FROM components c
+                    JOIN item i
+                        ON c.componentItemId=i.itemId
+                    WHERE c.createdItemId=
+                        (SELECT itemId from weapondata where weaponId='.$materialsClickCSV[1].')';
+            $materialsResult = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; materials result table error');
+            $weaponPath=$materialsClickCSV[0];
         }
+
+        //if(isset($_SESSION['weapons']['weaponPath'])){
+            //$weaponPath=$_SESSION['weapons']['weaponPath'];
+        //}
 
         if(isset($_SESSION['weapons']['minRaritySelect'])) {
             $minRaritySelect=$_SESSION['weapons']['minRaritySelect'];
