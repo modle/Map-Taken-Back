@@ -17,14 +17,16 @@
 </table>
 
 <!--//rarity sliders-->
-Rarity: <?php echo($minRaritySelect . ' - ' . $maxRaritySelect); ?>
+Rarity
 <br>
-Min Rarity:
+Min:
     <input type='range' min=1 max=10 value='<?php echo($minRaritySelect) ?>' step=1.0 id='minRange' name='minRaritySelect' onchange='updateRarityMin(this.value, maxRaritySelect.value)' class='range' >
+    <input type='text' id='rarityMin' readonly size=1 value='<?php echo($minRaritySelect) ?>' style='background-color: rgba(0,0,0,0); border: none;'>
 
 <br>
-Max Rarity:
+Max:
     <input type='range' min=1 max=10 value='<?php echo($maxRaritySelect) ?>' step=1.0 id='maxRange' name='maxRaritySelect' onchange='updateRarityMax(minRaritySelect.value, this.value)' class='range' >
+    <input type='text' id='rarityMax' readonly size=1 value='<?php echo($maxRaritySelect) ?>' style='background-color: rgba(0,0,0,0); border: none;'>
 <br>
 
 <!--//Element Radios-->

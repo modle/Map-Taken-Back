@@ -43,7 +43,9 @@
                 //weapons in path
                 echo '<tr>'
                 ."<td class=navTdTh><input type='image' name='searchClick' onclick = 'this.form.submit()' class='icon' src=assets/resources/ui/search.png value='$row2[weaponId],$row2[weaponTypeId]'>"
+
                 ."<td class=navTdTh><input type='image' name='materialsClick' onclick = 'this.form.submit()' class='icon' src=assets/resources/ui/materials.png value='$row2[weaponId]'>"
+
                 .'<td class=navTdTh><input type="submit" name="weaponPath"  value="'.$hierarchy[$i].'" class="button" >'
                 .'<td class=navTdTh>'.$row2['rare']
                 ."<td class=navTdTh><input type='image' name='own$row2[weaponId]' onclick='this.form.submit()' class='icon' src=assets/resources/ui/armory.png value='1'>"

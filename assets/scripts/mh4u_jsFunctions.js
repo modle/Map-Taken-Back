@@ -1,28 +1,23 @@
 function updateRarityMin(minVal, maxVal) {
 
     if (parseInt(minVal)<=parseInt(maxVal)) {
-        document.getElementById('rarity').value="Rarity: ".concat(minVal).concat(" - ").concat(maxVal);
+        document.getElementById('rarityMin').value=minVal;
+        document.getElementById('minRange').value=minVal;
     } else {
+        document.getElementById('rarityMin').value=maxVal;
         document.getElementById('minRange').value=maxVal;
-        document.getElementById('rarity').value="Rarity: ".concat(maxVal).concat(" - ").concat(maxVal);
     }
-
-    return document.getElementById('minRange').submit();
+    document.getElementById('defaultActionButton').click();
 }
 
 function updateRarityMax(minVal, maxVal) {
 
-    if (parseInt(minVal)<=parseInt(maxVal)) {
-        document.getElementById('rarity').value="Rarity: ".concat(minVal).concat(" - ").concat(maxVal);
+    if (parseInt(maxVal)>=parseInt(minVal)) {
+        document.getElementById('maxRange').value=maxVal;
+        document.getElementById('rarityMax').value=maxVal;
     } else {
         document.getElementById('maxRange').value=minVal;
-        document.getElementById('rarity').value="Rarity: ".concat(minVal).concat(" - ").concat(minVal);
+        document.getElementById('rarityMax').value=minVal;
     }
-
-    return document.getElementById('maxRange').submit();
+    document.getElementById('defaultActionButton').click();
 }
-
-//function popUp(URL) {
-//    eval("window.open(URL, 'Path', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=250,height=800,left = 283,top = -16');");
-//    }
-

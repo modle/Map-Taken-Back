@@ -13,7 +13,7 @@
     <div id='navigation'>
         <?php require_once('assets/modules/general/nav.html'); ?>
     </div>
-    <form method=POST name="form">
+    <form method=POST name="form" id="form">
         <?php
             require_once('assets/modules/general/db_connect.php');
             require_once('assets/modules/weapons/hidden_inputs.php');
