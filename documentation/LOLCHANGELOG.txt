@@ -5,6 +5,15 @@ MH4U Database Companion
 =======
 What's New
 
+2015-04-24
+
+* Clicking on the upgrade icon will now load upgrade materials for that
+weapon above the path data
+* Path data now persists in session
+* Removed name buttons from wishlist and upgrade path
+* Added C (created) and F (final) flags to weapons before selected
+upgrade weapon
+* Added C (created) flags to upgrade weapon and next weapons
 
 2015-04-23
 

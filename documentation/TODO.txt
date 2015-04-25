@@ -3,11 +3,38 @@
 
 MH4U Database Companion
 =======
-Todo
+Todo/Feature Ideas/Requests
+
+2015-04-25
+
+- Quest page: Link to select monsterId and load monster page from quest list
+
+- Quest page: Filter quests by monster
+
+- Clear or change in-page anchor on page post
+
+2015-04-24
+
+- Add search icon to materials list pointing to items page
+
+
+2015-04-22
+
+- Add create flags to path list
+
+- Distinct path and search buttons in wishlist
+
+- Add to wishlist option on main weapon table
+
+- Search items from materials list
+
+- Materials for upgrade/create, link shown on path list and on armor page
+  * Added this to weapons; activate by clicking upgrade path icon (Sword with blue +) in main weapon list, wishlist, or upgrade path list
 
 2015-04-03
 
 - Monster page: Add Quest where monster can be found to monster page
+  * Tie monster id to quest on monster page
 
 - Monster page: Add monster location movement info
   * DONE
@@ -19,10 +46,10 @@ Todo
 2015-03-30
 
 - Item
-  * DONE - Alpha separators for item list
+  * DONE: Alpha separators for item list
 
 - Skills
-  * Option to sort by armor name, DONE - slot (move to aside), rarity, or skill value
+  * Option to sort by armor name, DONE: slot (move to aside), rarity, or skill value
   * DONE - Show rarity
 
 

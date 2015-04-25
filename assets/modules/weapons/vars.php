@@ -30,9 +30,6 @@
     $materialsResult=null;
 
     if(isset($_SESSION['weapons'])) {
-        //this calls every post
-        //weapons
-
         if($_SESSION['weapons']['createShow']==1){ $createCheck='checked'; $createFilter=1;}
         if($_SESSION['weapons']['finalShow']==1){ $finalCheck='checked'; $finalFilter=1;}
         if($_SESSION['weapons']['awakenShow']==1){ $awakenCheck='checked'; $awakenFilter=1;}
@@ -81,10 +78,6 @@
             $materialsResult = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; materials result table error');
             $weaponPath=$materialsClickCSV[0];
         }
-
-        //if(isset($_SESSION['weapons']['weaponPath'])){
-            //$weaponPath=$_SESSION['weapons']['weaponPath'];
-        //}
 
         if(isset($_SESSION['weapons']['minRaritySelect'])) {
             $minRaritySelect=$_SESSION['weapons']['minRaritySelect'];

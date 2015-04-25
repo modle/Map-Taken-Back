@@ -49,7 +49,6 @@
 
                 .'<td class=navTdTh>'.$hierarchy[$i]
 
-                //.'<td class=navTdTh>'.$row2['rare']
                 .'<td class=navTdTh>'.$row2['rare'] . ' ' . $finalFlag . ' ' . $createFlag . '</td>'
 
                 ."<td class=navTdTh><input type='image' name='own$row2[weaponId]' onclick='this.form.submit()' class='icon' src=assets/resources/ui/armory.png value='1'>"
@@ -107,7 +106,6 @@
 
         while($upgradesTo=mysqli_fetch_array($result4)){
     
-            //final check
             if ($upgradesTo['nextFinal']==1) {$finalFlag = '<sup>F</sup>';
             } else {$finalFlag = null;}
             if ($upgradesTo['nextCreated']==1) {$createFlag = '<sup>C</sup>';
