@@ -1,21 +1,19 @@
 <a name='Source'>
-
-
 <?php
-    if ($sourceLoad){
-        echo("<h4>".$sourceLoad."</h4>");
-            $sql = 'SELECT m.monster monster
-                , h.acquiredBy acquiredBy
-                , h.rank rank
-                , h.stackSize stackSize
-                , h.percentage percentage
-            FROM huntingreward h
-                JOIN item i ON i.itemId=h.itemId
-                JOIN monsters m ON m.id=h.monsterId
-            WHERE instr((i.name),"'. $sourceLoad .'") > 0
-            ORDER by h.rank desc, h.percentage desc';
+    if ($materialSearchId){
+        $sql = 'SELECT m.monster monster
+            , h.acquiredBy acquiredBy
+            , h.rank rank
+            , h.stackSize stackSize
+            , h.percentage percentage
+            , i.name
+        FROM huntingreward h
+            JOIN item i ON i.itemId=h.itemId
+            JOIN monsters m ON m.id=h.monsterId
+        WHERE i.itemId='.$materialSearchId.'
+        ORDER by h.rank desc, h.percentage desc';
 
-            $result = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; armor table error');
+        $result = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; armor table error');
 ?>
         <table class='data'>
         <tr class='dataTh'>
@@ -30,6 +28,10 @@
         $letters=array();
         while($row=mysqli_fetch_array($result))
         {
+            if(!$materialName){
+                $materialName=$row['name'];
+                echo'<H4>'.$materialName.'</H4>';
+            }
 
             $nextLetter=substr($row['rank'],0);
             if (!in_array($nextLetter, $letters)) {
@@ -37,7 +39,8 @@
                 echo("<a href='#".$nextLetter."'>".$nextLetter."</a>"."&nbsp;");
                 echo("<tr><td colspan=20><a name='".$nextLetter."' class='menu'><h3>".$nextLetter."</h3></a></td></tr>");
             }
-        echo("<tr>")
+
+            echo("<tr>")
                 ."<td>" . $row['monster']
                 ."<td>" . $row['acquiredBy']
                 ."<td>" . $row['rank']

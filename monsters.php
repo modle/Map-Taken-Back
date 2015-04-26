@@ -21,6 +21,7 @@
         <div id='wrapper'>
             <div id='aside'>
                 <?php require_once('assets/modules/monsters/dropdown.php'); ?>
+                <?php require_once('assets/modules/monsters/inputs.php'); ?>
                 <?php require_once('assets/modules/monsters/weaknesses_data_prep.php'); ?>
                 <br>
                 <?php require_once('assets/modules/monsters/weaknesses_table.php'); ?>

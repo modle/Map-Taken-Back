@@ -1,4 +1,9 @@
 <?php
+
+    if(isset($_SESSION['weapons']['materialSearch'])) {
+        header('Location: items.php');
+    }
+
     //initialization
     $allCheck="";
     $rawCheck="";

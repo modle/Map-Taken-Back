@@ -46,7 +46,6 @@
         </div>
         <div id='footer'>
             <a href='#top'>Back to top</a>
-            <?php session_destroy(); ?>
         </div>
     </form>
 </body>

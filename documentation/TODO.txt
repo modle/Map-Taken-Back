@@ -7,9 +7,12 @@ Todo/Feature Ideas/Requests
 
 2015-04-25
 
+- Monster page: optionally show poison/blast (checkboxes?)
+  * DONE. Added checkboxes for elem, tool, poison, blast weaknesses
+
 - Quest page: Link to select monsterId and load monster page from quest list
 
-- Quest page: Filter quests by monster
+- Quest page: Option to filter quests by monster
 
 - Clear or change in-page anchor on page post
 
@@ -21,14 +24,16 @@ Todo/Feature Ideas/Requests
 2015-04-22
 
 - Add create flags to path list
+  * DONE
 
 - Distinct path and search buttons in wishlist
+  * DONE
 
 - Add to wishlist option on main weapon table
 
 - Search items from materials list
 
-- Materials for upgrade/create, link shown on path list and on armor page
+- Materials for upgrade/create, on path list and on armor page
   * Added this to weapons; activate by clicking upgrade path icon (Sword with blue +) in main weapon list, wishlist, or upgrade path list
 
 2015-04-03

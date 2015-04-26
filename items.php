@@ -20,21 +20,20 @@
         ?>
             
         <div id='wrapper'>
-            <div id='aside' <?php if (!$sourceLoad){?>style="display:none"<?php } ?>>
+            <div id='aside' <?php if (!$materialSearchId){?>style="display:none"<?php } ?>>
                 <h2>Source</h2>
                 <?php
-                    echo $_SESSION['weapons']['createShow'];
                     require('assets/modules/general/reset_button.php');
                     require_once('assets/modules/items/source.php');
                 ?>
             </div>
             <div id='section'>
                 <?php
-                    if($sourceLoad){
-                        echo("<h2>Source</h2>");
-                        require('assets/modules/general/reset_button.php');
-                        require_once('assets/modules/items/source.php');
-                        }
+                    //if($sourceLoad){
+                    //    echo("<h2>Source</h2>");
+                    //    require('assets/modules/general/reset_button.php');
+                    //    require_once('assets/modules/items/source.php');
+                    //    }
                 ?>
 
                 <H2>Item Search</H2>
