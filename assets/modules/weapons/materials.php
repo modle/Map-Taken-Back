@@ -2,7 +2,7 @@
     if($materialsResult) {
 ?>
         <H2>Materials</H2>
-        <H4><?php echo $weaponPath ?></H4>
+        <H4><?php echo $weaponPathName ?></H4>
         <table class='data'>
             <?php
                 while($row=mysqli_fetch_array($materialsResult))

@@ -5,6 +5,21 @@ MH4U Database Companion
 =======
 Bugs
 
+2015-04-27
+
+- Upgrade path not showing multiple weapons for next weapon
+  * Fixed. count(*) in select statement forces mysql to return only 1 row
+  * Removed from select statement, and used $rowCount=mysqli_row_count($result); instead
+  * Also converted checks and sql using $weaponPath (string) to $weaponPathId (int)
+
+2015-04-26
+
+- Reset button is not resetting the session
+  * Fixed. Added to reset_handler. Also added this to all reset_handlers for their respective pages.
+	{{{
+		unset($_SESSION['weapons']);
+	}}}
+
 2015-04-23
 - Monster id not getting posted; dropdown is defaulting every time
   * Fixed. Was referencing modules/weapons/hidden_inputs.php instead of modules/monsters/hidden_inputs.php

@@ -1,6 +1,8 @@
 <?php
     if(isset($_POST['ResetButton'])){
         //set defaults
+
+        unset($_SESSION['weapons']);
         $weaponPath=null;
 
         $weaponCheck='checked';

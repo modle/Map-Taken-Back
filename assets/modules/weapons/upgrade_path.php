@@ -1,23 +1,19 @@
 <?php
-
-    if ($weaponPath)
+    if ($weaponPathId)
     {
-        $pathName=str_replace('\'','&#39;',$weaponPath);
-        //use $pathName in sql
-        //use $weaponPath in output
         $sql = 'SELECT weaponId
                 , name
                 , rare
                 , final
                 , COALESCE(hierarchy,\'N/A\') AS hierarchy
             FROM weapondata
-            WHERE name like \''.$pathName.'\'';
+            WHERE weaponId='.$weaponPathId;
 
         $resultHierarchy = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; hierarchy error');
         $rowHierarchy=mysqli_fetch_array($resultHierarchy);
 
         $hierarchy = str_getcsv($rowHierarchy['hierarchy']);
-        $id=$rowHierarchy['weaponId'];
+        $weaponPathId=$rowHierarchy['weaponId'];
 
         $count=count($hierarchy);
 
@@ -45,6 +41,7 @@
                 //weapons in path
                 echo '<tr>'
                 ."<td class=navTdTh><input type='image' name='searchClick' onclick = 'this.form.submit()' class='icon' src=assets/resources/ui/search.png value='$row2[weaponId],$row2[weaponTypeId]'>"
+
                 ."<td class=navTdTh><input type='image' name='weaponPath' onclick='this.form.submit()' src=assets/resources/ui/path.png class='icon' value='$row2[name],$row2[weaponId]'></td>"
 
                 .'<td class=navTdTh>'.$hierarchy[$i]
@@ -63,7 +60,7 @@
         //this will only have 1 result: the selected weapon
         $sql = 'SELECT rare, weaponId, name, weaponTypeId, final, created
                 FROM weapondata
-                WHERE weaponId=' . $id;
+                WHERE weaponId=' . $weaponPathId;
         $result3 = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; rare error 2');
         $row3=mysqli_fetch_array($result3);
 
@@ -84,13 +81,11 @@
             ."<td class=navTdTh><input type='image' name='wish$row3[weaponId]' onclick='this.form.submit()' class='icon' src=assets/resources/ui/wish.png value='1'>"
             .'</tr>';
 
-
         //shows next items in upgrade path
         echo("<tr><th class='navTdTh'><br></th></tr>");
         echo("<tr class=dataTh><th class=navTdTh></th><th class=navTdTh></th><th>Upgrades To</th></tr>");
 
-        $sql = 'SELECT count(wt1.name) cnt
-                    , wt1.name name
+        $sql = 'SELECT wt1.name name
                     , wt2.name nextWeapon
                     , wt2.rare nextWeaponRare
                     , wt2.weaponId nextId
@@ -100,20 +95,19 @@
                 FROM weapondata wt1
                 JOIN weapondata wt2
                     ON wt2.parentWeaponId=wt1.weaponId
-                WHERE wt1.weaponId=' . $id;
+                WHERE wt1.weaponId=' . $weaponPathId;
         $result4 = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; upgradesTo error');
+        $rowCount=mysqli_num_rows($result4);
 
-
-        while($upgradesTo=mysqli_fetch_array($result4)){
+        if($rowCount==0){
+            echo '<td class=navTdTh><td class=navTdTh><td class=navTdTh>Cannot be upgraded further</tr>';
+        } else {
+            while($upgradesTo=mysqli_fetch_array($result4)){
+                if ($upgradesTo['nextFinal']==1) {$finalFlag = '<sup>F</sup>';
+                } else {$finalFlag = null;}
+                if ($upgradesTo['nextCreated']==1) {$createFlag = '<sup>C</sup>';
+                } else {$createFlag = null;}
     
-            if ($upgradesTo['nextFinal']==1) {$finalFlag = '<sup>F</sup>';
-            } else {$finalFlag = null;}
-            if ($upgradesTo['nextCreated']==1) {$createFlag = '<sup>C</sup>';
-            } else {$createFlag = null;}
-
-            if($upgradesTo['cnt']==0){
-                echo '<td class=navTdTh><td class=navTdTh><td class=navTdTh>Cannot be upgraded further</tr>';
-            } else {
                 //weapons selected weapon can upgrade to
                 echo
                 "<td class=navTdTh><input type='image' name='searchClick' onclick = 'this.form.submit()' class='icon' src=assets/resources/ui/search.png value='$upgradesTo[nextId],$upgradesTo[weaponTypeId]'>"
@@ -123,7 +117,7 @@
 
                 .'<td class=navTdTh>'.$upgradesTo['nextWeaponRare'] . ' ' . $finalFlag . ' ' . $createFlag . '</td>'
                 .'</tr>';
-                }
+            }
         }
         echo("</table>");
     }

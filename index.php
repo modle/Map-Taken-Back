@@ -22,7 +22,7 @@
             require_once('assets/modules/weapons/wishlist_delete.php');
         ?>
         <div id='wrapper'>
-            <div id='section' <?php if (!$weaponPath && !$materialsResult){?>style="display:none"<?php } ?>>
+            <div id='section' <?php if (!$weaponPathId && !$materialsResult){?>style="display:none"<?php } ?>>
                 <?php require_once('assets/modules/weapons/materials.php'); ?>
                 <?php require_once('assets/modules/weapons/upgrade_path.php'); ?>
             </div>

@@ -18,7 +18,8 @@
     $blaCheck="";
     $weaponSearch="";
 
-    $weaponPath=null;
+    $weaponPathName=null;
+    $weaponPathId=null;
     $createCheck='';
     $createFilter=0;
     $finalCheck='';
@@ -68,6 +69,7 @@
 
         if(isset($_SESSION['weapons']['weaponPath'])){
             $materialsClickCSV = str_getcsv($_SESSION['weapons']['weaponPath']);
+            $weaponPathId=$materialsClickCSV[1];
 
             //weapon materials
             $sql = 'SELECT i.name name
@@ -79,9 +81,9 @@
                     JOIN item i
                         ON c.componentItemId=i.itemId
                     WHERE c.createdItemId=
-                        (SELECT itemId from weapondata where weaponId='.$materialsClickCSV[1].')';
+                        (SELECT itemId from weapondata where weaponId='.$weaponPathId.')';
             $materialsResult = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli) . '; materials result table error');
-            $weaponPath=$materialsClickCSV[0];
+            $weaponPathName=$materialsClickCSV[0];
         }
 
         if(isset($_SESSION['weapons']['minRaritySelect'])) {

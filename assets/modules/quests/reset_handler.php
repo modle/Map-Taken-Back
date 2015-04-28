@@ -1,5 +1,6 @@
 <?php
     if(isset($_POST['ResetButton'])){
+        unset($_SESSION['quests']);
         $rankId=0;
         $questHubId=0;
         $questTypeId=0;
