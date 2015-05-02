@@ -5,6 +5,10 @@ MH4U Database Companion
 =======
 Todo/Feature Ideas/Requests
 
+2015-04-27
+
+- Add break between upgrade/create in materials section
+
 2015-04-26
 
 - Change upgrade icons based on weapon type

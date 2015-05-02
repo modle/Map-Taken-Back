@@ -31,7 +31,6 @@
                 <?php require_once('assets/modules/weapons/default_values.php'); ?>
 
                 <H2>Weapon Search</H2>
-                <td class='navTdTh'><center><input type='submit' value='Reset All Fields' name='ResetButton'/></center>
                 <?php
                     require_once('assets/modules/weapons/dropdown.php');
                     require_once('assets/modules/weapons/inputs.php');

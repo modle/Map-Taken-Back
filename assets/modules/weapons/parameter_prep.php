@@ -32,17 +32,18 @@
     } else {$finalFlag = null;}
 
     //show awaken as raw if checkbox unchecked
-    if ($awakenFilter==1){
-        $elemType=$weaponsRow['element'];
-        $elemValue=$weaponsRow['elementValue'];
-    } else{
-        if ($weaponsRow['awaken']==1){
-            $elemType='RAW';
-            $elemValue=null;
-            $elemBg=null;
+    if ($awakenFilter==1) {
+        if ($weaponsRow['awaken']==1) {
+            $elemType=$weaponsRow['awakenElement'];
+            $elemValue=$weaponsRow['awakenElementValue'];
         } else{
             $elemType=$weaponsRow['element'];
             $elemValue=$weaponsRow['elementValue'];
         }
+    } else {
+        $elemType=$weaponsRow['element'];
+        $elemValue=$weaponsRow['elementValue'];
     }
+
+
 ?>
