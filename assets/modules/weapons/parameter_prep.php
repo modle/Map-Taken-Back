@@ -33,17 +33,27 @@
 
     //show awaken as raw if checkbox unchecked
     if ($awakenFilter==1) {
+        $hideAwaken=false;
+
         if ($weaponsRow['awaken']==1) {
             $elemType=$weaponsRow['awakenElement'];
             $elemValue=$weaponsRow['awakenElementValue'];
+            $awakenFlag='*';
         } else{
             $elemType=$weaponsRow['element'];
             $elemValue=$weaponsRow['elementValue'];
+            $awakenFlag='';
         }
+
     } else {
         $elemType=$weaponsRow['element'];
         $elemValue=$weaponsRow['elementValue'];
+        $awakenFlag='';
+
+        if ($elemFilter=='RAW' or $elemFilter=='ALL'){
+            $hideAwaken=false;
+        } else {
+            $hideAwaken=true;
+        }
     }
-
-
 ?>

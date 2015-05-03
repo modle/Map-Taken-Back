@@ -5,6 +5,12 @@ MH4U Database Companion
 =======
 What's New
 
+2015-05-02
+
+- Better Awaken filtering
+  * Fixed an issue where selecting an element other than 'All' or 'RAW' would not return awaken weapons, even if awaken was checked
+  
+  
 2015-05-01
 
 - Rearranged weapon inputs

@@ -35,6 +35,10 @@
     $elemFilter="%";
     $materialsResult=null;
 
+    $awakenFlag='';
+    $hideAwaken=false;
+
+
     if(isset($_SESSION['weapons'])) {
         if($_SESSION['weapons']['createShow']==1){ $createCheck='checked'; $createFilter=1;}
         if($_SESSION['weapons']['finalShow']==1){ $finalCheck='checked'; $finalFilter=1;}
