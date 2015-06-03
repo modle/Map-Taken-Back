@@ -1,3 +1,5 @@
 # Map-Taken-Back
 
-An ad-free way to get the info I'm looking for while playing 
+An ad-free php web app to get the info you're looking for while playing.
+
+A self-initiation into php, html, javascript, and jquery.
