@@ -19,9 +19,11 @@ SET time_zone = "+00:00";
 --
 -- Database: `mh4u_app`
 --
-DROP DATABASE `mh4u_app`;
-CREATE DATABASE IF NOT EXISTS `mh4u_app` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `mh4u_app`;
+--DROP DATABASE `mh4u_app`;
+--CREATE DATABASE IF NOT EXISTS `mh4u_app` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+--USE `mh4u_app`;
+USE `u149898386_mh4u`;
+
 
 DELIMITER $$
 --
